@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const String twitterURL = 'https://twitter.com/zanderkotze99';
 const String instagramURL = 'https://instagram.com/zanderkotze99';
 const String githubURL = 'https://github.com/ZanderCowboy';
-const String personalWebsiteURL = 'https://zanderkotze.co.za';
+const String personalWebsiteURL = 'https://zanderkotze.co.za/website';
 const String youtubeURL = 'https://youtube.com/@zanderkotze';
 const String linkedInURL = 'https://linkedin.com/in/zander-kotze-5ba18abb/';
 
@@ -16,10 +16,16 @@ const Color youtubeColor = Color(0xFFFF0000);
 const Color linkedInColor = Color(0xFF0077B5);
 
 const int _SIZE = 384;
+// const String _TWITTER = 'twitter';
+// const String instagram = 'instagram';
+// const String github = 'github';
+// const String personalWebsite = 'personalWebsite';
+// const String youtube = 'youtube';
+// const String linkedIn = 'linkedin';
 
-const String twitterImage = 'images/instagram/icons8-instagram-$_SIZE.svg';
+const String twitterImage = 'images/twitter/icons8-twitter-$_SIZE.svg';
 const String instagramImage = 'images/instagram/icons8-instagram-$_SIZE.svg';
-const String githubImage = "images/instagram/icons8-instagram-384.svg";
+const String githubImage = "images/github/icons8-github-$_SIZE.svg";
 const String personalWebsiteImage = 'images/instagram/icons8-instagram-$_SIZE.svg';
-const String youtubeImage = 'images/instagram/icons8-instagram-$_SIZE.svg';
-const String linkedInImage = 'images/instagram/icons8-instagram-$_SIZE.svg';
+const String youtubeImage = 'images/youtube/icons8-youtube-$_SIZE.svg';
+const String linkedInImage = 'images/linkedin/icons8-linkedin-$_SIZE.svg';
