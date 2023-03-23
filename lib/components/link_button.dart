@@ -14,7 +14,7 @@ class LinkButton extends StatelessWidget {
   final String image;
 
   LinkButton({
-      this.image = 'images/instagram/icons8-instagram-24.svg',
+      this.image = 'images/cancel/icons8-cancel-384.svg',
       required this.text,
       required this.link,
       required this.color,}

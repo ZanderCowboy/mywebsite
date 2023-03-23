@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:footer/footer_view.dart';
 import 'package:mywebsite/components/link_button.dart';
 import 'package:mywebsite/route/route.dart' as route;
 import 'package:mywebsite/text_block.dart';
@@ -10,6 +11,7 @@ import 'package:mywebsite/views/secondpage.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/util/launcher.dart';
+import 'package:footer/footer.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -30,26 +32,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 1;
   final double SPACE_HEIGHT = 10.0;
   // final double SPACE_HEIGHT = 20.0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter = _counter * 8000;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
@@ -78,24 +65,43 @@ class _MyHomePageState extends State<MyHomePage> {
 
         child: Column(
           children: [
+            Container(
+              // height: 300,
+              child: Column(
+                children: [
+                  SvgPicture.asset('images/cancel/icons8-cancel-384.svg',
+                    height: 200.0,),
+                  SizedBox(height: 4,),
+                  Text('Zander Kotze',
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text('Some description',
+                    style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              ),
 
-            SizedBox(height: SPACE_HEIGHT + 100,),
 
-            // Text_block('New Block', twitterColor),
+            SizedBox(height: SPACE_HEIGHT + 50,),
+
             LinkButton(text: 'Personal Website', link: personalWebsiteURL, color: personalWebsiteColor),
 
             SizedBox(height: SPACE_HEIGHT,),
 
-            // const Widget_block(Colors.purple, 'Here is your message', 'SecondPage()'),
-            LinkButton(text: 'LinkedIn', link: linkedInURL, color: linkedInColor),
+            LinkButton(text: 'LinkedIn', link: linkedInURL, color: linkedInColor, image: linkedInImage,),
 
             SizedBox(height: SPACE_HEIGHT,),
 
-            LinkButton(text: 'Twitter', link: twitterURL, color: twitterColor),
+            LinkButton(text: 'Twitter', link: twitterURL, color: twitterColor, image: twitterImage,),
 
             SizedBox(height: SPACE_HEIGHT,),
-
-            // LinkButton(text: 'Instagram', link: instagramURL, color: twitterColor),
 
             // Instagram
             DecoratedBox(decoration: const BoxDecoration(
@@ -113,178 +119,161 @@ class _MyHomePageState extends State<MyHomePage> {
                   Color(0xFFFD1D1D),
                 ],
               ),
-              // image: DecorationImage(
-              //     image:AssetImage("images/instagram/icons8-instagram-208.png"),
-              //     // fit: BoxFit.cover
-              //
-              // ),
             ),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.transparent,
-                  fixedSize: Size(350, 50),
+                  fixedSize: const Size(320, 50),
                   onSurface: Colors.transparent,
                   shadowColor: Colors.transparent,
                 ),
-
-
                 onPressed: () => LaunchURL(instagramURL),
-
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset("images/instagram/icons8-instagram-384.svg", width: 25,),
-                    // Image(image: AssetImage("images/instagram/icons8-instagram-384.svg"),
-                    //   height: 30,
-                    // ),
                     SizedBox(width: 8,),
-                    Text('Instagram', style: TextStyle(color: Colors.white, fontSize: 18),
+                    Text('Instagram', style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ],
                 ),
               )
-              // child: Text('Instagram', style: TextStyle(color: Colors.white),),
             ),
 
 
             SizedBox(height: SPACE_HEIGHT,),
 
             // GitHub
-            // LinkButton(text: 'GitHub', link: githubURL, color: githubColor),
-            SizedBox(
-              width: 350,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () => LaunchURL(githubURL),
-                style: ElevatedButton.styleFrom(primary: githubColor,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset('images/instagram/icons8-instagram-384.svg'),
-                    // Image(image: AssetImage('images/instagram/icons8-instagram-384.svg'),
-                    //   width: 22,
-                    // ),
-                    SizedBox(width: 8,),
-                    Text('GitHub', style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // LinkButton(text: 'GitHub', link: githubURL, color: githubColor, image: "images/instagram/icons8-instagram-384.svg",),
+            LinkButton(text: 'GitHub', link: githubURL, color: githubColor, image: githubImage,),
 
             SizedBox(height: SPACE_HEIGHT,),
 
-            // Text_block(Colors.pinkAccent, 'Just work')
-            LinkButton(text: 'YouTube', link: youtubeURL, color: youtubeColor),
+            LinkButton(text: 'YouTube', link: youtubeURL, color: youtubeColor, image: youtubeImage,),
 
+            // Container(
+            //   height: 250,
+            //   child: FooterView(
+            //     children:<Widget>[
+            //       new Padding(
+            //         padding: EdgeInsets.only(top:200.0),
+            //         child: Center(
+            //           child: Text('Scrollable View'),
+            //         ),
+            //       ),
+            //     ],
+            //     footer: Footer(
+            //       child: Text('I am a Customizable footer!!'),
+            //       padding: EdgeInsets.all(10.0),
+            //     ),
+            //     flex: 1, //default flex is 2
+            //   ),
+            // ),
+
+            // FooterView(
+            //     children: <Widget>[
+            //       new Column(
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: <Widget>[
+            //           Padding(
+            //             padding: EdgeInsets.only(top:50,left: 70),
+            //             child: Text('Scrollable View Section'),
+            //           )
+            //         ],
+            //       ),
+            //     ],
+            //     footer: Footer(
+            //       child: Column(
+            //           crossAxisAlignment: CrossAxisAlignment.center,
+            //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //           children:<Widget>[
+            //             Center(
+            //               child: Row(
+            //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //                 children: <Widget>[
+            //                   SizedBox(
+            //                       height: 45.0,
+            //                       width: 45.0,
+            //                       child: Center(
+            //                         child:Card(
+            //                           elevation: 5.0,
+            //                           shape: RoundedRectangleBorder(
+            //                             borderRadius: BorderRadius.circular(25.0), // half of height and width of Image
+            //                           ),
+            //                           child: IconButton(
+            //                             icon: const Icon(Icons.audiotrack,size: 20.0,),
+            //                             color: const Color(0xFF162A49),
+            //                             onPressed: () {},
+            //                           ),
+            //                         ),
+            //                       )
+            //                   ),
+            //                   Container(
+            //                       height: 45.0,
+            //                       width: 45.0,
+            //                       child: Center(
+            //                         child:Card(
+            //                           elevation: 5.0,
+            //                           shape: RoundedRectangleBorder(
+            //                             borderRadius: BorderRadius.circular(25.0), // half of height and width of Image
+            //                           ),
+            //                           child: IconButton(
+            //                             icon: const Icon(Icons.fingerprint,size: 20.0,),
+            //                             color: const Color(0xFF162A49),
+            //                             onPressed: () {},
+            //                           ),
+            //                         ),
+            //                       )
+            //                   ),
+            //                   Container(
+            //                       height: 45.0,
+            //                       width: 45.0,
+            //                       child: Center(
+            //                         child:Card(
+            //                           elevation: 5.0,
+            //                           shape: RoundedRectangleBorder(
+            //                             borderRadius: BorderRadius.circular(25.0), // half of height and width of Image
+            //                           ),
+            //                           child: IconButton(
+            //                             icon: const Icon(Icons.call,size: 20.0,),
+            //                             color: const Color(0xFF162A49),
+            //                             onPressed: () {},
+            //                           ),
+            //                         ),
+            //                       )
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //
+            //             const Text('Copyright ©2020, All Rights Reserved.',style: TextStyle(fontWeight:FontWeight.w300, fontSize: 12.0, color: Color(0xFF162A49)),),
+            //             const Text('Powered by Nexsport',style: TextStyle(fontWeight:FontWeight.w300, fontSize: 12.0,color: Color(0xFF162A49)),),
+            //           ]
+            //       ),
+            //
+            //     )
+            // ),
+
+            Expanded(child: Container()),
+
+            Container(
+              alignment: Alignment.center,
+              color: Colors.transparent,
+              height: 50,
+              width: double.infinity,
+              child: Text(
+                '2023 c Zander Kotze',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+
+                ),
+
+              ),
+            )
           ],
         ),
+
       ),
-
-      // body: Center(
-      //
-      //
-      //   child: Column(
-      //
-      //     children: [
-      //
-      //       SizedBox(height: 25.0),
-      //
-      //       Text_block(
-      //         Colors.pinkAccent,
-      //         'First Block'
-      //       ),
-      //
-      //       SizedBox(height: 25.0,),
-      //
-      //       Container(
-      //         // color: Colors.blue,
-      //         height: 200.0,
-      //         width: 350.0,
-      //         padding: EdgeInsets.symmetric(vertical: 0, horizontal: 25.0),
-      //         decoration: BoxDecoration(color: Colors.lightBlueAccent ,borderRadius: BorderRadius.circular(10)),
-      //
-      //         child: Column(
-      //           // Column is also a layout widget. It takes a list of children and
-      //           // arranges them vrertically. By default, it sizes itself to fit its
-      //           // children horizontally, and tries to be as tall as its parent.
-      //           //
-      //           // Invoke "debug painting" (press "p" in the console, choose the
-      //           // "Toggle Debug Paint" action from the Flutter Inspector in Android
-      //           // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-      //           // to see the wireframe for each widget.
-      //           //
-      //           // Column has various properties to control how it sizes itself and
-      //           // how it positions its children. Here we use mainAxisAlignment to
-      //           // center the children vertically; the main axis here is the vertical
-      //           // axis because Columns are vertical (the cross axis would be
-      //           // horizontal).
-      //           mainAxisAlignment: MainAxisAlignment.center,
-      //           crossAxisAlignment: CrossAxisAlignment.center,
-      //
-      //
-      //
-      //           children: <Widget>[
-      //             const Text(
-      //               'You have pushed the button this many times:',
-      //             ),
-      //             Text(
-      //               '$_counter',
-      //               style: Theme.of(context).textTheme.headline4,
-      //             ),
-      //           ],
-      //
-      //
-      //         ),
-      //       ),
-      //
-      //       SizedBox(height: 25.0),
-      //
-      //       Container(
-      //         height: 200.0,
-      //         width: 350.0,
-      //         padding: EdgeInsets.symmetric(vertical: 0, horizontal: 25.0),
-      //         decoration: BoxDecoration(color: Colors.grey ,borderRadius: BorderRadius.circular(10)),
-      //
-      //         child: Column(
-      //           mainAxisAlignment: MainAxisAlignment.center,
-      //           crossAxisAlignment: CrossAxisAlignment.center,
-      //
-      //           children: <Widget>[
-      //             const Text(
-      //                 'New Block'
-      //             ),
-      //
-      //           ],
-      //         ),
-      //       ),
-      //
-      //       SizedBox(height: 25.0),
-      //
-      //       // Text_block(Colors.red, 'This is my first class')
-      //     ],
-      //   ),
-      // ),
-
-
-      floatingActionButton: Container(
-
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FloatingActionButton(
-
-              onPressed: _incrementCounter,
-              tooltip: 'Increment',
-              child: const Icon(Icons.book),
-            ),
-          ],
-        ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-
-
     );
   }
 }
