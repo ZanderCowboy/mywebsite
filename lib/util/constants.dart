@@ -13,6 +13,7 @@ const Color instagramColor = Colors.transparent;
 const Color githubColor = Color(0xFF171515);
 const Color personalWebsiteColor = Colors.grey;
 const Color youtubeColor = Color(0xFFFF0000);
+// const Color youtubeColor = Color(0xFFCD201F);
 const Color linkedInColor = Color(0xFF0077B5);
 
 const int _SIZE = 384;
