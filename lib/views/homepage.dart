@@ -30,13 +30,11 @@ class _MyHomePageState extends State<MyHomePage> {
   static const IconData copyright = IconData(0xe198, fontFamily: 'MaterialIcons');
   // final double SPACE_HEIGHT = 20.0;
 
+
   @override
   Widget build(BuildContext context) {
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-
-    //TODO: Add footer section using FOOTER
+    double PAGE_HEIGHT = MediaQuery.of(context).size.height;
+    debugPrint(PAGE_HEIGHT.toString());
 
     return Scaffold(
       // appBar: AppBar(
@@ -48,11 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
       body: SingleChildScrollView(
         child: Container(
+
         // Container(
 
           // width: double.infinity,
           // height: double.infinity,
-          height: MediaQuery.of(context).size.height,
+          // height: MediaQuery.of(context).size.height,
 
           decoration: BoxDecoration(
             // color: Colors.transparent,
@@ -68,10 +67,12 @@ class _MyHomePageState extends State<MyHomePage> {
             //   ],
             // ),
             image: DecorationImage(
-              image: AssetImage("images/image1.jpeg"),
+              // image: AssetImage("images/image1.jpeg"),
+              image: AssetImage("images/mountain.jpg"),
               // image: SvgPicture.asset(pictureProvider),
 
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
+              // scale: 3,
             ),
           ),
 
@@ -87,91 +88,182 @@ class _MyHomePageState extends State<MyHomePage> {
                     const SizedBox(height: 4,),
                     const Text('Zander Kotze',
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 50,
+                        fontWeight: FontWeight.w900,
                         color: Colors.white,
                       ),
                     ),
-                    const Text('Some description',
+                    const Text('Some description fjkdjfldjfl dlkfajfl lfl lfjldjaflj ldfjl djfljdlf',
                       style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.white,
+                      fontSize: 18,
+                      color: Colors.yellowAccent,
                       ),
                     ),
+                    SizedBox(height: 80, width: 320,),
                   ],
                 ),
                 ),
 
-
-              SizedBox(height: SPACE_HEIGHT + 50, width: 320.0,),
-
-              LinkButton(text: 'Personal Website', link: personalWebsiteURL, color: personalWebsiteColor),
-
-              SizedBox(height: SPACE_HEIGHT, width: 320.0,),
-
-              LinkButton(text: 'LinkedIn', link: linkedInURL, color: linkedInColor, image: linkedInImage,),
-
-              SizedBox(height: SPACE_HEIGHT, width: 320.0,),
-
-              LinkButton(text: 'Twitter', link: twitterURL, color: twitterColor, image: twitterImage,),
-
-              SizedBox(height: SPACE_HEIGHT, width: 320.0,),
-
-              // Instagram
-              DecoratedBox(decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                    // Color(0xFF405DE6),
-                    // Color(0xFF5851DB),
-                    // Color(0xFF833AB4),
-                    // Color(0xFFC13584),
-                    // Color(0xFFC13584),
-                    // Color(0xFFE1306C),
-                    // Color(0xFFFD1D1D),
-                    Color(0xFFFFD600),
-                    Color(0xFFFF7A00),
-                    Color(0xFFFF0069),
-                    Color(0xFFD300C5),
-                    Color(0xFF7638FA),
-                  ],
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Color(0xDD748B97),
+                  border: Border.all(color: Color(0xFF748B97), width: 3.0, style: BorderStyle.solid),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    fixedSize: const Size(320, 50),
-                    onSurface: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                  ),
-                  onPressed: () => LaunchURL(instagramURL),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset("images/instagram/icons8-instagram-384.svg", width: 25,),
-                      const SizedBox(width: 8,),
-                      const Text('Instagram', style: TextStyle(color: Colors.white, fontSize: 16),
+                child: Column(
+                  children: [
+                    // SizedBox(height: SPACE_HEIGHT + 50, width: 320.0,),
+
+                    LinkButton(text: 'Personal Website', link: personalWebsiteURL, color: personalWebsiteColor),
+
+                    SizedBox(height: SPACE_HEIGHT, width: 320.0,),
+
+                    LinkButton(text: 'LinkedIn', link: linkedInURL, color: linkedInColor, image: linkedInImage,),
+
+                    SizedBox(height: SPACE_HEIGHT, width: 320.0,),
+
+                    LinkButton(text: 'Twitter', link: twitterURL, color: twitterColor, image: twitterImage,),
+
+                    SizedBox(height: SPACE_HEIGHT, width: 320.0,),
+
+                    // Instagram
+                    Container(
+                      child: DecoratedBox(decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomLeft,
+                          end: Alignment.topRight,
+                          colors: [
+                            // Color(0xFF405DE6),
+                            // Color(0xFF5851DB),
+                            // Color(0xFF833AB4),
+                            // Color(0xFFC13584),
+                            // Color(0xFFC13584),
+                            // Color(0xFFE1306C),
+                            // Color(0xFFFD1D1D),
+                            Color(0xFFFFD600),
+                            Color(0xFFFF7A00),
+                            Color(0xFFFF0069),
+                            Color(0xFFD300C5),
+                            Color(0xFF7638FA),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                )
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent,
+                              fixedSize: const Size(320, 50),
+                              onSurface: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                            ),
+                            onPressed: () => LaunchURL(instagramURL),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset("images/instagram/icons8-instagram-384.svg", width: 25,),
+                                const SizedBox(width: 8,),
+                                const Text('Instagram', style: TextStyle(color: Colors.white, fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          )
+                      ),
+                    ),
+
+                    SizedBox(height: SPACE_HEIGHT, width: 320.0,),
+
+                    // GitHub
+                    LinkButton(text: 'GitHub', link: githubURL, color: githubColor, image: githubImage,),
+
+                    SizedBox(height: SPACE_HEIGHT, width: 320.0,),
+
+                    LinkButton(text: 'YouTube', link: youtubeURL, color: youtubeColor, image: youtubeImage,),
+
+                    SizedBox(height: SPACE_HEIGHT, width: 320.0,),
+
+                    LinkButton(text: 'Discord', link: discordURL, color: discordColor, image: discordImage,),
+                  ],
+                ),
               ),
 
 
-              SizedBox(height: SPACE_HEIGHT, width: 320.0,),
-
-              // GitHub
-              LinkButton(text: 'GitHub', link: githubURL, color: githubColor, image: githubImage,),
-
-              SizedBox(height: SPACE_HEIGHT, width: 320.0,),
-
-              LinkButton(text: 'YouTube', link: youtubeURL, color: youtubeColor, image: youtubeImage,),
+              // SizedBox(height: SPACE_HEIGHT + 50, width: 320.0,),
+              //
+              // LinkButton(text: 'Personal Website', link: personalWebsiteURL, color: personalWebsiteColor),
+              //
+              // SizedBox(height: SPACE_HEIGHT, width: 320.0,),
+              //
+              // LinkButton(text: 'LinkedIn', link: linkedInURL, color: linkedInColor, image: linkedInImage,),
+              //
+              // SizedBox(height: SPACE_HEIGHT, width: 320.0,),
+              //
+              // LinkButton(text: 'Twitter', link: twitterURL, color: twitterColor, image: twitterImage,),
+              //
+              // SizedBox(height: SPACE_HEIGHT, width: 320.0,),
+              //
+              // // Instagram
+              // Container(
+              //   child: DecoratedBox(decoration: const BoxDecoration(
+              //     borderRadius: BorderRadius.all(Radius.circular(5)),
+              //     gradient: LinearGradient(
+              //       begin: Alignment.bottomLeft,
+              //       end: Alignment.topRight,
+              //       colors: [
+              //         // Color(0xFF405DE6),
+              //         // Color(0xFF5851DB),
+              //         // Color(0xFF833AB4),
+              //         // Color(0xFFC13584),
+              //         // Color(0xFFC13584),
+              //         // Color(0xFFE1306C),
+              //         // Color(0xFFFD1D1D),
+              //         Color(0xFFFFD600),
+              //         Color(0xFFFF7A00),
+              //         Color(0xFFFF0069),
+              //         Color(0xFFD300C5),
+              //         Color(0xFF7638FA),
+              //       ],
+              //     ),
+              //   ),
+              //       child: ElevatedButton(
+              //         style: ElevatedButton.styleFrom(
+              //           primary: Colors.transparent,
+              //           fixedSize: const Size(320, 50),
+              //           onSurface: Colors.transparent,
+              //           shadowColor: Colors.transparent,
+              //         ),
+              //         onPressed: () => LaunchURL(instagramURL),
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: [
+              //             SvgPicture.asset("images/instagram/icons8-instagram-384.svg", width: 25,),
+              //             const SizedBox(width: 8,),
+              //             const Text('Instagram', style: TextStyle(color: Colors.white, fontSize: 16),
+              //             ),
+              //           ],
+              //         ),
+              //       )
+              //   ),
+              // ),
+              //
+              //
+              // SizedBox(height: SPACE_HEIGHT, width: 320.0,),
+              //
+              // // GitHub
+              // LinkButton(text: 'GitHub', link: githubURL, color: githubColor, image: githubImage,),
+              //
+              // SizedBox(height: SPACE_HEIGHT, width: 320.0,),
+              //
+              // LinkButton(text: 'YouTube', link: youtubeURL, color: youtubeColor, image: youtubeImage,),
+              //
+              // SizedBox(height: SPACE_HEIGHT, width: 320.0,),
+              //
+              // LinkButton(text: 'Discord', link: discordURL, color: discordColor, image: discordImage,),
 
               // Expanded(child: Container()),
               SizedBox(
-                // height: MediaQuery.of(context).size.height,
-                height: 100,
+                // height: MediaQuery.of(context).size.height/4,
+                // height: 100,
                 width: 320.0,
               ),
 
@@ -179,7 +271,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                 alignment: Alignment.center,
                 color: Colors.transparent,
-                height: 50,
+                height: 120,
                 width: MediaQuery.of(context).size.width,
 
                 child: const Copyright(),
@@ -190,6 +282,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
+      // bottomNavigationBar: Container(
+      //   color: Colors.transparent,
+      //
+      //   child: Text('Test',),
+      // ),
     );
   }
 }
