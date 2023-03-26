@@ -11,7 +11,7 @@ class Copyright extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          date,
+          date + ' ',
           style: TextStyle(
             color: Colors.white,
             fontSize: 12,
@@ -23,7 +23,7 @@ class Copyright extends StatelessWidget {
           size: 20,
         ),
         const Text(
-          'Zander Kotze',
+          ' Zander Kotze',
           style: TextStyle(
             color: Colors.white,
             fontSize: 12,
