@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/util/launcher.dart';
 
 class LinkButton extends StatelessWidget {
@@ -14,12 +13,11 @@ class LinkButton extends StatelessWidget {
   final String image;
 
   LinkButton({
-      this.image = 'images/cancel/icons8-cancel-384.svg',
-      required this.text,
-      required this.link,
-      required this.color,}
-      );
-  
+    this.image = 'images/cancel/icons8-cancel-384.svg',
+    required this.text,
+    required this.link,
+    required this.color,
+  });
 
   // @override
   // Widget build(BuildContext context) {
@@ -41,7 +39,9 @@ class LinkButton extends StatelessWidget {
       height: _HEIGHT,
       child: ElevatedButton(
         onPressed: () => LaunchURL(link),
-        style: ElevatedButton.styleFrom(primary: color,),
+        style: ElevatedButton.styleFrom(
+          primary: color,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -55,7 +55,8 @@ class LinkButton extends StatelessWidget {
             const SizedBox(
               width: 8,
             ),
-            Text(text,
+            Text(
+              text,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: _FONTSIZE,
@@ -66,6 +67,4 @@ class LinkButton extends StatelessWidget {
       ),
     );
   }
-
-
 }

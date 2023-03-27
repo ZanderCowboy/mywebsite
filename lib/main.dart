@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Zander Kotze Website',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        // primarySwatch: Color(0xFF748b97),
+        primarySwatch: Colors.grey,
       ),
 
       onGenerateRoute: route.controller,

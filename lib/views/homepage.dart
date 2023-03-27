@@ -6,7 +6,6 @@ import 'package:mywebsite/components/link_button.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/util/launcher.dart';
 
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
@@ -55,7 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   // image: AssetImage("images/mountain.jpg"),
 
                   // Network: https://www.pexels.com/photo/lake-and-mountain-417074/
-                  image: NetworkImage('https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?cs=srgb&dl=pexels-james-wheeler-417074.jpg&fm=jpg&w=4226&h=2847&_gl=1*1u9l7f3*_ga*MTAyNDYxOTY2Mi4xNjc5NzA0NDQx*_ga_8JE65Q40S6*MTY3OTg3MDIwNS40LjEuMTY3OTg3MDIwNS4wLjAuMA..'),
+                  image: NetworkImage(
+                      'https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?cs=srgb&dl=pexels-james-wheeler-417074.jpg&fm=jpg&w=4226&h=2847&_gl=1*1u9l7f3*_ga*MTAyNDYxOTY2Mi4xNjc5NzA0NDQx*_ga_8JE65Q40S6*MTY3OTg3MDIwNS40LjEuMTY3OTg3MDIwNS4wLjAuMA..'),
                   // image: AssetImage("images/mountain.webp"),
                   // image: SvgPicture.asset(pictureProvider),
                   fit: BoxFit.fill,
@@ -191,25 +191,23 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: [
                               Center(
                                 child: AnimatedTextKit(
-
                                   animatedTexts: [
                                     TypewriterAnimatedText(
-                                        'Oh! Hi there! Here are a few of my links.',
-                                            textStyle: TextStyle(
-                                              fontFamily: 'PoiretOne',
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              // color: Colors.grey,
-                                              // color: Color(0xFF32D4FB),
-                                              // color: Color(0xEE254B70), // Darkish blue-gray
-                                              // color: Color(0xAA8B5B31),
-                                              color: Colors.white,
-                                              // backgroundColor: Colors.white24,
-                                              // backgroundColor: Colors.transparent.withAlpha(55),
-                                              wordSpacing: 1.5,
-                                              letterSpacing: 1.0,
-
-                                            ),
+                                      'Oh! Hi there! Here are a few of my links.',
+                                      textStyle: TextStyle(
+                                        fontFamily: 'PoiretOne',
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        // color: Colors.grey,
+                                        // color: Color(0xFF32D4FB),
+                                        // color: Color(0xEE254B70), // Darkish blue-gray
+                                        // color: Color(0xAA8B5B31),
+                                        color: Colors.white,
+                                        // backgroundColor: Colors.white24,
+                                        // backgroundColor: Colors.transparent.withAlpha(55),
+                                        wordSpacing: 1.5,
+                                        letterSpacing: 1.0,
+                                      ),
                                       speed: const Duration(milliseconds: 90),
                                     ),
                                   ],
@@ -269,10 +267,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         // SizedBox(height: SPACE_HEIGHT + 50, width: 320.0,),
 
                         LinkButton(
-                            text: 'Personal Website',
-                            link: personalWebsiteURL,
-                            color: personalWebsiteColor,
-                            image: personalWebsiteImage,
+                          text: 'Personal Website',
+                          link: personalWebsiteURL,
+                          color: personalWebsiteColor,
+                          image: personalWebsiteImage,
                         ),
 
                         SizedBox(
@@ -400,8 +398,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         fit: FlexFit.loose,
                         flex: 2,
                         child: Container(
-                        //   child: Text('Test'),
-                        ),
+                            //   child: Text('Test'),
+                            ),
                       ),
                       Container(
                         // margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
