@@ -3,10 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mywebsite/util/launcher.dart';
 
 class LinkButton extends StatelessWidget {
-  final double _HEIGHT = 50;
-  final double _WIDTH = 320;
-  final double _FONTSIZE = 16;
-  final double _IMAGEHEIGHT = 22;
+  static const double _HEIGHT = 50;
+  static const double _WIDTH = 320;
+  static const double _FONTSIZE = 16;
+  static const double _IMAGEHEIGHT = 22;
   final String text;
   final String link;
   final Color color;
@@ -18,19 +18,6 @@ class LinkButton extends StatelessWidget {
     required this.link,
     required this.color,
   });
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return SizedBox(
-  //     width: _WIDTH,
-  //     height: _HEIGHT,
-  //     child: ElevatedButton(
-  //       onPressed: () => LaunchURL(link),
-  //       style: ElevatedButton.styleFrom(primary: color,),
-  //       child: Text(text),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +36,6 @@ class LinkButton extends StatelessWidget {
               image,
               height: _IMAGEHEIGHT,
             ),
-            // Image(image: AssetImage("images/github/icons8-github-256.png"),
-            //   height: 22,
-            // ),
             const SizedBox(
               width: 8,
             ),
@@ -67,4 +51,12 @@ class LinkButton extends StatelessWidget {
       ),
     );
   }
+
+  static double get IMAGEHEIGHT => _IMAGEHEIGHT;
+
+  static double get FONTSIZE => _FONTSIZE;
+
+  static double get WIDTH => _WIDTH;
+
+  static double get HEIGHT => _HEIGHT;
 }
