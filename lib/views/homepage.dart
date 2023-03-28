@@ -3,22 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mywebsite/components/copyright/copyright.dart';
 import 'package:mywebsite/components/link_button.dart';
-import 'package:mywebsite/route/route.dart' as route;
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/util/launcher.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class MyHomePage extends StatelessWidget {
+  // const MyHomePage({Key? key, required this.title}) : super(key: key);
+  // final String title;
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   final double buttonSpaceHeight = 10.0;
   final double buttonSpaceWidth = 320.0;
+
+  const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +29,10 @@ class _MyHomePageState extends State<MyHomePage> {
           Positioned.fill(
             child: Image.network(
               "https://images.pexels.com/photos/417074/pexels-photo-41"
-              "7074.jpeg?cs=srgb&dl=pexels-james-wheeler-417074.jpg"
-              "&fm=jpg&w=4226&h=2847&_gl=1*1u9l7f3*_ga*MTAyNDYxOTY2"
-              "Mi4xNjc5NzA0NDQx*_ga_8JE65Q40S6*MTY3OTg3MDIwNS40LjE"
-              "uMTY3OTg3MDIwNS4wLjAuMA..",
+                  "7074.jpeg?cs=srgb&dl=pexels-james-wheeler-417074.jpg"
+                  "&fm=jpg&w=4226&h=2847&_gl=1*1u9l7f3*_ga*MTAyNDYxOTY2"
+                  "Mi4xNjc5NzA0NDQx*_ga_8JE65Q40S6*MTY3OTg3MDIwNS40LjE"
+                  "uMTY3OTg3MDIwNS4wLjAuMA..",
               fit: BoxFit.cover,
             ),
           ),
@@ -46,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
+
                 // Header, Upper Part
                 Container(
                   // height: 0.45 * PAGE_HEIGHT,
@@ -160,9 +156,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: ElevatedButton(
                           // onPressed: () => LaunchURL(link),
                           onPressed: () =>
-                              Navigator.pushNamed(context, route.firstPage),
+                              Navigator.pushNamed(context, '/firstPage'),
                           style: ElevatedButton.styleFrom(
-                            primary: personalWebsiteColor,
+                            backgroundColor: personalWebsiteColor,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -222,7 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: DecoratedBox(
                             decoration: const BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(5)),
+                              BorderRadius.all(Radius.circular(5)),
                               gradient: LinearGradient(
                                 begin: Alignment.bottomLeft,
                                 end: Alignment.topRight,
@@ -237,9 +233,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.transparent,
+                                backgroundColor: Colors.transparent,
                                 fixedSize: const Size(320, 50),
-                                onSurface: Colors.transparent,
+                                disabledForegroundColor: Colors.transparent.withOpacity(0.38),
+                                disabledBackgroundColor: Colors.transparent.withOpacity(0.12),
                                 shadowColor: Colors.transparent,
                               ),
                               onPressed: () => LaunchURL(instagramURL),
@@ -305,27 +302,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
 
+
                 // Lower Part, Footer
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Flexible(
-                    //   fit: FlexFit.loose,
-                    //   flex: 2,
-                    //   child: Container(),
-                    // ),
-
                     Container(
                       margin: const EdgeInsets.fromLTRB(0, 35, 0, 5),
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 20),
                       alignment: Alignment.bottomCenter,
                       color: Colors.transparent,
-                      // height: 100,
-                      // height: 0.1 * MediaQuery.of(context).size.height,
-                      // 120,
                       width: MediaQuery.of(context).size.width,
-
                       child: const Copyright(),
                     ),
                   ],

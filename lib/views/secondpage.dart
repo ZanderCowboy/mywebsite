@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mywebsite/route/route.dart' as route;
+import 'package:mywebsite/util/constants.dart';
 
 
 class SecondPage extends StatelessWidget {
@@ -34,7 +34,7 @@ class SecondPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.search),
-        onPressed: () => Navigator.pushNamed(context, route.firstPage),
+        onPressed: () => Navigator.pushNamed(context, firstPageRoute),
       ),
     );
   }
