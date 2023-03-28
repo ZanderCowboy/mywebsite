@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mywebsite/route/route.dart' as route;
 
 class FirstPage extends StatelessWidget {
   const FirstPage({Key? key}) : super(key: key);
@@ -12,7 +11,7 @@ class FirstPage extends StatelessWidget {
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: Stack(
-        // fit: StackFit.expand,
+        fit: StackFit.expand,
         children: [
           Positioned.fill(
             child: Image.network(
@@ -24,29 +23,53 @@ class FirstPage extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                alignment: Alignment.center,
-                child: const Text(
-                  'Coming Soon',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 100,
-                    fontFamily: 'Anton',
-                  ),
-                ),
+          Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          alignment: Alignment.center,
+                          child: const Text(
+                            'Coming Soon',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 100,
+                              fontFamily: 'Anton',
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        ElevatedButton(
+                          child: const Text(
+                            'Return to Home Page',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () => {
+                            Navigator.pop(context),
+                            // Navigator.pushNamed(context, '/secondPage'),
+                          },
+                          style: ButtonStyle(
+                            // padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
+                            // padding: MaterialStateProperty.all<EdgeInsets>(
+                            //   EdgeInsets.fromLTRB(10, 0, 10, 20)
+                            // ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+
+                ],
               ),
-              ElevatedButton(
-                child: const Text(
-                  'Return to Home Page',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () => Navigator.pushNamed(context, route.homePage),
-              ),
-            ],
+            ),
           )
         ],
       ),
