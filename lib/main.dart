@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mywebsite/util/constants.dart';
+import 'package:mywebsite/views/firstpage.dart';
 import 'package:mywebsite/views/homepage.dart';
+import 'package:mywebsite/views/secondpage.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-
-import 'route/route.dart' as route;
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           defaultScale: true,
           breakpoints: [
             const ResponsiveBreakpoint.resize(480, name: MOBILE),
-            const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            // const ResponsiveBreakpoint.autoScale(800, name: TABLET),
             const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
             const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
             const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
@@ -30,10 +31,14 @@ class MyApp extends StatelessWidget {
         // primarySwatch: Color(0xFF748b97),
         primarySwatch: Colors.grey,
       ),
-      onGenerateRoute: route.controller,
-      initialRoute: route.homePage,
+
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'Zander Kotze'),
+      home: const MyHomePage(),
+      initialRoute: homePageRoute,
+      routes: {
+        firstPageRoute: (context) => const FirstPage(),
+        secondPageRoute: (context) => const SecondPage(),
+      },
     );
   }
 }
