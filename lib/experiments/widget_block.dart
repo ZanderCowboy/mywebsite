@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mywebsite/views/secondpage.dart';
+import 'package:mywebsite/views/personalpage.dart';
 
 class Widget_block extends StatelessWidget {
   final Color color;
@@ -42,7 +42,7 @@ class Widget_block extends StatelessWidget {
 // Navigate to second route when tapped.
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SecondPage()),
+                MaterialPageRoute(builder: (context) => PersonalPage()),
               );
             },
           ),
