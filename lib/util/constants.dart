@@ -55,6 +55,9 @@ const String discordImage = 'images/discord/icons8-discord-new-384.svg';
 /* ===========================================================================
     ROUTES
    =========================================================================== */
-const String homePageRoute = '/';
+const String generalPageRoute = '/';
+// const String homePageRoute = '/'; // For Home Page
+const String homePageRoute = '/homePage'; // Changed for Second Page
+
 const String firstPageRoute = '/firstPage';
 const String secondPageRoute = '/secondPage';
