@@ -1,7 +1,7 @@
 ## CHANGELOG
 
 ## v0.0.6
-- Removed 
+- Removed routes
 
 ## v0.0.5
 - Changed homepage from Stateful widget to Stateless widget
