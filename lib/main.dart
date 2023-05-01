@@ -2,11 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/views/firstpage.dart';
 import 'package:mywebsite/views/homepage.dart';
-import 'package:mywebsite/views/secondpage.dart';
+import 'package:mywebsite/views/personalpage.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+// import 'package:firebase_analytics/firebase_analytics.dart';
+//
+// FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+Future<void> main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -15,6 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       builder: (context, child) => ResponsiveWrapper.builder(child,
           // maxWidth: 1200,
           minWidth: 480,
@@ -33,12 +45,18 @@ class MyApp extends StatelessWidget {
       ),
 
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
-      initialRoute: homePageRoute,
+      // home: const MyHomePage(),
+      home: const PersonalPage(),
+      // initialRoute: homePageRoute,
+      initialRoute: generalPageRoute,
       routes: {
+        homePageRoute: (context) => const HomePage(),
         firstPageRoute: (context) => const FirstPage(),
-        secondPageRoute: (context) => const SecondPage(),
+        secondPageRoute: (context) => const PersonalPage(),
       },
     );
+
   }
+
 }
+
