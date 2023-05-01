@@ -23,9 +23,15 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -59,25 +65,5 @@ class DefaultFirebaseOptions {
     messagingSenderId: '897607184986',
     projectId: 'my-website-1135d',
     storageBucket: 'my-website-1135d.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAu5QfNReg1nvY2clPKFwLeRLkpNC02sG0',
-    appId: '1:897607184986:ios:d4560224ef7e7a6ee0de63',
-    messagingSenderId: '897607184986',
-    projectId: 'my-website-1135d',
-    storageBucket: 'my-website-1135d.appspot.com',
-    iosClientId: '897607184986-gom00hhm21fka8t9kd6c90p51l1if821.apps.googleusercontent.com',
-    iosBundleId: 'co.za.zanderkotze.mywebsite',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAu5QfNReg1nvY2clPKFwLeRLkpNC02sG0',
-    appId: '1:897607184986:ios:d4560224ef7e7a6ee0de63',
-    messagingSenderId: '897607184986',
-    projectId: 'my-website-1135d',
-    storageBucket: 'my-website-1135d.appspot.com',
-    iosClientId: '897607184986-gom00hhm21fka8t9kd6c90p51l1if821.apps.googleusercontent.com',
-    iosBundleId: 'co.za.zanderkotze.mywebsite',
   );
 }
