@@ -1,4 +1,7 @@
-# CHANGELOG
+## CHANGELOG
+
+## v0.0.6
+- Removed 
 
 ## v0.0.5
 - Changed homepage from Stateful widget to Stateless widget

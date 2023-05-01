@@ -47,3 +47,7 @@ app.*.map.json
 
 # macos gitignore (Remove)
 /macos/Flutter/GeneratedPluginRegistrant.swift
+
+# remove API files
+/macos/Runner/GoogleService-Info.plist
+/ios/Runner/GoogleService-Info.plist
