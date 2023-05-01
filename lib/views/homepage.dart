@@ -6,14 +6,14 @@ import 'package:mywebsite/components/link_button.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/util/launcher.dart';
 
-class MyHomePage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   // const MyHomePage({Key? key, required this.title}) : super(key: key);
   // final String title;
 
   final double buttonSpaceHeight = 10.0;
   final double buttonSpaceWidth = 320.0;
 
-  const MyHomePage({super.key});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -322,6 +322,14 @@ class MyHomePage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {
+          // Navigator.pop(context),
+          Navigator.pushNamed(context, secondPageRoute),
+        },
+        tooltip: 'Go to Personal Page',
+        child: const Icon(Icons.arrow_forward),
       ),
     );
   }
