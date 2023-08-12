@@ -33,6 +33,7 @@ migrate_working_dir/
 /build/
 
 # Web related
+lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
@@ -44,12 +45,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-# macos gitignore (Remove)
-/macos/Flutter/GeneratedPluginRegistrant.swift
-
-# remove API files
-/macos/Runner/GoogleService-Info.plist
 /ios/Runner/GoogleService-Info.plist
+/macos/Runner/GoogleService-Info.plist
 /android/app/google-services.json
 
+# Generated Code
+*.cc
+*.h
+*.cmake
+*.swift
