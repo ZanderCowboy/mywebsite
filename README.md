@@ -1,6 +1,6 @@
 ## mywebsite
 
-My personal website, build in Flutter.
+My personal website, built using Flutter and Dart
 
 ## Contributers (Copyright)
 

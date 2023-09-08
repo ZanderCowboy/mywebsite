@@ -3,16 +3,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mywebsite/util/launcher.dart';
 
 class LinkButton extends StatelessWidget {
-  static const double _HEIGHT = 50;
-  static const double _WIDTH = 320;
-  static const double _FONTSIZE = 16;
-  static const double _IMAGEHEIGHT = 22;
+  static const double _height = 50;
+  static const double _width = 320;
+  static const double _fontSize = 16;
+  static const double _imageHeight = 22;
   final String text;
   final String link;
   final Color color;
   final String image;
 
-  LinkButton({
+  const LinkButton({super.key, 
     this.image = 'images/cancel/icons8-cancel-384.svg',
     required this.text,
     required this.link,
@@ -22,28 +22,28 @@ class LinkButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: _WIDTH,
-      height: _HEIGHT,
+      width: _width,
+      height: _height,
       child: ElevatedButton(
-        onPressed: () => LaunchURL(link),
+        onPressed: () => launchURL(link),
         style: ElevatedButton.styleFrom(
-          primary: color,
+          backgroundColor: color,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
               image,
-              height: _IMAGEHEIGHT,
+              height: _imageHeight,
             ),
             const SizedBox(
               width: 8,
             ),
             Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
-                fontSize: _FONTSIZE,
+                fontSize: _fontSize,
               ),
             ),
           ],
@@ -52,11 +52,11 @@ class LinkButton extends StatelessWidget {
     );
   }
 
-  static double get IMAGEHEIGHT => _IMAGEHEIGHT;
+  static double get imageHeight => _imageHeight;
 
-  static double get FONTSIZE => _FONTSIZE;
+  static double get fontSize => _fontSize;
 
-  static double get WIDTH => _WIDTH;
+  static double get width => _width;
 
-  static double get HEIGHT => _HEIGHT;
+  static double get height => _height;
 }
