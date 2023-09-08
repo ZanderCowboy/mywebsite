@@ -31,7 +31,7 @@ class FirstPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                     child: Column(
                       children: [
                         Container(
@@ -48,19 +48,19 @@ class FirstPage extends StatelessWidget {
                           ),
                         ),
                         ElevatedButton(
-                          child: const Text(
-                            'Return to Home Page',
-                            style: TextStyle(color: Colors.white),
-                          ),
                           onPressed: () => {
                             Navigator.pop(context),
                             // Navigator.pushNamed(context, '/secondPage'),
                           },
-                          style: ButtonStyle(
+                          style: const ButtonStyle(
                             // padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
                             // padding: MaterialStateProperty.all<EdgeInsets>(
                             //   EdgeInsets.fromLTRB(10, 0, 10, 20)
                             // ),
+                          ),
+                          child: const Text(
+                            'Return to Home Page',
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ],

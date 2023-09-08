@@ -2,16 +2,16 @@
 
 import 'package:flutter/material.dart';
 
-class Text_block extends StatelessWidget {
-  Color color = Colors.white;
-  String text = '';
+class TextBlock extends StatelessWidget {
+  final Color color = Colors.white;
+  final String text = '';
 
+  const TextBlock({super.key});
 
-  Text_block(String texts, Color col){
-    this.color = col;
-    this.text = texts;
-  }
-
+  // Text_block(String texts, Color col, {super.key}){
+  //   color = col;
+  //   text = texts;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +27,11 @@ class Text_block extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-
           Center(
-              child: Text(text, style: TextStyle(color: Colors.white),)
-          ),
+              child: Text(
+            text,
+            style: const TextStyle(color: Colors.white),
+          )),
         ],
       ),
     );

@@ -188,7 +188,7 @@ class HomePage extends StatelessWidget {
                       ),
 
                       // LinkedIn
-                      LinkButton(
+                      const LinkButton(
                         text: 'LinkedIn',
                         link: linkedInURL,
                         color: linkedInColor,
@@ -201,7 +201,7 @@ class HomePage extends StatelessWidget {
                       ),
 
                       // Twitter
-                      LinkButton(
+                      const LinkButton(
                         text: 'Twitter',
                         link: twitterURL,
                         color: twitterColor,
@@ -266,7 +266,7 @@ class HomePage extends StatelessWidget {
                       ),
 
                       // GitHub
-                      LinkButton(
+                      const LinkButton(
                         text: 'GitHub',
                         link: githubURL,
                         color: githubColor,
@@ -279,7 +279,7 @@ class HomePage extends StatelessWidget {
                       ),
 
                       // YouTube
-                      LinkButton(
+                      const LinkButton(
                         text: 'YouTube',
                         link: youtubeURL,
                         color: youtubeColor,
@@ -292,7 +292,7 @@ class HomePage extends StatelessWidget {
                       ),
 
                       // Discord
-                      LinkButton(
+                      const LinkButton(
                         text: 'Discord',
                         link: discordURL,
                         color: discordColor,

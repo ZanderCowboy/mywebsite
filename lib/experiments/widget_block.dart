@@ -1,8 +1,6 @@
 // Experimental CODE
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mywebsite/views/personalpage.dart';
 
 class Widget_block extends StatelessWidget {
@@ -15,9 +13,7 @@ class Widget_block extends StatelessWidget {
   const Widget_block(
       this.color,
       this.text,
-      this.page,
-      );
-
+      this.page, {super.key});
 
 
   @override
@@ -34,7 +30,7 @@ class Widget_block extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(text, style: TextStyle(color: Colors.white),),
+          Text(text, style: const TextStyle(color: Colors.white),),
 
           ElevatedButton(
             child: const Text('Open route', style: TextStyle(color: Colors.white),),
@@ -42,7 +38,7 @@ class Widget_block extends StatelessWidget {
 // Navigate to second route when tapped.
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PersonalPage()),
+                MaterialPageRoute(builder: (context) => const PersonalPage()),
               );
             },
           ),

@@ -17,7 +17,7 @@ class PersonalPage extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Positioned.fill(
+          const Positioned.fill(
               child: ColoredBox(
                 color: Colors.blue,
               ),

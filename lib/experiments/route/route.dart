@@ -16,9 +16,9 @@ Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
     case homePage:
       return MaterialPageRoute(
-          builder: (context) => HomePage());
+          builder: (context) => const HomePage());
     case firstPage:
-      return MaterialPageRoute(builder: (context) => FirstPage());
+      return MaterialPageRoute(builder: (context) => const FirstPage());
     // case secondPage:
     //   return MaterialPageRoute(builder: (context) => SecondPage());
     default:

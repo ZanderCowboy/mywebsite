@@ -12,7 +12,7 @@ class LinkButton extends StatelessWidget {
   final Color color;
   final String image;
 
-  LinkButton({
+  const LinkButton({super.key, 
     this.image = 'images/cancel/icons8-cancel-384.svg',
     required this.text,
     required this.link,
@@ -27,7 +27,7 @@ class LinkButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => LaunchURL(link),
         style: ElevatedButton.styleFrom(
-          primary: color,
+          backgroundColor: color,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +41,7 @@ class LinkButton extends StatelessWidget {
             ),
             Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: _FONTSIZE,
               ),
