@@ -6,7 +6,7 @@ class Copyright extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String date = DateTime.now().year.toString();
-    // const IconData copyright = IconData(0xe198, fontFamily: 'MaterialIcons');
+    const String nameSurname = 'Zander Kotze';
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -24,7 +24,7 @@ class Copyright extends StatelessWidget {
           size: 20,
         ),
         const Text(
-          ' Zander Kotze',
+          ' $nameSurname',
           style: TextStyle(
             color: Colors.white,
             fontSize: 12,

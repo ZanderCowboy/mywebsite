@@ -1,48 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:mywebsite/util/constants.dart';
-
 
 class PersonalPage extends StatelessWidget {
   const PersonalPage({Key? key}) : super(key: key);
 
-  // const SecondRoute({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Second Route'),
-      // ),
-
       body: Stack(
         fit: StackFit.expand,
         children: [
-          const Positioned.fill(
-              child: ColoredBox(
-                color: Colors.blue,
-              ),
+          Positioned.fill(
+            child: Image.network(
+              "https://images.pexels.com/photos/2049422/pexels-photo-2"
+              "049422.jpeg?cs=srgb&dl=pexels-pok-rie-2049422.jpg&fm=jpg&_gl=1*dm5gf8*_ga*M"
+              "TAyNDYxOTY2Mi4xNjc5NzA0NDQx*_ga_8JE65Q40S6*MTY3OTkxMTAxMy43LjAuMTY3OTkxMTAx"
+              "My4wLjAuMA..",
+              fit: BoxFit.cover,
+            ),
           ),
           Center(
-            child: Container(
-              alignment: Alignment.center,
+            child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  const Text('Second Page'),
-
-                  ElevatedButton(
-                    onPressed: () => {
-                      // Navigate back to first route when tapped.
-                      // Navigator.pop(context),
-                      Navigator.pushNamed(context, homePageRoute),
-                    },
-                    child: const Text('Home Page'),
-                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 10),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          alignment: Alignment.center,
+                          child: const Text(
+                            'Coming Soon',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 100,
+                              fontFamily: 'Anton',
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => {
+                            Navigator.pop(context),
+                          },
+                          style: const ButtonStyle(),
+                          child: const Text(
+                            'Return to Home Page',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
-          ),
+          )
         ],
       ),
     );
