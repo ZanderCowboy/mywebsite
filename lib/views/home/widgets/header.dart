@@ -7,13 +7,12 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        height24,
         Image.asset(
           'images/profile2.png',
           height: 250,
         ),
-        const SizedBox(
-          height: 4,
-        ),
+        height4,
         const Text(
           'ZANDER KOTZE',
           style: TextStyle(
@@ -29,42 +28,34 @@ class _Header extends StatelessWidget {
           child: const Divider(
             color: Colors.white,
             thickness: 4,
-            indent: 5,
-            endIndent: 5,
           ),
         ),
         height8,
         SizedBox(
           width: 0.4 * MediaQuery.sizeOf(context).width,
-          child: Wrap(
-            children: [
-              Center(
-                child: AnimatedTextKit(
-                  animatedTexts: [
-                    TypewriterAnimatedText(
-                      'Oh! Hi there! Here are a few of my links.',
-                      textStyle: const TextStyle(
-                        fontFamily: 'PoiretOne',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        wordSpacing: 1.5,
-                        letterSpacing: 1.0,
-                      ),
-                      speed: const Duration(milliseconds: 90),
-                    ),
-                  ],
-                  pause: const Duration(seconds: 5),
-                  totalRepeatCount: 2,
+          child: Center(
+            child: AnimatedTextKit(
+              animatedTexts: [
+                TypewriterAnimatedText(
+                  'Oh! Hi there! Here are a few of my links.',
+                  textStyle: const TextStyle(
+                    fontFamily: 'PoiretOne',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    wordSpacing: 1.5,
+                    letterSpacing: 1.0,
+                  ),
+                  textAlign: TextAlign.center,
+                  speed: const Duration(milliseconds: 90),
                 ),
-              ),
-            ],
+              ],
+              pause: const Duration(seconds: 5),
+              totalRepeatCount: 2,
+            ),
           ),
         ),
-        const SizedBox(
-          height: 40,
-          width: 320,
-        ),
+        height40,
       ],
     );
   }

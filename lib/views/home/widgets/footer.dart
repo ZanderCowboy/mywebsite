@@ -14,7 +14,6 @@ class _Footer extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 20),
           alignment: Alignment.bottomCenter,
           color: Colors.transparent,
-          width: MediaQuery.sizeOf(context).width,
           child: const Copyright(),
         ),
       ],

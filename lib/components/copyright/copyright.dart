@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Copyright extends StatelessWidget {
-  const Copyright({Key? key}) : super(key: key);
+  const Copyright({super.key});
 
   @override
   Widget build(BuildContext context) {

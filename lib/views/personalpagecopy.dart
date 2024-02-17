@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mywebsite/util/constants.dart';
 
 class PersonalPage extends StatelessWidget {
-  const PersonalPage({Key? key}) : super(key: key);
+  const PersonalPage({super.key});
 
   @override
   Widget build(BuildContext context) {

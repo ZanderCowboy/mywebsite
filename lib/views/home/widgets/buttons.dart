@@ -6,57 +6,37 @@ class _Buttons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: allPadding10,
       decoration: BoxDecoration(
         color: Colors.transparent.withOpacity(0.1).withAlpha(1100),
         border: Border.all(
-            color: const Color(0x44748B97),
-            width: 2.0,
-            style: BorderStyle.solid),
-        borderRadius: BorderRadius.circular(10),
+          color: const Color(0x44748B97),
+          width: 2.0,
+          style: BorderStyle.solid,
+        ),
+        borderRadius: borderRadius10,
       ),
       child: Column(
         children: [
-          SizedBox(
-            width: LinkButton.width,
-            height: LinkButton.height,
-            child: ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, personalPageRoute),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: personalWebsiteColor,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    personalWebsiteImage,
-                    height: LinkButton.imageHeight,
-                  ),
-                  width8,
-                  Text(
-                    'Personal Website',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: LinkButton.fontSize,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          LinkButton(
+            buttonText: 'Personal Website',
+            onPressed: () => Navigator.pushNamed(context, personalPageRoute),
+            backgroundColor: personalWebsiteColor,
+            buttonImage: personalWebsiteImage,
           ),
           sizedBox,
           const LinkButton(
-            text: 'LinkedIn',
+            buttonText: 'LinkedIn',
             link: linkedInURL,
-            color: linkedInColor,
-            image: linkedInImage,
+            backgroundColor: linkedInColor,
+            buttonImage: linkedInImage,
           ),
           sizedBox,
           const LinkButton(
-            text: 'Twitter',
+            buttonText: 'Twitter',
             link: twitterURL,
-            color: twitterColor,
-            image: twitterImage,
+            backgroundColor: twitterColor,
+            buttonImage: twitterImage,
           ),
           sizedBox,
           DecoratedBox(
@@ -74,51 +54,38 @@ class _Buttons extends StatelessWidget {
                 ],
               ),
             ),
-            child: ElevatedButton(
+            child: LinkButton(
+              buttonText: 'Instagram',
+              link: instagramURL,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
-                fixedSize: const Size(320, 50),
                 disabledForegroundColor: Colors.transparent.withOpacity(0.38),
                 disabledBackgroundColor: Colors.transparent.withOpacity(0.12),
                 shadowColor: Colors.transparent,
               ),
-              onPressed: () => launchURL(instagramURL),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    "images/instagram/icons8-instagram-384.svg",
-                    width: 25,
-                  ),
-                  width8,
-                  const Text(
-                    'Instagram',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ],
-              ),
+              buttonImage: instagramImage,
             ),
           ),
           sizedBox,
           const LinkButton(
-            text: 'GitHub',
+            buttonText: 'GitHub',
             link: githubURL,
-            color: githubColor,
-            image: githubImage,
+            backgroundColor: githubColor,
+            buttonImage: githubImage,
           ),
           sizedBox,
           const LinkButton(
-            text: 'YouTube',
+            buttonText: 'YouTube',
             link: youtubeURL,
-            color: youtubeColor,
-            image: youtubeImage,
+            backgroundColor: youtubeColor,
+            buttonImage: youtubeImage,
           ),
           sizedBox,
           const LinkButton(
-            text: 'Discord',
+            buttonText: 'Discord',
             link: discordURL,
-            color: discordColor,
-            image: discordImage,
+            backgroundColor: discordColor,
+            buttonImage: discordImage,
           ),
         ],
       ),
