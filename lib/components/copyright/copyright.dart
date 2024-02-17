@@ -5,14 +5,11 @@ class Copyright extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String date = DateTime.now().year.toString();
-    const String nameSurname = 'Zander Kotze';
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          '$date ',
+          '${DateTime.now().year.toString()} ',
           style: const TextStyle(
             color: Colors.white,
             fontSize: 12,
@@ -24,7 +21,7 @@ class Copyright extends StatelessWidget {
           size: 20,
         ),
         const Text(
-          ' $nameSurname',
+          ' Zander Kotze',
           style: TextStyle(
             color: Colors.white,
             fontSize: 12,

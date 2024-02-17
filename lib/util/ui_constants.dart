@@ -1,0 +1,21 @@
+import 'package:flutter/material.dart';
+
+const double buttonSpaceHeight = 10.0;
+const double buttonSpaceWidth = 320.0;
+
+// Spacing Contants
+
+const sizedBox = SizedBox(
+  width: buttonSpaceWidth,
+  height: buttonSpaceHeight,
+);
+
+const width8 = SizedBox(width: 8);
+const height8 = SizedBox(height: 8);
+
+// Padding Constants
+const vertical20horizontal10 =
+    EdgeInsets.symmetric(vertical: 20, horizontal: 10);
+
+
+// Border Constants

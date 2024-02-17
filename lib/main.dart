@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/util/constants.dart';
-import 'package:mywebsite/views/home_page.dart';
+import 'package:mywebsite/views/home/home_page.dart';
 import 'package:mywebsite/views/personal_page.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -9,7 +9,9 @@ Future<void> main() async {
 }
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

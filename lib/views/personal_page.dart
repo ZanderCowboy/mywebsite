@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mywebsite/util/ui_constants.dart';
 
 class PersonalPage extends StatelessWidget {
   const PersonalPage({Key? key}) : super(key: key);
@@ -26,12 +27,11 @@ class PersonalPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 10),
+                    margin: vertical20horizontal10,
                     child: Column(
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery.sizeOf(context).width,
                           alignment: Alignment.center,
                           child: const Text(
                             'Coming Soon',
@@ -44,9 +44,7 @@ class PersonalPage extends StatelessWidget {
                           ),
                         ),
                         ElevatedButton(
-                          onPressed: () => {
-                            Navigator.pop(context),
-                          },
+                          onPressed: () => Navigator.pop(context),
                           style: const ButtonStyle(),
                           child: const Text(
                             'Return to Home Page',

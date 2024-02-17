@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mywebsite/util/launcher.dart';
+import 'package:mywebsite/util/ui_constants.dart';
 
 class LinkButton extends StatelessWidget {
   static const double _height = 50;
@@ -12,7 +13,8 @@ class LinkButton extends StatelessWidget {
   final Color color;
   final String image;
 
-  const LinkButton({super.key, 
+  const LinkButton({
+    super.key,
     this.image = 'images/cancel/icons8-cancel-384.svg',
     required this.text,
     required this.link,
@@ -36,9 +38,7 @@ class LinkButton extends StatelessWidget {
               image,
               height: _imageHeight,
             ),
-            const SizedBox(
-              width: 8,
-            ),
+            width8,
             Text(
               text,
               style: const TextStyle(
