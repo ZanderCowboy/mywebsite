@@ -17,8 +17,8 @@ git config --global core.sshCommand "ssh -i /home/developer/.ssh/personal_github
 # Change HTTPS to SSH
 git remote -v
 echo "git remote -v"
-git remote set-url origin ssh://git@github.com:ZanderCowboy/mywebsite.git
-echo "git remote set-url origin 'ssh://git@github.com:ZanderCowboy/mywebsite.git'"
+git remote set-url origin ssh://git@github.com/ZanderCowboy/mywebsite.git
+echo "git remote set-url origin 'ssh://git@github.com/ZanderCowboy/mywebsite.git'"
 
 git config --global --list
 echo "git config --global --list"
