@@ -1,21 +1,17 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mywebsite/util/constants.dart';
-import 'package:mywebsite/views/homepage.dart';
-import 'package:mywebsite/views/personalpage.dart';
+import 'package:mywebsite/views/home/home_page.dart';
+import 'package:mywebsite/views/personal_page.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-import 'firebase_options.dart';
-
 Future<void> main() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  const App({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +33,8 @@ class MyApp extends StatelessWidget {
       home: const HomePage(),
       initialRoute: homePageRoute,
       routes: {
-        homePageRoute: (context) => const HomePage(),
-        personalPageRoute: (context) => const PersonalPage(),
+        homePageRoute: (_) => const HomePage(),
+        personalPageRoute: (_) => const PersonalPage(),
       },
     );
   }

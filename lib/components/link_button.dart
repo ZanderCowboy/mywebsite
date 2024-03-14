@@ -1,62 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mywebsite/util/launcher.dart';
+import 'package:mywebsite/util/ui_constants.dart';
 
 class LinkButton extends StatelessWidget {
-  static const double _height = 50;
-  static const double _width = 320;
-  static const double _fontSize = 16;
-  static const double _imageHeight = 22;
-  final String text;
-  final String link;
-  final Color color;
-  final String image;
+  const LinkButton({
+    required this.buttonText,
+    super.key,
+    this.buttonImage = 'images/cancel/icons8-cancel-384.svg',
+    this.onPressed,
+    this.link,
+    this.style,
+    this.backgroundColor,
+  }) : assert(
+          onPressed != null || link != null,
+          'Either onPressed or link need to be non-null',
+        );
 
-  const LinkButton({super.key, 
-    this.image = 'images/cancel/icons8-cancel-384.svg',
-    required this.text,
-    required this.link,
-    required this.color,
-  });
+  final String buttonText;
+  final String? link;
+  final Color? backgroundColor;
+  final String buttonImage;
+  final VoidCallback? onPressed;
+  final ButtonStyle? style;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: _width,
-      height: _height,
+      width: 320,
+      height: 50,
       child: ElevatedButton(
-        onPressed: () => launchURL(link),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-        ),
+        onPressed: onPressed ?? () => launchURL(link ?? ''),
+        style: style ??
+            ElevatedButton.styleFrom(
+              backgroundColor: backgroundColor ?? Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: borderRadius5,
+              ),
+            ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              image,
-              height: _imageHeight,
+              buttonImage,
+              height: 22,
             ),
-            const SizedBox(
-              width: 8,
-            ),
+            width8,
             Text(
-              text,
+              buttonText,
               style: const TextStyle(
                 color: Colors.white,
-                fontSize: _fontSize,
+                fontSize: 16,
               ),
+              textAlign: TextAlign.start,
             ),
           ],
         ),
       ),
     );
   }
-
-  static double get imageHeight => _imageHeight;
-
-  static double get fontSize => _fontSize;
-
-  static double get width => _width;
-
-  static double get height => _height;
 }
