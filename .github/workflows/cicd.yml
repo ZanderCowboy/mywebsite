@@ -92,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: web-release
-          path: .build/web
+          path: ./build/web
 
   commitBump:
     name: Auto Commit Bumped Version
