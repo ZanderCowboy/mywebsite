@@ -86,7 +86,7 @@ jobs:
         uses: ./.github/actions/setup-flutter
 
       - name: Start Web Release Build
-        run: flutter build web --base-href='/mywebsite/' --release
+        run: flutter build web --base-href='/' --release
 
       - name: Upload Web Build Files
         uses: actions/upload-artifact@v4
