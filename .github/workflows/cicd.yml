@@ -147,6 +147,7 @@ jobs:
 
   deploy:
     name: Deploy Web Build
+    needs: [tagAndRelease]
     if: success()
     runs-on: ubuntu-latest
     permissions:
