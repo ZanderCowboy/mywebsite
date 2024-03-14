@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const double buttonSpaceHeight = 10.0;
-const double buttonSpaceWidth = 320.0;
+const double buttonSpaceHeight = 10;
+const double buttonSpaceWidth = 320;
 
 // Spacing Contants
 

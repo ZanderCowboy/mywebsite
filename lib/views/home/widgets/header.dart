@@ -20,7 +20,7 @@ class _Header extends StatelessWidget {
             fontSize: 55,
             color: Colors.white,
             letterSpacing: 1.5,
-            wordSpacing: 6.0,
+            wordSpacing: 6,
           ),
         ),
         SizedBox(
@@ -44,7 +44,7 @@ class _Header extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     wordSpacing: 1.5,
-                    letterSpacing: 1.0,
+                    letterSpacing: 1,
                   ),
                   textAlign: TextAlign.center,
                   speed: const Duration(milliseconds: 90),

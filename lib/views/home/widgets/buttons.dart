@@ -11,8 +11,7 @@ class _Buttons extends StatelessWidget {
         color: Colors.transparent.withOpacity(0.1).withAlpha(1100),
         border: Border.all(
           color: const Color(0x44748B97),
-          width: 2.0,
-          style: BorderStyle.solid,
+          width: 2,
         ),
         borderRadius: borderRadius10,
       ),

@@ -5,15 +5,17 @@ import 'package:mywebsite/util/ui_constants.dart';
 
 class LinkButton extends StatelessWidget {
   const LinkButton({
+    required this.buttonText,
     super.key,
     this.buttonImage = 'images/cancel/icons8-cancel-384.svg',
     this.onPressed,
-    required this.buttonText,
     this.link,
     this.style,
     this.backgroundColor,
-  }) : assert(onPressed != null || link != null,
-            "Either onPressed or link need to be non-null");
+  }) : assert(
+          onPressed != null || link != null,
+          'Either onPressed or link need to be non-null',
+        );
 
   final String buttonText;
   final String? link;
