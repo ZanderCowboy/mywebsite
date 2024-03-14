@@ -147,7 +147,7 @@ jobs:
           tag: "v${{ env.version }}"
           name: "v${{ env.version }}"
           body: "Release notes"
-          draft: true
+          draft: false
           prerelease: false
           generateReleaseNotes: true
 
