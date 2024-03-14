@@ -9,7 +9,7 @@ class Copyright extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          '${DateTime.now().year.toString()} ',
+          '${DateTime.now().year} ',
           style: const TextStyle(
             color: Colors.white,
             fontSize: 12,

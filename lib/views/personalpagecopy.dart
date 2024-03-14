@@ -19,7 +19,6 @@ class PersonalPage extends StatelessWidget {
             child: Container(
               alignment: Alignment.center,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text('Second Page'),
