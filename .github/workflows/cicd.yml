@@ -1,0 +1,167 @@
+name: CI/CD Workflow for GH Pages
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+  workflow_dispatch:
+
+jobs:
+  run-lint:
+    name: Flutter Lint
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: flutter analyze
+        run: flutter analyze
+
+      - name: Analyzing code with Dart analyzer
+        run: dart analyze --fatal-infos
+
+  bumpVersion:
+    name: Bump build number and get prebuild ready
+    runs-on: ubuntu-latest
+    outputs:
+      version_number: ${{ steps.id_out.outputs.version }}
+      version_release: ${{ steps.id_out.outputs.version_rel }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update version number and download
+        id: id_unlabeled
+        if: join(github.event.pull_request.labels.*.name, '') == ''
+        uses: ./.github/actions/app-versioning
+        with:
+          bump-strategy: "patch"
+          file-path: "pubspec.yaml"
+          upload-filename: "pubspec-file-release"
+
+      - id: id_out
+        run: |
+          echo "version=${{ steps.id_unlabeled.outputs.version-number }}" >> $GITHUB_OUTPUT
+          version_num=${{ steps.id_unlabeled.outputs.version-number }}
+
+          echo "version_number=${version_num}"
+          version=$(echo "${version_num}" | sed 's/+.*//')
+          echo "version_rel=${version}" >> $GITHUB_OUTPUT
+
+      - name: Get pubspec.yaml version
+        uses: actions/download-artifact@v4
+        with:
+          name: pubspec-file-release
+
+  build:
+    name: Build Web
+    if: github.event.pull_request.draft == false && success()
+    needs: [bumpVersion, run-lint]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: Start Web Release Build
+        run: flutter build web --base-href='/mywebsite/' --release
+
+      - name: Upload Web Build Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-release
+          path: .build/web
+
+  commitBump:
+    name: Auto Commit Bumped Version
+    needs: [build, bumpVersion]
+    if: success()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - id: id_version
+        run: |
+          echo "version=${{ needs.bumpVersion.outputs.version_release }}" >> $GITHUB_ENV
+
+      - name: Call Auto Commit Version action
+        uses: ./.github/actions/auto-commit-version
+        with:
+          version_number: "${{ env.version }}"
+          download_filename: "pubspec-file-release"
+
+  tagAndRelease:
+    name: Git tagging and releases
+    needs: [commitBump, bumpVersion]
+    if: github.event.pull_request.draft == false && success()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: id_version
+        run: |
+          echo "version=${{ needs.bumpVersion.outputs.version_release }}" >> $GITHUB_ENV
+
+      - name: Create tag
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "v${{ env.version }}"
+          message: "Release ${{ env.version }}"
+
+      - name: Create GitHub release
+        if: success() && ${{ steps.tag_create.outputs.tag_exists == false}}
+        uses: ncipollo/release-action@v1
+        with:
+          tag: "v${{ env.version }}"
+          name: "v${{ env.version }}"
+          body: "Release notes"
+          draft: true
+          prerelease: false
+          generateReleaseNotes: true
+
+  deploy:
+    name: Deploy Web Build
+    if: success()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          search_artifacts: true
+          name: web-release
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
