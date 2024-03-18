@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/views/home/home_page.dart';
-import 'package:mywebsite/views/personal_page.dart';
+import 'package:mywebsite/views/personal/personal_page.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 Future<void> main() async {

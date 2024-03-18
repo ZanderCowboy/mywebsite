@@ -4,6 +4,7 @@ import 'package:mywebsite/components/copyright/copyright.dart';
 import 'package:mywebsite/components/link_button.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/util/ui_constants.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 part 'widgets/buttons.dart';
 part 'widgets/footer.dart';
@@ -19,9 +20,15 @@ class HomePage extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Positioned.fill(
-            child: Image.network(
-              homePageBackgroundUrl,
+            child: FadeInImage.memoryNetwork(
               fit: BoxFit.cover,
+              placeholder: kTransparentImage,
+              image: homePageBackgroundUrl,
+              imageErrorBuilder: (context, error, stackTrace) {
+                return Center(
+                  child: Image.memory(kTransparentImage),
+                );
+              },
             ),
           ),
           const SingleChildScrollView(
