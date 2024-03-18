@@ -24,6 +24,11 @@ class HomePage extends StatelessWidget {
               fit: BoxFit.cover,
               placeholder: kTransparentImage,
               image: homePageBackgroundUrl,
+              imageErrorBuilder: (context, error, stackTrace) {
+                return Center(
+                  child: Image.memory(kTransparentImage),
+                );
+              },
             ),
           ),
           const SingleChildScrollView(
