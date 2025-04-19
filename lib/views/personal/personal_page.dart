@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/util/ui_constants.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class PersonalPage extends StatelessWidget {
   const PersonalPage({super.key});
@@ -12,9 +13,10 @@ class PersonalPage extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Positioned.fill(
-            child: Image.network(
-              personalPageBackgroundUrl,
+            child: FadeInImage.memoryNetwork(
               fit: BoxFit.cover,
+              placeholder: kTransparentImage,
+              image: personalPageBackgroundUrl,
             ),
           ),
           Center(
