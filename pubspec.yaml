@@ -3,7 +3,7 @@ description: Personal Website
 
 publish_to: "none"
 
-version: 1.0.6+7
+version: 1.0.7+8
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -16,9 +16,11 @@ dependencies:
   flutter_svg: ^2.0.7
   footer: ^0.0.4
   google_fonts: ^6.1.0
+  package_info_plus: ^8.3.0
   responsive_framework: ^1.1.0
   transparent_image: ^2.0.1
   url_launcher: ^6.1.10
+  version: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -29,6 +31,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/images/
     - images/
     - images/cancel/
     - images/discord/

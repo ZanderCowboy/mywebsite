@@ -1,6 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:mywebsite/components/copyright/copyright.dart';
+import 'package:mywebsite/components/copyright.dart';
 import 'package:mywebsite/components/link_button.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/util/ui_constants.dart';
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
               image: homePageBackgroundUrl,
               imageErrorBuilder: (context, error, stackTrace) {
                 return Center(
-                  child: Image.memory(kTransparentImage),
+                  child: Image.asset('assets/images/home_page.jpg'),
                 );
               },
             ),
