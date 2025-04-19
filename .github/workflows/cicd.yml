@@ -1,9 +1,6 @@
 name: CI/CD Workflow for GH Pages
 
 on:
-  push:
-    branches:
-      - "main"
   pull_request:
     branches:
       - "main"
