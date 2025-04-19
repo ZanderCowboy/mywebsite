@@ -17,6 +17,11 @@ class PersonalPage extends StatelessWidget {
               fit: BoxFit.cover,
               placeholder: kTransparentImage,
               image: personalPageBackgroundUrl,
+              imageErrorBuilder: (context, error, stackTrace) {
+                return Center(
+                  child: Image.asset('assets/images/personal_page.jpg'),
+                );
+              },
             ),
           ),
           Center(
