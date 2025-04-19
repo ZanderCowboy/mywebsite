@@ -10,7 +10,7 @@ class _Buttons extends StatelessWidget {
       child: Container(
         padding: allPadding10,
         decoration: BoxDecoration(
-          color: Colors.transparent.withOpacity(0.1).withAlpha(1100),
+          color: Colors.transparent.withValues(alpha: 0.35),
           border: Border.all(
             color: const Color(0x44748B97),
             width: 2,
@@ -60,8 +60,10 @@ class _Buttons extends StatelessWidget {
                 link: instagramURL,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
-                  disabledForegroundColor: Colors.transparent.withOpacity(0.38),
-                  disabledBackgroundColor: Colors.transparent.withOpacity(0.12),
+                  disabledForegroundColor:
+                      Colors.transparent.withValues(alpha: 0.38),
+                  disabledBackgroundColor:
+                      Colors.transparent.withValues(alpha: 0.12),
                   shadowColor: Colors.transparent,
                 ),
                 buttonImage: instagramImage,

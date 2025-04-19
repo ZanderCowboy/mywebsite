@@ -6,6 +6,7 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
+
     return Column(
       children: [
         height8,
