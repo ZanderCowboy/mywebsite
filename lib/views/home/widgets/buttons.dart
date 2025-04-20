@@ -21,7 +21,7 @@ class _Buttons extends StatelessWidget {
           children: [
             LinkButton(
               buttonText: 'Personal Website',
-              onPressed: () => Navigator.pushNamed(context, personalPageRoute),
+              onPressed: () => Navigator.pushNamed(context, kPersonalPageRoute),
               backgroundColor: personalWebsiteColor,
               buttonImage: personalWebsiteImage,
             ),

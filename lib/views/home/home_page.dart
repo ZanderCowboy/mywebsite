@@ -43,8 +43,8 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, personalPageRoute),
+      floatingActionButton: FloatingActionButton.small(
+        onPressed: () => Navigator.pushNamed(context, kPersonalPageRoute),
         tooltip: 'Go to Personal Page',
         child: const Icon(Icons.arrow_forward),
       ),

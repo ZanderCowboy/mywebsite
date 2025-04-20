@@ -47,5 +47,5 @@ const String personalPageBackgroundUrl =
     ROUTES
    ========================================================================== */
 const String generalPageRoute = '/';
-const String homePageRoute = '/homePage';
-const String personalPageRoute = '/personalPage';
+const String kHomePageRoute = '/homePage';
+const String kPersonalPageRoute = '/personalPage';
