@@ -117,7 +117,7 @@ jobs:
   tagAndRelease:
     name: Git tagging and releases
     needs: [commitBump, bumpVersion]
-    if: github.event.pull_request.draft == false && success()
+    if: github.event.pull_request.merged == true && success()
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -151,7 +151,7 @@ jobs:
   deploy:
     name: Deploy Web Build
     needs: [tagAndRelease]
-    if: success()
+    if: github.event.pull_request.merged == true && success()
     runs-on: ubuntu-latest
     permissions:
       contents: write
