@@ -45,7 +45,7 @@ class LinkButton extends StatelessWidget {
               buttonImage,
               height: 22,
             ),
-            width8,
+            gap8,
             Text(
               buttonText,
               style: const TextStyle(
