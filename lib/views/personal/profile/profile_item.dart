@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mywebsite/util/export.dart';
 
 class ProfileItem extends StatelessWidget {
   const ProfileItem({
@@ -20,7 +21,7 @@ class ProfileItem extends StatelessWidget {
           width: 40,
           height: 40,
           decoration: BoxDecoration(
-            color: const Color(0xFF2B2B2C),
+            color: kSecondaryColor,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(
@@ -29,25 +30,17 @@ class ProfileItem extends StatelessWidget {
             size: 18,
           ),
         ),
-        const SizedBox(width: 24),
+        gap24,
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               header,
-              style: const TextStyle(
-                fontWeight: FontWeight.w100,
-                color: Colors.white,
-                fontSize: 10,
-              ),
+              style: PersonalText.profileTitle,
             ),
             Text(
               description,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+              style: PersonalText.profileSubtitle,
             ),
           ],
         ),
