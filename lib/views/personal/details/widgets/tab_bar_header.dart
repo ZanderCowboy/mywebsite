@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TabBarHeader extends StatelessWidget {
   const TabBarHeader({
     required this.controller,
-    required this.index,
+    required this.onTap,
     this.smallScreen = false,
     this.isScrollable = false,
     this.isSmallScreen = false,
@@ -12,16 +12,14 @@ class TabBarHeader extends StatelessWidget {
 
   final bool smallScreen;
   final TabController controller;
-  final ValueNotifier<int> index;
+  final void Function(int) onTap;
   final bool isScrollable;
   final bool isSmallScreen;
 
   @override
   Widget build(BuildContext context) {
     return TabBar(
-      onTap: (value) {
-        index.value = value;
-      },
+      onTap: onTap,
       isScrollable: isSmallScreen && isScrollable,
       textScaler: const TextScaler.linear(0.85),
       dividerColor: Colors.transparent,

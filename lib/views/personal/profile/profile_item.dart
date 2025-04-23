@@ -30,7 +30,7 @@ class ProfileItem extends StatelessWidget {
             size: 18,
           ),
         ),
-        gap24,
+        gap18,
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -1,23 +1,17 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/sections/data/_about_me.dart';
 import 'package:mywebsite/views/personal/details/widgets/export.dart';
 
 class AboutMe extends StatelessWidget {
-  const AboutMe({super.key});
+  const AboutMe({
+    this.showHeader = true,
+    super.key,
+  });
 
-  @override
-  Widget build(BuildContext context) {
-    return context.isSmallScreen
-        ? const _AboutMeContent()
-        : const SizedBox.expand(
-            child: _AboutMeContent(),
-          );
-  }
-}
-
-class _AboutMeContent extends StatelessWidget {
-  const _AboutMeContent();
+  final bool showHeader;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +20,14 @@ class _AboutMeContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (!context.isSmallScreen) ...[
+          if (showHeader) ...[
             const Text(
               'About Me',
               style: PersonalText.heading,
             ),
             const BodyDivider(),
           ],
+          if (!showHeader) gap24,
           gap24,
           Text(
             aboutMe.description,
@@ -57,30 +52,41 @@ class _AboutMeContent extends StatelessWidget {
               style: PersonalText.heading,
             ),
           ),
-          GridView.count(
-            crossAxisCount: context.isSmallScreen ? 1 : 2,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-            childAspectRatio: context.isSmallScreen ? 4 : 3,
-            padding: allPadding4,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              ...aboutMe.skills.map(
-                (skill) => GridItem(
-                  icon: Icons.code,
-                  title: skill,
-                  subtitle: 'Professional Skill',
-                ),
-              ),
-              ...aboutMe.interests.map(
-                (interest) => GridItem(
-                  icon: Icons.favorite,
-                  title: interest,
-                  subtitle: 'Personal Interest',
-                ),
-              ),
-            ],
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final maxWidth = constraints.maxWidth;
+              dev.log('Max Width: $maxWidth', name: 'AboutMe');
+
+              return GridView.count(
+                crossAxisCount: context.isSmallScreen
+                    ? 1
+                    : maxWidth < 550
+                        ? 1
+                        : 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+                childAspectRatio: context.isSmallScreen ? 4 : 3,
+                padding: allPadding4,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  ...aboutMe.skills.map(
+                    (skill) => GridItem(
+                      icon: Icons.code,
+                      title: skill,
+                      subtitle: 'Professional Skill',
+                    ),
+                  ),
+                  ...aboutMe.interests.map(
+                    (interest) => GridItem(
+                      icon: Icons.favorite,
+                      title: interest,
+                      subtitle: 'Personal Interest',
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),

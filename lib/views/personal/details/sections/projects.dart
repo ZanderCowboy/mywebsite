@@ -5,7 +5,12 @@ import 'package:mywebsite/views/personal/details/widgets/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/project_card.dart';
 
 class Projects extends StatelessWidget {
-  const Projects({super.key});
+  const Projects({
+    this.showHeader = true,
+    super.key,
+  });
+
+  final bool showHeader;
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +18,14 @@ class Projects extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (!context.isSmallScreen) ...[
+          if (showHeader) ...[
             const Text(
               'Projects',
               style: PersonalText.heading,
             ),
             const BodyDivider(),
           ],
-          gap24,
+          if (!showHeader) gap24,
           LayoutBuilder(
             builder: (context, constraints) {
               return Wrap(

@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
 import 'package:mywebsite/util/export.dart';
@@ -39,26 +41,38 @@ class PersonalPageCopy extends StatelessWidget {
               padding: allPadding32,
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  return context.isSmallScreen
+                  dev.log(
+                    'maxWidth: ${constraints.maxWidth};',
+                    name: 'PersonalPageCopy',
+                  );
+                  final isSmall = constraints.maxWidth < 750;
+
+                  return isSmall
                       ? const SingleChildScrollView(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Profile(),
                               gap8,
-                              Details(),
+                              Details(isSmall: true),
                             ],
                           ),
                         )
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            SizedBox(
-                              height: context.screenHeight,
-                              child: const Profile(),
+                            Flexible(
+                              flex: constraints.maxWidth < 1200 ? 2 : 1,
+                              child: SizedBox(
+                                height: context.screenHeight,
+                                child: const Profile(),
+                              ),
                             ),
                             gap8,
-                            const Details(),
+                            const Flexible(
+                              flex: 3,
+                              child: Details(),
+                            ),
                           ],
                         );
                 },

@@ -8,7 +8,12 @@ const companyUrl =
     'https://static.vecteezy.com/system/resources/previews/022/782/608/large_2x/url-letter-logo-design-in-illustration-logo-calligraphy-designs-for-logo-poster-invitation-etc-vector.jpg';
 
 class Experiences extends StatelessWidget {
-  const Experiences({super.key});
+  const Experiences({
+    this.showHeader = true,
+    super.key,
+  });
+
+  final bool showHeader;
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +21,14 @@ class Experiences extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (!context.isSmallScreen) ...[
+          if (showHeader) ...[
             const Text(
               'Experience',
               style: PersonalText.heading,
             ),
             const BodyDivider(),
           ],
+          if (!showHeader) gap24,
           gap16,
           ...List.generate(
             experiences.length,
