@@ -82,4 +82,22 @@ List<Skill> get _skills => [
         level: 'Beginner',
         imageUrl: Assets.images.skills.cPlusPlus.path,
       ),
+      Skill(
+        name: 'VS Code',
+        description:
+            'A lightweight but powerful source code editor with built-in support for '
+            'Dart, Flutter, and many other languages.',
+        level: 'Intermediate',
+        imageUrl: 'https://img.icons8.com/?size=48&id=9OGIyU8hrxW5&format=png',
+        isNetworkImage: true,
+      ),
+      Skill(
+        name: 'Android Studio',
+        description:
+            'The official IDE for Android development, with excellent support for '
+            'Flutter and native Android development.',
+        level: 'Intermediate',
+        imageUrl: 'https://img.icons8.com/?size=48&id=EgOU93v1DHjU&format=png',
+        isNetworkImage: true,
+      ),
     ];

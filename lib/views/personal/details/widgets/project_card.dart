@@ -52,7 +52,7 @@ class ProjectCard extends StatelessWidget {
                               : AssetImage(
                                   Assets.images.placeholder.path,
                                 ),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                         ),
                       ),
                     );

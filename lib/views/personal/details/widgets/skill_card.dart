@@ -3,6 +3,7 @@ import 'package:mywebsite/models/skill.dart';
 import 'package:mywebsite/util/color_constants.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/expanded_skill_card.dart';
+import 'package:mywebsite/views/personal/details/widgets/network_image_avatar.dart';
 
 class SkillCard extends StatelessWidget {
   const SkillCard({
@@ -35,10 +36,17 @@ class SkillCard extends StatelessWidget {
               Hero(
                 tag: 'skill_${skill.name}',
                 child: Expanded(
-                  child: Image.asset(
-                    skill.imageUrl,
-                    fit: BoxFit.contain,
-                  ),
+                  child: skill.isNetworkImage
+                      ? NetworkImageAvatar(
+                          imageUrl: skill.imageUrl,
+                          radius: 40,
+                          width: 80,
+                          height: 80,
+                        )
+                      : Image.asset(
+                          skill.imageUrl,
+                          fit: BoxFit.contain,
+                        ),
                 ),
               ),
             ],
