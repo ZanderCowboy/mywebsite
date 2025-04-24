@@ -14,24 +14,21 @@ class Educations extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (showHeader) ...[
-              const Text(
-                'Educations',
-                style: PersonalText.heading,
-              ),
-              const BodyDivider(),
-            ],
-            if (!showHeader) gap24,
-            gap12,
-            ...educations
-                .map((education) => EducationCard(education: education)),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (showHeader) ...[
+            const Text(
+              'Educations',
+              style: PersonalText.heading,
+            ),
+            const BodyDivider(),
           ],
-        ),
+          if (!showHeader) gap24,
+          gap12,
+          ...educations.map((education) => EducationCard(education: education)),
+        ],
       ),
     );
   }

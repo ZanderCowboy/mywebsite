@@ -18,11 +18,12 @@ class Details extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final index = useState(kFirstIndex);
     final controller = useTabController(
       initialLength: 5,
+      initialIndex: index.value,
     );
     dev.log('controller index: ${controller.index}', name: 'Details Content');
-    final index = useState(kFirstIndex);
     dev.log('index: ${index.value}', name: 'Details Content');
 
     final tabBarHeader = TabBarHeader(
