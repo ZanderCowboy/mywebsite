@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/models/skill.dart';
 import 'package:mywebsite/util/export.dart';
+import 'package:mywebsite/views/personal/details/widgets/network_image_avatar.dart';
 
 class ExpandedSkillCard extends StatelessWidget {
   const ExpandedSkillCard({
@@ -33,10 +34,16 @@ class ExpandedSkillCard extends StatelessWidget {
                   width: 200,
                   height: 200,
                   padding: const EdgeInsets.all(16),
-                  child: Image.asset(
-                    skill.imageUrl,
-                    fit: BoxFit.contain,
-                  ),
+                  child: skill.isNetworkImage
+                      ? NetworkImageAvatar(
+                          imageUrl: skill.imageUrl,
+                          width: 200,
+                          height: 200,
+                        )
+                      : Image.asset(
+                          skill.imageUrl,
+                          fit: BoxFit.contain,
+                        ),
                 ),
               ),
             ),
