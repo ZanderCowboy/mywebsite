@@ -21,23 +21,23 @@ class _Buttons extends StatelessWidget {
           children: [
             LinkButton(
               buttonText: 'Personal Website',
-              onPressed: () => Navigator.pushNamed(context, personalPageRoute),
+              onPressed: () => Navigator.pushNamed(context, kPersonalPageRoute),
               backgroundColor: personalWebsiteColor,
-              buttonImage: personalWebsiteImage,
+              buttonImage: Assets.images.home.rocketLaunch.path,
             ),
             sizedBox,
-            const LinkButton(
+            LinkButton(
               buttonText: 'LinkedIn',
               link: linkedInURL,
               backgroundColor: linkedInColor,
-              buttonImage: linkedInImage,
+              buttonImage: Assets.images.home.linkedin.path,
             ),
             sizedBox,
-            const LinkButton(
+            LinkButton(
               buttonText: 'Twitter',
               link: twitterURL,
               backgroundColor: twitterColor,
-              buttonImage: twitterImage,
+              buttonImage: Assets.images.home.twitter.path,
             ),
             sizedBox,
             DecoratedBox(
@@ -66,29 +66,29 @@ class _Buttons extends StatelessWidget {
                       Colors.transparent.withValues(alpha: 0.12),
                   shadowColor: Colors.transparent,
                 ),
-                buttonImage: instagramImage,
+                buttonImage: Assets.images.home.instagram.path,
               ),
             ),
             sizedBox,
-            const LinkButton(
+            LinkButton(
               buttonText: 'GitHub',
               link: githubURL,
               backgroundColor: githubColor,
-              buttonImage: githubImage,
+              buttonImage: Assets.images.home.github.path,
             ),
             sizedBox,
-            const LinkButton(
+            LinkButton(
               buttonText: 'YouTube',
               link: youtubeURL,
               backgroundColor: youtubeColor,
-              buttonImage: youtubeImage,
+              buttonImage: Assets.images.home.youtube.path,
             ),
             sizedBox,
-            const LinkButton(
+            LinkButton(
               buttonText: 'Discord',
               link: discordURL,
               backgroundColor: discordColor,
-              buttonImage: discordImage,
+              buttonImage: Assets.images.home.discord.path,
             ),
           ],
         ),

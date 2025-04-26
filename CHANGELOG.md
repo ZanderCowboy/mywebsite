@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v1.0.8
+
+- Refactored multiple parts
+- Added multiple packages, such as 'flutter_gen'
+- Added personal page
+- Build initial layout
+- Added About Me, Experience, Projects, Skills, Education
+- Update with personal content
+
 ## v0.0.7
 
 - Refactored and cleaned up code

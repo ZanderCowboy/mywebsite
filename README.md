@@ -15,3 +15,8 @@ Link: <https://icons8.com>
 Link of image on Home Page: Photo by James Wheeler: <https://www.pexels.com/photo/lake-and-mountain-417074/>
 
 Link of image on Personal Website: Photo by Pok Rie: <https://www.pexels.com/photo/top-view-photo-of-rocky-shore-2049422/>
+
+### Skills Icons
+
+<https://techicons.dev/icons/cplusplus>
+<https://www.svgrepo.com/>

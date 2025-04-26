@@ -55,3 +55,4 @@ app.*.map.json
 *.h
 *.cmake
 *.swift
+**/gen/

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/views/home/home_page.dart';
-import 'package:mywebsite/views/personal/personal_page.dart';
+import 'package:mywebsite/views/personal/personal_page_copy.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 Future<void> main() async {
@@ -26,15 +26,13 @@ class App extends StatelessWidget {
         ],
       ),
       title: 'Zander Kotze Website',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
+      theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       home: const HomePage(),
-      initialRoute: homePageRoute,
+      initialRoute: kHomePageRoute,
       routes: {
-        homePageRoute: (_) => const HomePage(),
-        personalPageRoute: (_) => const PersonalPage(),
+        kHomePageRoute: (_) => const HomePage(),
+        kPersonalPageRoute: (_) => const PersonalPageCopy(),
       },
     );
   }
