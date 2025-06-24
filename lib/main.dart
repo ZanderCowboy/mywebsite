@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/views/home/home_page.dart';
-import 'package:mywebsite/views/personal/personal_page_copy.dart';
+import 'package:mywebsite/views/personal/personal_page.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 Future<void> main() async {
@@ -32,7 +32,7 @@ class App extends StatelessWidget {
       initialRoute: kHomePageRoute,
       routes: {
         kHomePageRoute: (_) => const HomePage(),
-        kPersonalPageRoute: (_) => const PersonalPageCopy(),
+        kPersonalPageRoute: (_) => const PersonalPage(),
       },
     );
   }

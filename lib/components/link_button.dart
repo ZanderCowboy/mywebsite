@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mywebsite/gen/assets.gen.dart';
 import 'package:mywebsite/util/launcher.dart';
 import 'package:mywebsite/util/ui_constants.dart';
 
@@ -7,7 +8,7 @@ class LinkButton extends StatelessWidget {
   const LinkButton({
     required this.buttonText,
     super.key,
-    this.buttonImage = 'images/cancel/icons8-cancel-384.svg',
+    this.buttonImage,
     this.onPressed,
     this.link,
     this.style,
@@ -20,7 +21,7 @@ class LinkButton extends StatelessWidget {
   final String buttonText;
   final String? link;
   final Color? backgroundColor;
-  final String buttonImage;
+  final String? buttonImage;
   final VoidCallback? onPressed;
   final ButtonStyle? style;
 
@@ -42,7 +43,7 @@ class LinkButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              buttonImage,
+              buttonImage ?? Assets.images.home.cancel.path,
               height: 22,
             ),
             gap8,

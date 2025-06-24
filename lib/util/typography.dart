@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PersonalText {
+class Typo {
   /// [heading] Text style for the main heading in the in the sections
   static const TextStyle heading = TextStyle(
     fontSize: 18,

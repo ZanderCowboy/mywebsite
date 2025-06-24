@@ -39,7 +39,7 @@ class Details extends HookWidget {
             children: [
               Card(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: borderRadius12,
                 ),
                 color: kPrimaryColor,
                 child: Padding(
@@ -90,12 +90,12 @@ class Details extends HookWidget {
         color: kTernaryColor,
         borderRadius: isSmall
             ? const BorderRadius.only(
-                topLeft: Radius.circular(8),
-                topRight: Radius.circular(8),
+                topLeft: radius8,
+                topRight: radius8,
               )
             : const BorderRadius.only(
-                bottomLeft: Radius.circular(8),
-                topRight: Radius.circular(8),
+                bottomLeft: radius8,
+                topRight: radius8,
               ),
       ),
       constraints: isSmall

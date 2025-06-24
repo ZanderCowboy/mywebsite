@@ -50,19 +50,19 @@ class ExpandedSkillCard extends StatelessWidget {
             gap24,
             Text(
               skill.name,
-              style: PersonalText.header,
+              style: Typo.header,
             ),
             gap16,
             Text(
               skill.level,
-              style: PersonalText.subtitle.copyWith(
+              style: Typo.subtitle.copyWith(
                 color: Colors.grey[400],
               ),
             ),
             gap24,
             Text(
               skill.description,
-              style: PersonalText.body,
+              style: Typo.body,
               textAlign: TextAlign.center,
             ),
             gap24,

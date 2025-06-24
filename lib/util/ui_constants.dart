@@ -24,13 +24,21 @@ const gap40 = Gap(40);
 const allPadding4 = EdgeInsets.all(4);
 const allPadding8 = EdgeInsets.all(8);
 const allPadding10 = EdgeInsets.all(10);
+const allPadding16 = EdgeInsets.all(16);
 const allPadding24 = EdgeInsets.all(24);
 const allPadding32 = EdgeInsets.all(32);
 const allPadding40 = EdgeInsets.all(40);
 const vertical20horizontal10 =
     EdgeInsets.symmetric(vertical: 20, horizontal: 10);
+const vertical8 = EdgeInsets.symmetric(vertical: 8);
 const vertical12 = EdgeInsets.symmetric(vertical: 12);
+const vertical16 = EdgeInsets.symmetric(vertical: 16);
 
 // Border Constants
 final borderRadius5 = BorderRadius.circular(5);
+final borderRadius8 = BorderRadius.circular(8);
 final borderRadius10 = BorderRadius.circular(10);
+final borderRadius12 = BorderRadius.circular(12);
+
+// Radius Constants
+const radius8 = Radius.circular(8);

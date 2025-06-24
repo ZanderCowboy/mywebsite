@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/models/skill.dart';
-import 'package:mywebsite/util/color_constants.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/expanded_skill_card.dart';
 import 'package:mywebsite/views/personal/details/widgets/network_image_avatar.dart';
@@ -18,7 +17,7 @@ class SkillCard extends StatelessWidget {
     return Card(
       color: kSecondaryColor,
       elevation: 4,
-      margin: const EdgeInsets.all(8),
+      margin: allPadding8,
       child: InkWell(
         onTap: () {
           showDialog<Dialog>(
@@ -29,7 +28,7 @@ class SkillCard extends StatelessWidget {
         child: Container(
           width: 120,
           height: 120,
-          padding: const EdgeInsets.all(8),
+          padding: allPadding8,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -56,12 +56,12 @@ class GridItem extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: PersonalText.title,
+                style: Typo.title,
               ),
               gap8,
               Text(
                 subtitle,
-                style: PersonalText.subtitle,
+                style: Typo.subtitle,
               ),
             ],
           ),

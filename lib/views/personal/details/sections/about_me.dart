@@ -1,8 +1,8 @@
 import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
+import 'package:mywebsite/data/all_data.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/sections/data/_about_me.dart';
 import 'package:mywebsite/views/personal/details/widgets/export.dart';
 
 class AboutMe extends StatelessWidget {
@@ -15,6 +15,8 @@ class AboutMe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final aboutMe = AllData.aboutMe;
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,7 +25,7 @@ class AboutMe extends StatelessWidget {
           if (showHeader) ...[
             const Text(
               'About Me',
-              style: PersonalText.heading,
+              style: Typo.heading,
             ),
             const BodyDivider(),
           ],
@@ -31,7 +33,7 @@ class AboutMe extends StatelessWidget {
           gap24,
           Text(
             aboutMe.description,
-            style: PersonalText.body,
+            style: Typo.body,
           ),
           gap16,
           Wrap(
@@ -49,7 +51,7 @@ class AboutMe extends StatelessWidget {
             padding: vertical12,
             child: Text(
               "What I'm doing",
-              style: PersonalText.heading,
+              style: Typo.heading,
             ),
           ),
           LayoutBuilder(

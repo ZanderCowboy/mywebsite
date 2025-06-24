@@ -8,9 +8,9 @@ part '_projects.dart';
 part '_skills.dart';
 
 class AllData {
-  List<Skill> get skills => _skills;
-  List<Project> get projects => _projects;
-  List<Experience> get experiences => _experiences;
-  List<Education> get educations => _educations;
-  AboutMe get aboutMe => _aboutMe;
+  static List<Skill> get skills => _skills;
+  static List<Project> get projects => _projects;
+  static List<Experience> get experiences => _experiences;
+  static List<Education> get educations => _educations;
+  static AboutMe get aboutMe => _aboutMe;
 }
