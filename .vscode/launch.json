@@ -8,10 +8,7 @@
             "name": "mywebsite",
             "request": "launch",
             "type": "dart",
-            "args": [
-                "--web-renderer",
-                "html"
-            ]
+            "args": []
         },
         {
             "name": "mywebsite (profile mode)",
