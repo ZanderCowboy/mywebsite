@@ -9,6 +9,12 @@ class PersonalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, kHomePageRoute),
+        child: const Icon(
+          Icons.arrow_back,
+        ),
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: [

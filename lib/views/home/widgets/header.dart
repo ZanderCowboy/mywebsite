@@ -9,12 +9,34 @@ class _Header extends StatelessWidget {
 
     return Column(
       children: [
-        height8,
-        Padding(
-          padding: allPadding4,
-          child: Image.asset(
-            'images/profile2.png',
-            height: 250,
+        gap8,
+        Hero(
+          flightShuttleBuilder: (
+            flightContext,
+            animation,
+            flightDirection,
+            fromHeroContext,
+            toHeroContext,
+          ) {
+            return FadeTransition(
+              opacity: animation,
+              child: ClipOval(
+                child: Image.asset(
+                  Assets.images.profile.profile2Png.path,
+                  height: 200,
+                  width: 200,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
+          },
+          tag: 'profile',
+          child: Padding(
+            padding: allPadding4,
+            child: Image.asset(
+              Assets.images.profile.profile2Png.path,
+              height: 250,
+            ),
           ),
         ),
         const Text(
