@@ -1,5 +1,3 @@
-import 'dart:developer' as dev;
-
 import 'package:flutter/material.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
 import 'package:mywebsite/util/export.dart';
@@ -41,10 +39,6 @@ class PersonalPageCopy extends StatelessWidget {
               padding: allPadding32,
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  dev.log(
-                    'maxWidth: ${constraints.maxWidth};',
-                    name: 'PersonalPageCopy',
-                  );
                   final isSmall = constraints.maxWidth < 750;
 
                   return isSmall

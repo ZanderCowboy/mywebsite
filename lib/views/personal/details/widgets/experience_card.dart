@@ -169,15 +169,6 @@ class ExperienceCard extends StatelessWidget {
         gap8,
         Expanded(child: card),
         gap4,
-        // if (isLeftAligned) ...[
-        //   timeline,
-        //   const SizedBox(width: 20),
-        //   Expanded(child: card),
-        // ] else ...[
-        //   Expanded(child: card),
-        //   const SizedBox(width: 20),
-        //   timeline,
-        // ],
       ],
     );
   }

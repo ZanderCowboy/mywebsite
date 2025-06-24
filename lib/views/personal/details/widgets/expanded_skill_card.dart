@@ -47,25 +47,25 @@ class ExpandedSkillCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            gap24,
             Text(
               skill.name,
               style: PersonalText.header,
             ),
-            const SizedBox(height: 16),
+            gap16,
             Text(
               skill.level,
               style: PersonalText.subtitle.copyWith(
                 color: Colors.grey[400],
               ),
             ),
-            const SizedBox(height: 24),
+            gap24,
             Text(
               skill.description,
               style: PersonalText.body,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
+            gap24,
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: const Text('Close'),

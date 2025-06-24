@@ -11,12 +11,12 @@ class Education {
     this.schoolUrl,
   });
 
-  final String? schoolName;
-  final String? degree;
+  final String schoolName;
+  final String degree;
+  final String description;
   final String? fieldOfStudy;
   final DateTime? startDate;
   final DateTime? endDate;
-  final String? description;
   final String? imageUrl;
   final String? link;
   final String? schoolUrl;

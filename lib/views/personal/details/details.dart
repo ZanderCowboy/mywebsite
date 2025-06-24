@@ -1,5 +1,3 @@
-import 'dart:developer' as dev;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mywebsite/util/export.dart';
@@ -23,14 +21,11 @@ class Details extends HookWidget {
       initialLength: 5,
       initialIndex: index.value,
     );
-    dev.log('controller index: ${controller.index}', name: 'Details Content');
-    dev.log('index: ${index.value}', name: 'Details Content');
 
     final tabBarHeader = TabBarHeader(
       controller: controller,
       onTap: (value) {
         index.value = value;
-        dev.log('updated index: $value', name: 'Details Content');
       },
       isScrollable: !isSmall,
       isSmallScreen: isSmall,
@@ -74,8 +69,6 @@ class Details extends HookWidget {
     required BoxConstraints constraints,
   }) {
     final showHeader = !isSmall;
-    dev.log('isSmall: $showHeader', name: 'Details Body');
-    dev.log('maxWidth: ${constraints.maxWidth}', name: 'Details Body');
 
     return switch (index) {
       0 => AboutMe(showHeader: showHeader),

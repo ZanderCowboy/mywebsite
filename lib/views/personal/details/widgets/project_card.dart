@@ -65,7 +65,7 @@ class ProjectCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 12),
+              gap12,
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
@@ -83,7 +83,7 @@ class ProjectCard extends StatelessWidget {
                     )
                     .toList(),
               ),
-              const SizedBox(height: 16),
+              gap16,
               Text(
                 project.description,
                 style: const TextStyle(
