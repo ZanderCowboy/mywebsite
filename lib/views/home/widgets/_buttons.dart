@@ -5,6 +5,7 @@ class _Buttons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final analyticsService = AnalyticsService();
     return Padding(
       padding: allPadding10,
       child: Container(
@@ -21,7 +22,13 @@ class _Buttons extends StatelessWidget {
           children: [
             LinkButton(
               buttonText: 'Personal Website',
-              onPressed: () => Navigator.pushNamed(context, kPersonalPageRoute),
+              onPressed: () {
+                analyticsService.logEvent(
+                  AnalyticsEvent.navigateToPersonal,
+                  parameters: {'source': 'home_button'},
+                );
+                Navigator.pushNamed(context, kPersonalPageRoute);
+              },
               backgroundColor: personalWebsiteColor,
               buttonImage: Assets.images.home.rocketLaunch.path,
             ),

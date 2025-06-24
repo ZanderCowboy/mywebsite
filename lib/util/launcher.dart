@@ -1,12 +1,63 @@
+import 'package:mywebsite/models/enums/analytics_event.dart';
+import 'package:mywebsite/services/analytics_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Future<void> launchURL(String url) async {
+  final analyticsService = AnalyticsService();
+
   // Handle different URL types
   if (url.startsWith('mailto:')) {
+    final email = url.replaceFirst('mailto:', '');
+    await analyticsService.logEvent(
+      AnalyticsEvent.emailClick,
+      parameters: {'email_address': email},
+    );
     await _launchEmail(url);
   } else if (url.startsWith('tel:')) {
+    final phone = url.replaceFirst('tel:', '');
+    await analyticsService.logEvent(
+      AnalyticsEvent.phoneClick,
+      parameters: {'phone_number': phone},
+    );
     await _launchPhone(url);
   } else {
+    // Log social media clicks based on URL patterns
+    if (url.contains('linkedin.com')) {
+      await analyticsService.logEvent(
+        AnalyticsEvent.socialMediaClick,
+        parameters: {'platform': 'LinkedIn', 'url': url},
+      );
+    } else if (url.contains('github.com')) {
+      await analyticsService.logEvent(
+        AnalyticsEvent.socialMediaClick,
+        parameters: {'platform': 'GitHub', 'url': url},
+      );
+    } else if (url.contains('twitter.com') || url.contains('x.com')) {
+      await analyticsService.logEvent(
+        AnalyticsEvent.socialMediaClick,
+        parameters: {'platform': 'X (Twitter)', 'url': url},
+      );
+    } else if (url.contains('instagram.com')) {
+      await analyticsService.logEvent(
+        AnalyticsEvent.socialMediaClick,
+        parameters: {'platform': 'Instagram', 'url': url},
+      );
+    } else if (url.contains('youtube.com')) {
+      await analyticsService.logEvent(
+        AnalyticsEvent.socialMediaClick,
+        parameters: {'platform': 'YouTube', 'url': url},
+      );
+    } else if (url.contains('discord.com')) {
+      await analyticsService.logEvent(
+        AnalyticsEvent.socialMediaClick,
+        parameters: {'platform': 'Discord', 'url': url},
+      );
+    } else {
+      await analyticsService.logEvent(
+        AnalyticsEvent.externalLinkClick,
+        parameters: {'url': url},
+      );
+    }
     await _launchGenericURL(url);
   }
 }

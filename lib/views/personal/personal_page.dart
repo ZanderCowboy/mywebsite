@@ -1,33 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
+import 'package:mywebsite/models/enums/analytics_event.dart';
+import 'package:mywebsite/services/analytics_service.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/details.dart';
 import 'package:mywebsite/views/personal/profile/profile.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class PersonalPage extends StatelessWidget {
+class PersonalPage extends StatefulWidget {
   const PersonalPage({super.key});
+
+  @override
+  State<PersonalPage> createState() => _PersonalPageState();
+}
+
+class _PersonalPageState extends State<PersonalPage> {
+  final AnalyticsService _analyticsService = AnalyticsService();
+
+  @override
+  void initState() {
+    super.initState();
+    // Log personal page view when the page is loaded
+    _analyticsService.logEvent(AnalyticsEvent.personalPageView);
+  }
 
   @override
   Widget build(BuildContext context) {
     final isMobile = ResponsiveBreakpoints.of(context).isMobile;
     if (isMobile) {
-      return const PersonalPageMobile();
+      return PersonalPageMobile(analyticsService: _analyticsService);
     } else {
-      return const PersonalPageWeb();
+      return PersonalPageWeb(analyticsService: _analyticsService);
     }
   }
 }
 
 class PersonalPageWeb extends StatelessWidget {
-  const PersonalPageWeb({super.key});
+  const PersonalPageWeb({required this.analyticsService, super.key});
+
+  final AnalyticsService analyticsService;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.small(
-        onPressed: () => Navigator.pushNamed(context, kHomePageRoute),
+        onPressed: () {
+          analyticsService.logEvent(
+            AnalyticsEvent.navigateToHome,
+            parameters: {'source': 'personal_fab'},
+          );
+          Navigator.pushNamed(context, kHomePageRoute);
+        },
         child: const Icon(
           Icons.arrow_back,
         ),
@@ -95,7 +119,9 @@ class PersonalPageWeb extends StatelessWidget {
 }
 
 class PersonalPageMobile extends StatelessWidget {
-  const PersonalPageMobile({super.key});
+  const PersonalPageMobile({required this.analyticsService, super.key});
+
+  final AnalyticsService analyticsService;
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +151,13 @@ class PersonalPageMobile extends StatelessWidget {
                 elevation: 0,
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back, color: Colors.white),
-                  onPressed: () => Navigator.pushNamed(context, kHomePageRoute),
+                  onPressed: () {
+                    analyticsService.logEvent(
+                      AnalyticsEvent.navigateToHome,
+                      parameters: {'source': 'personal_mobile_appbar'},
+                    );
+                    Navigator.pushNamed(context, kHomePageRoute);
+                  },
                 ),
                 title: const Text(
                   'Personal Details',

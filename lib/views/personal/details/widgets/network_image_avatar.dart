@@ -9,6 +9,7 @@ class NetworkImageAvatar extends StatelessWidget {
     this.radius = 20,
     this.width = 45,
     this.height = 45,
+    this.timeoutDuration = const Duration(seconds: 10),
     super.key,
   });
 
@@ -17,6 +18,7 @@ class NetworkImageAvatar extends StatelessWidget {
   final double radius;
   final double width;
   final double height;
+  final Duration timeoutDuration;
 
   bool get _isSvg => imageUrl.toLowerCase().endsWith('.svg');
 
@@ -37,7 +39,7 @@ class NetworkImageAvatar extends StatelessWidget {
           height: height,
           width: width,
         ),
-      ),
+      ).timeout(timeoutDuration),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircleAvatar(
@@ -71,7 +73,7 @@ class NetworkImageAvatar extends StatelessWidget {
 
   Widget _buildImageAvatar() {
     return FutureBuilder<ImageProvider>(
-      future: _loadImage(),
+      future: _loadImage().timeout(timeoutDuration),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircleAvatar(

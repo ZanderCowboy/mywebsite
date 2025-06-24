@@ -11,6 +11,9 @@ environment:
 dependencies:
   animated_text_kit: ^4.2.2
   cupertino_icons: ^1.0.2
+  firebase_analytics: ^11.5.0
+  firebase_core: ^3.14.0
+  firebase_core_web: ^2.23.0
   flutter:
     sdk: flutter
   flutter_hooks: ^0.21.2
@@ -21,6 +24,7 @@ dependencies:
   http: ^1.1.0
   package_info_plus: ^8.3.0
   responsive_framework: ^1.1.0
+  shared_preferences: ^2.3.2
   shimmer: ^3.0.0
   transparent_image: ^2.0.1
   url_launcher: ^6.2.5
