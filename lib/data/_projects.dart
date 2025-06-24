@@ -1,7 +1,7 @@
-import 'package:mywebsite/models/project.dart';
+part of 'all_data.dart';
 
-const projects = [
-  Project(
+List<Project> _projects = [
+  const Project(
     name: 'Multichoice',
     tools: ['Flutter', 'Dart', 'GitHub Actions'],
     description:
@@ -13,7 +13,7 @@ const projects = [
         'https://raw.githubusercontent.com/ZanderCowboy/multichoice/f77702a07e8956fc7adfcd0af2cedf938645f017/apps/multichoice/app_icon/app_icon.svg',
     isNetworkImage: true,
   ),
-  Project(
+  const Project(
     name: 'Verbose Adventure',
     tools: [
       'Python',
@@ -31,7 +31,7 @@ const projects = [
         'https://images.unsplash.com/photo-1517423568366-8b83523034fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     isNetworkImage: true,
   ),
-  Project(
+  const Project(
     name: 'My Website',
     tools: ['Flutter', 'Dart'],
     description:

@@ -1,6 +1,6 @@
-import 'package:mywebsite/models/about_me.dart';
+part of 'all_data.dart';
 
-const aboutMe = AboutMe(
+AboutMe _aboutMe = const AboutMe(
   name: 'Zander Kotze',
   title: 'Software Engineer & Flutter Developer',
   description: '''

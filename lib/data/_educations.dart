@@ -1,8 +1,6 @@
 // ignore_for_file: avoid_redundant_argument_values
 
-import 'package:mywebsite/models/education.dart';
-
-List<Education> get educations => _educations;
+part of 'all_data.dart';
 
 List<Education> _educations = [
   Education(
@@ -13,7 +11,7 @@ List<Education> _educations = [
         'Specialized in software development and artificial intelligence. '
         'Graduated with honors.',
     imageUrl:
-        'https://seeklogo.com/images/U/university-of-south-africa-logo-DFC6826F63-seeklogo.com.png',
+        'https://upload.wikimedia.org/wikipedia/commons/4/42/University_of_south_africa_logo.jpg',
     schoolUrl: 'https://www.unisa.ac.za/sites/corporate/default/',
   ),
   Education(
@@ -25,7 +23,7 @@ List<Education> _educations = [
         'Focused on machine learning and big data analytics. Completed thesis '
         'on neural networks.',
     imageUrl:
-        'https://seeklogo.com/images/U/university-of-south-africa-logo-DFC6826F63-seeklogo.com.png',
+        'https://upload.wikimedia.org/wikipedia/commons/4/42/University_of_south_africa_logo.jpg',
     schoolUrl: 'https://www.unisa.ac.za/sites/corporate/default/',
   ),
   Education(

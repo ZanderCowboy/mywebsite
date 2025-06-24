@@ -1,7 +1,4 @@
-import 'package:mywebsite/gen/assets.gen.dart';
-import 'package:mywebsite/models/skill.dart';
-
-List<Skill> get skills => _skills;
+part of 'all_data.dart';
 
 List<Skill> get _skills => [
       Skill(
