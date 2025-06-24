@@ -10,35 +10,7 @@ class _Header extends StatelessWidget {
     return Column(
       children: [
         gap8,
-        Hero(
-          flightShuttleBuilder: (
-            flightContext,
-            animation,
-            flightDirection,
-            fromHeroContext,
-            toHeroContext,
-          ) {
-            return FadeTransition(
-              opacity: animation,
-              child: ClipOval(
-                child: Image.asset(
-                  Assets.images.profile.profile2Png.path,
-                  height: 200,
-                  width: 200,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            );
-          },
-          tag: 'profile',
-          child: Padding(
-            padding: allPadding4,
-            child: Image.asset(
-              Assets.images.profile.profile2Png.path,
-              height: 250,
-            ),
-          ),
-        ),
+        const HeroWidget(),
         const Text(
           'ZANDER KOTZE',
           style: TextStyle(
@@ -59,6 +31,7 @@ class _Header extends StatelessWidget {
           padding: allPadding8,
           child: SizedBox(
             width: 0.4 * screenWidth,
+            height: 80,
             child: Center(
               child: AnimatedTextKit(
                 animatedTexts: [

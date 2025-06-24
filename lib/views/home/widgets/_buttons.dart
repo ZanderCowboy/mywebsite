@@ -34,10 +34,17 @@ class _Buttons extends StatelessWidget {
             ),
             sizedBox,
             LinkButton(
-              buttonText: 'Twitter',
-              link: twitterURL,
-              backgroundColor: twitterColor,
-              buttonImage: Assets.images.home.twitter.path,
+              buttonText: 'GitHub',
+              link: githubURL,
+              backgroundColor: githubColor,
+              buttonImage: Assets.images.home.github.path,
+            ),
+            sizedBox,
+            LinkButton(
+              buttonText: 'X',
+              link: xURL,
+              backgroundColor: xColor,
+              buttonImage: Assets.images.home.xLogo.path,
             ),
             sizedBox,
             DecoratedBox(
@@ -68,13 +75,6 @@ class _Buttons extends StatelessWidget {
                 ),
                 buttonImage: Assets.images.home.instagram.path,
               ),
-            ),
-            sizedBox,
-            LinkButton(
-              buttonText: 'GitHub',
-              link: githubURL,
-              backgroundColor: githubColor,
-              buttonImage: Assets.images.home.github.path,
             ),
             sizedBox,
             LinkButton(
