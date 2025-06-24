@@ -43,7 +43,7 @@ class EducationCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          education.degree ?? '',
+                          education.degree,
                           style: PersonalText.subtitle,
                         ),
                       ),
@@ -68,7 +68,7 @@ class EducationCard extends StatelessWidget {
             bottom: 8,
           ),
           child: Text(
-            education.schoolName ?? '',
+            education.schoolName,
             style: PersonalText.title,
           ),
         ),
@@ -79,7 +79,7 @@ class EducationCard extends StatelessWidget {
             bottom: 16,
           ),
           child: Text(
-            education.description ?? '',
+            education.description,
             style: PersonalText.body,
           ),
         ),
