@@ -21,8 +21,9 @@ dependencies:
   http: ^1.1.0
   package_info_plus: ^8.3.0
   responsive_framework: ^1.1.0
+  shimmer: ^3.0.0
   transparent_image: ^2.0.1
-  url_launcher: ^6.1.10
+  url_launcher: ^6.2.5
   version: ^2.0.1
 
 dev_dependencies:

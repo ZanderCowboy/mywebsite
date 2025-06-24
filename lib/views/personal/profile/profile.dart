@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mywebsite/gen/assets.gen.dart';
+import 'package:mywebsite/models/enums/profile_item_type.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/profile/profile_item.dart';
+import 'package:mywebsite/views/shared/hero_widget.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -10,56 +11,27 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: borderRadius12,
       ),
       color: kPrimaryColor,
-      child: SingleChildScrollView(
+      child: const SingleChildScrollView(
         child: Padding(
           padding: allPadding24,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Hero(
-                flightShuttleBuilder: (
-                  flightContext,
-                  animation,
-                  flightDirection,
-                  fromHeroContext,
-                  toHeroContext,
-                ) {
-                  return FadeTransition(
-                    opacity: animation,
-                    child: ClipOval(
-                      child: Image.asset(
-                        Assets.images.profile.profile2Png.path,
-                        height: 200,
-                        width: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                },
-                tag: 'profile',
-                child: ClipOval(
-                  child: Image.asset(
-                    Assets.images.profile.profile2Png.path,
-                    height: 200,
-                    width: 200,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+              HeroWidget(),
               gap18,
-              const Text(
+              Text(
                 'Zander Kotze',
-                style: PersonalText.header,
+                style: Typo.header,
               ),
               gap18,
-              const Card(
+              Card(
                 color: kSecondaryColor,
                 child: Padding(
-                  padding: EdgeInsets.all(8),
+                  padding: allPadding8,
                   child: Column(
                     children: [
                       Text(
@@ -78,7 +50,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 width: 225,
                 child: Divider(
                   height: 60,
@@ -86,31 +58,23 @@ class Profile extends StatelessWidget {
                   thickness: 1,
                 ),
               ),
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ProfileItem(
-                    icon: Icons.email,
-                    header: 'EMAIL',
-                    description: 'zanderkotze99@gmail.com',
+                    type: ProfileItemType.email,
                   ),
                   gap18,
                   ProfileItem(
-                    icon: Icons.phone,
-                    header: 'PHONE',
-                    description: '+27 79 747 4086',
+                    type: ProfileItemType.phone,
                   ),
                   gap18,
                   ProfileItem(
-                    icon: Icons.calendar_month,
-                    header: 'BIRTHDAY',
-                    description: '14 September 1999',
+                    type: ProfileItemType.birthday,
                   ),
                   gap18,
                   ProfileItem(
-                    icon: Icons.location_city,
-                    header: 'LOCATION',
-                    description: 'Cape Town, South Africa',
+                    type: ProfileItemType.location,
                   ),
                 ],
               ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mywebsite/util/constants.dart';
-import 'package:mywebsite/util/ui_constants.dart';
+import 'package:mywebsite/gen/assets.gen.dart';
+import 'package:mywebsite/util/export.dart';
+import 'package:mywebsite/views/personal/details/details.dart';
+import 'package:mywebsite/views/personal/profile/profile.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class PersonalPage extends StatelessWidget {
@@ -8,8 +11,22 @@ class PersonalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveBreakpoints.of(context).isMobile;
+    if (isMobile) {
+      return const PersonalPageMobile();
+    } else {
+      return const PersonalPageWeb();
+    }
+  }
+}
+
+class PersonalPageWeb extends StatelessWidget {
+  const PersonalPageWeb({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.small(
         onPressed: () => Navigator.pushNamed(context, kHomePageRoute),
         child: const Icon(
           Icons.arrow_back,
@@ -22,40 +39,116 @@ class PersonalPage extends StatelessWidget {
             child: FadeInImage.memoryNetwork(
               fit: BoxFit.cover,
               placeholder: kTransparentImage,
-              image: personalPageBackgroundUrl,
-              imageErrorBuilder: (context, error, stackTrace) {
+              image: homePageBackgroundUrl,
+              imageErrorBuilder: (_, __, ___) {
                 return Center(
-                  child: Image.asset('assets/images/personal_page.jpg'),
+                  child: Image.asset(Assets.images.homePageBackground.path),
                 );
               },
             ),
           ),
-          Center(
-            child: SingleChildScrollView(
-              child: Container(
-                margin: vertical20horizontal10,
-                child: Column(
-                  children: [
-                    const Text(
-                      'Coming Soon',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 100,
-                        fontFamily: 'Anton',
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    ElevatedButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text(
-                        'Return to Home Page',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ],
-                ),
+          Card(
+            color: kBackgroundColor,
+            margin: allPadding24,
+            child: Padding(
+              padding: allPadding16,
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isSmall = constraints.maxWidth < 750;
+
+                  return isSmall
+                      ? const SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Profile(),
+                              gap8,
+                              Details(isSmall: true),
+                            ],
+                          ),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Flexible(
+                              flex: constraints.maxWidth < 1200 ? 2 : 1,
+                              child: SizedBox(
+                                height: context.screenHeight,
+                                child: const Profile(),
+                              ),
+                            ),
+                            gap8,
+                            const Flexible(
+                              flex: 3,
+                              child: Details(),
+                            ),
+                          ],
+                        );
+                },
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PersonalPageMobile extends StatelessWidget {
+  const PersonalPageMobile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Positioned.fill(
+            child: FadeInImage.memoryNetwork(
+              fit: BoxFit.cover,
+              placeholder: kTransparentImage,
+              image: homePageBackgroundUrl,
+              imageErrorBuilder: (_, __, ___) {
+                return Center(
+                  child: Image.asset(Assets.images.homePageBackground.path),
+                );
+              },
+            ),
+          ),
+          CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                floating: true,
+                snap: true,
+                backgroundColor: Colors.transparent.withValues(alpha: 0.5),
+                elevation: 0,
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () => Navigator.pushNamed(context, kHomePageRoute),
+                ),
+                title: const Text(
+                  'Personal Details',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                centerTitle: true,
+              ),
+              const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Profile(),
+                      gap16,
+                      Details(isSmall: true),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

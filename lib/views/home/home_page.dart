@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mywebsite/components/copyright.dart';
 import 'package:mywebsite/components/link_button.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
+import 'package:mywebsite/models/enums/social_platform.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/util/ui_constants.dart';
 import 'package:mywebsite/views/shared/hero_widget.dart';

@@ -1,50 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:mywebsite/models/enums/profile_item_type.dart';
 import 'package:mywebsite/util/export.dart';
+
+part 'utils/_handle_tap.dart';
 
 class ProfileItem extends StatelessWidget {
   const ProfileItem({
-    required this.icon,
-    required this.header,
-    required this.description,
+    required this.type,
+    this.onTap,
     super.key,
   });
 
-  final IconData icon;
-  final String header;
-  final String description;
+  final ProfileItemType type;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 40,
-          height: 40,
+    return GestureDetector(
+      onTap: () => _handleTap(type),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Container(
+          padding: allPadding8,
           decoration: BoxDecoration(
-            color: kSecondaryColor,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: borderRadius12,
+            color: Colors.transparent,
           ),
-          child: Icon(
-            icon,
-            color: Colors.white,
-            size: 18,
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: kSecondaryColor,
+                  borderRadius: borderRadius12,
+                ),
+                child: Icon(
+                  type.icon,
+                  color: Colors.white,
+                  size: 18,
+                ),
+              ),
+              gap18,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      type.header,
+                      style: Typo.profileTitle,
+                    ),
+                    Text(
+                      type.description,
+                      style: Typo.profileSubtitle,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-        gap18,
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              header,
-              style: PersonalText.profileTitle,
-            ),
-            Text(
-              description,
-              style: PersonalText.profileSubtitle,
-            ),
-          ],
-        ),
-      ],
+      ),
     );
   }
 }
