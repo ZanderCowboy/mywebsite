@@ -21,7 +21,7 @@ class EducationCard extends StatelessWidget {
           elevation: 4,
           color: kSecondaryColor,
           child: Padding(
-            padding: const EdgeInsets.all(8),
+            padding: allPadding8,
             child: Row(
               children: [
                 if (education.imageUrl != null)
@@ -44,7 +44,7 @@ class EducationCard extends StatelessWidget {
                       Expanded(
                         child: Text(
                           education.degree,
-                          style: PersonalText.subtitle,
+                          style: Typo.subtitle,
                         ),
                       ),
                       if (education.link != null)
@@ -69,7 +69,7 @@ class EducationCard extends StatelessWidget {
           ),
           child: Text(
             education.schoolName,
-            style: PersonalText.title,
+            style: Typo.title,
           ),
         ),
         Padding(
@@ -80,7 +80,7 @@ class EducationCard extends StatelessWidget {
           ),
           child: Text(
             education.description,
-            style: PersonalText.body,
+            style: Typo.body,
           ),
         ),
         gap16,

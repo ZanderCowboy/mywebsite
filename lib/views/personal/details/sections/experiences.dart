@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mywebsite/data/all_data.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/sections/data/_experiences.dart';
 import 'package:mywebsite/views/personal/details/widgets/experience_card.dart';
 import 'package:mywebsite/views/personal/details/widgets/export.dart';
-
-const companyUrl =
-    'https://static.vecteezy.com/system/resources/previews/022/782/608/large_2x/url-letter-logo-design-in-illustration-logo-calligraphy-designs-for-logo-poster-invitation-etc-vector.jpg';
 
 class Experiences extends StatelessWidget {
   const Experiences({
@@ -17,6 +14,8 @@ class Experiences extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final experiences = AllData.experiences;
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +23,7 @@ class Experiences extends StatelessWidget {
           if (showHeader) ...[
             const Text(
               'Experience',
-              style: PersonalText.heading,
+              style: Typo.heading,
             ),
             const BodyDivider(),
           ],

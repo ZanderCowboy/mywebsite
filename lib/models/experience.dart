@@ -20,9 +20,33 @@ class Experience {
   final String? companyImageUrl;
 
   String get duration {
+    final startMonth = _getMonthName(startDate.month);
+    final startYear = startDate.year;
+
     if (endDate == null) {
-      return '${startDate.year} - Present';
+      return '$startMonth $startYear - Present';
     }
-    return '${startDate.year} - ${endDate!.year}';
+
+    final endMonth = _getMonthName(endDate!.month);
+    final endYear = endDate!.year;
+    return '$startMonth $startYear - $endMonth $endYear';
+  }
+
+  String _getMonthName(int month) {
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    return months[month - 1];
   }
 }

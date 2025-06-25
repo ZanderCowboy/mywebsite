@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /* ==========================================================================
     URL
    ========================================================================== */
-const String twitterURL = 'https://twitter.com/zanderkotze99';
+const String xURL = 'https://twitter.com/zanderkotze99';
 const String instagramURL = 'https://instagram.com/zanderkotze99';
 const String githubURL = 'https://github.com/ZanderCowboy';
 const String personalWebsiteURL = 'https://zanderkotze.co.za/website';
@@ -17,7 +17,7 @@ const String discordURL = 'https://discordapp.com/users/641236287671631883';
 /* ==========================================================================
     COLORS
    ========================================================================== */
-const Color twitterColor = Color(0xFF1DA1F2);
+const Color xColor = Color(0xFF000000);
 const Color instagramColor = Colors.transparent;
 const Color githubColor = Color(0xFF171515);
 const Color personalWebsiteColor = Color(0xFF4D843A);

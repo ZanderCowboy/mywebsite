@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mywebsite/models/experience.dart';
 import 'package:mywebsite/util/export.dart';
 
@@ -22,7 +23,7 @@ class ExperienceCard extends StatelessWidget {
       color: Colors.purple[600],
       margin: EdgeInsets.zero,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: allPadding16,
         child: Column(
           crossAxisAlignment:
               isLeftAligned ? CrossAxisAlignment.start : CrossAxisAlignment.end,
@@ -33,19 +34,9 @@ class ExperienceCard extends StatelessWidget {
                   : MainAxisAlignment.end,
               children: [
                 if (isLeftAligned && experience.companyImageUrl != null)
-                  Container(
-                    width: 50,
-                    height: 50,
-                    margin: const EdgeInsets.only(right: 16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                        image: Image.network(
-                          experience.companyImageUrl!,
-                        ).image,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                  _Image(
+                    isLeftAligned: isLeftAligned,
+                    imageUrl: experience.companyImageUrl!,
                   ),
                 Expanded(
                   child: Column(
@@ -55,23 +46,23 @@ class ExperienceCard extends StatelessWidget {
                     children: [
                       Text(
                         experience.role,
-                        style: PersonalText.subtitle,
+                        style: Typo.subtitle,
                       ),
                       Text(
                         experience.company,
-                        style: PersonalText.body.copyWith(
+                        style: Typo.body.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
                         '${experience.location} • ${experience.language}',
-                        style: PersonalText.body.copyWith(
+                        style: Typo.body.copyWith(
                           color: Colors.grey[400],
                         ),
                       ),
                       Text(
                         experience.duration,
-                        style: PersonalText.body.copyWith(
+                        style: Typo.body.copyWith(
                           color: Colors.grey[400],
                         ),
                       ),
@@ -79,19 +70,9 @@ class ExperienceCard extends StatelessWidget {
                   ),
                 ),
                 if (!isLeftAligned && experience.companyImageUrl != null)
-                  Container(
-                    width: 50,
-                    height: 50,
-                    margin: const EdgeInsets.only(left: 16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                        image: Image.network(
-                          experience.companyImageUrl!,
-                        ).image,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                  _Image(
+                    isLeftAligned: isLeftAligned,
+                    imageUrl: experience.companyImageUrl!,
                   ),
               ],
             ),
@@ -106,22 +87,22 @@ class ExperienceCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (isLeftAligned) ...[
-                      const Text('• '),
+                      const Text('• ', style: Typo.body),
                       Expanded(
                         child: Text(
                           responsibility,
-                          style: PersonalText.body,
+                          style: Typo.body,
                         ),
                       ),
                     ] else ...[
                       Expanded(
                         child: Text(
                           responsibility,
-                          style: PersonalText.body,
+                          style: Typo.body,
                           textAlign: TextAlign.right,
                         ),
                       ),
-                      const Text(' •'),
+                      const Text(' •', style: Typo.body),
                     ],
                   ],
                 ),
@@ -191,5 +172,73 @@ class _Dot extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _Image extends StatelessWidget {
+  const _Image({
+    required this.isLeftAligned,
+    required this.imageUrl,
+  });
+
+  final bool isLeftAligned;
+  final String imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 75,
+      height: 75,
+      margin: isLeftAligned
+          ? const EdgeInsets.only(right: 16)
+          : const EdgeInsets.only(left: 16),
+      decoration: BoxDecoration(
+        borderRadius: borderRadius8,
+      ),
+      child: ClipRRect(
+        borderRadius: borderRadius8,
+        child: _buildCompanyImage(imageUrl),
+      ),
+    );
+  }
+
+  Widget _buildCompanyImage(String imageUrl) {
+    if (imageUrl.toLowerCase().endsWith('.svg')) {
+      return SvgPicture.network(
+        imageUrl,
+        fit: BoxFit.cover,
+        placeholderBuilder: (context) => Container(
+          color: Colors.grey[200],
+          child: const Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      );
+    } else {
+      return Image.network(
+        imageUrl,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Container(
+            color: Colors.grey[200],
+            child: Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes!
+                    : null,
+              ),
+            ),
+          );
+        },
+        errorBuilder: (_, __, ___) {
+          return Container(
+            color: Colors.grey[200],
+            child: const Icon(Icons.business, color: Colors.grey),
+          );
+        },
+      );
+    }
   }
 }

@@ -2,6 +2,12 @@
 
 My personal website, built using Flutter and Dart
 
+## Details
+
+- Flutter 3.27.1
+- Dart 3.6.0
+- VS Code
+
 ## Contributers (Copyright)
 
 Here are the links to resources I used:

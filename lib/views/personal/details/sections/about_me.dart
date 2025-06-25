@@ -1,8 +1,11 @@
 import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mywebsite/components/social_pill.dart';
+import 'package:mywebsite/data/all_data.dart';
+import 'package:mywebsite/models/enums/export.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/sections/data/_about_me.dart';
 import 'package:mywebsite/views/personal/details/widgets/export.dart';
 
 class AboutMe extends StatelessWidget {
@@ -15,6 +18,8 @@ class AboutMe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final aboutMe = AllData.aboutMe;
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,7 +28,7 @@ class AboutMe extends StatelessWidget {
           if (showHeader) ...[
             const Text(
               'About Me',
-              style: PersonalText.heading,
+              style: Typo.heading,
             ),
             const BodyDivider(),
           ],
@@ -31,25 +36,35 @@ class AboutMe extends StatelessWidget {
           gap24,
           Text(
             aboutMe.description,
-            style: PersonalText.body,
+            style: Typo.body,
           ),
           gap16,
           Wrap(
             spacing: 16,
             runSpacing: 8,
             children: aboutMe.socialLinks.entries.map((entry) {
-              return TextButton.icon(
-                onPressed: () {},
-                icon: Icon(_getSocialIcon(entry.key)),
-                label: Text(entry.key),
+              final socialPlatform = SocialPlatform.fromString(entry.key);
+              return SocialPill(
+                iconWidget: socialPlatform != null
+                    ? SvgPicture.asset(
+                        socialPlatform.assetPath,
+                        height: 20,
+                        width: 20,
+                      )
+                    : const Icon(Icons.link, size: 20),
+                label: entry.key,
+                onTap: socialPlatform != null
+                    ? () => launchURL(socialPlatform.url)
+                    : null,
               );
             }).toList(),
           ),
+          gap16,
           const Padding(
             padding: vertical12,
             child: Text(
               "What I'm doing",
-              style: PersonalText.heading,
+              style: Typo.heading,
             ),
           ),
           LayoutBuilder(
@@ -91,18 +106,5 @@ class AboutMe extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  IconData _getSocialIcon(String platform) {
-    switch (platform.toLowerCase()) {
-      case 'github':
-        return Icons.code;
-      case 'linkedin':
-        return Icons.business;
-      case 'twitter':
-        return Icons.chat;
-      default:
-        return Icons.link;
-    }
   }
 }

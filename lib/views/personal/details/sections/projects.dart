@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mywebsite/data/all_data.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/sections/data/_projects.dart';
 import 'package:mywebsite/views/personal/details/widgets/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/project_card.dart';
 
@@ -14,6 +14,8 @@ class Projects extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final projects = AllData.projects;
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,7 +23,7 @@ class Projects extends StatelessWidget {
           if (showHeader) ...[
             const Text(
               'Projects',
-              style: PersonalText.heading,
+              style: Typo.heading,
             ),
             const BodyDivider(),
           ],

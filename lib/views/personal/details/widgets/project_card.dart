@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
 import 'package:mywebsite/models/project.dart';
 import 'package:mywebsite/util/export.dart';
+import 'package:mywebsite/util/image_loader.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectCard extends StatelessWidget {
@@ -17,11 +18,15 @@ class ProjectCard extends StatelessWidget {
     return Card(
       color: kSecondaryColor,
       elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 16),
+      margin: vertical16,
       child: InkWell(
         onTap: () async {
-          if (await canLaunchUrl(Uri.parse(project.repoLink))) {
-            await launchUrl(Uri.parse(project.repoLink));
+          final uri = Uri.parse(project.repoLink);
+          if (await canLaunchUrl(uri)) {
+            await launchUrl(
+              uri,
+              mode: LaunchMode.externalApplication,
+            );
           }
         },
         child: Container(
@@ -31,12 +36,28 @@ class ProjectCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (project.imageUrl != null)
-                FutureBuilder(
-                  future: _getImage(project.imageUrl!),
+                FutureBuilder<Widget>(
+                  future: Future.value(
+                    loadImageWidget(
+                      width: double.infinity,
+                      imageUrl: project.imageUrl!,
+                      isNetworkImage: project.isNetworkImage,
+                      borderRadius: borderRadius8,
+                    ),
+                  ),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                      return Container(
+                        height: 200,
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(bottom: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: borderRadius8,
+                          color: Colors.grey[200],
+                        ),
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       );
                     }
 
@@ -45,15 +66,23 @@ class ProjectCard extends StatelessWidget {
                       width: double.infinity,
                       margin: const EdgeInsets.only(bottom: 16),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          image: snapshot.hasData
-                              ? snapshot.data!
-                              : AssetImage(
-                                  Assets.images.placeholder.path,
+                        borderRadius: borderRadius8,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: borderRadius8,
+                        child: snapshot.hasData
+                            ? snapshot.data!
+                            : Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: borderRadius8,
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      Assets.images.placeholder.path,
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                          fit: BoxFit.fill,
-                        ),
+                              ),
                       ),
                     );
                   },
@@ -96,13 +125,5 @@ class ProjectCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<ImageProvider> _getImage(String imageUrl) async {
-    if (project.isNetworkImage) {
-      return NetworkImage(imageUrl);
-    } else {
-      return AssetImage(imageUrl);
-    }
   }
 }

@@ -3,16 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:mywebsite/components/copyright.dart';
 import 'package:mywebsite/components/link_button.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
+import 'package:mywebsite/models/enums/analytics_event.dart';
+import 'package:mywebsite/models/enums/social_platform.dart';
+import 'package:mywebsite/services/analytics_service.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/util/ui_constants.dart';
+import 'package:mywebsite/views/shared/hero_widget.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-part 'widgets/buttons.dart';
-part 'widgets/footer.dart';
-part 'widgets/header.dart';
+part 'widgets/_buttons.dart';
+part 'widgets/_footer.dart';
+part 'widgets/_header.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final AnalyticsService _analyticsService = AnalyticsService();
+
+  @override
+  void initState() {
+    super.initState();
+    // Log home page view when the page is loaded
+    _analyticsService.logEvent(AnalyticsEvent.homePageView);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +43,11 @@ class HomePage extends StatelessWidget {
               fit: BoxFit.cover,
               placeholder: kTransparentImage,
               image: homePageBackgroundUrl,
-              imageErrorBuilder: (context, error, stackTrace) {
+              imageErrorBuilder: (_, __, ___) {
                 return Center(
-                  child: Image.asset('assets/images/home_page.jpg'),
+                  child: Image.asset(
+                    Assets.images.homePageBackground.path,
+                  ),
                 );
               },
             ),
@@ -43,11 +63,6 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton.small(
-        onPressed: () => Navigator.pushNamed(context, kPersonalPageRoute),
-        tooltip: 'Go to Personal Page',
-        child: const Icon(Icons.arrow_forward),
       ),
     );
   }

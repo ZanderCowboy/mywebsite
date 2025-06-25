@@ -1,0 +1,68 @@
+name: Setup Firebase Configuration
+description: "Generates firebase_options.dart from template with provided secrets"
+
+inputs:
+  web-api-key:
+    description: "Firebase Web API Key"
+    required: true
+  web-app-id:
+    description: "Firebase Web App ID"
+    required: true
+  messaging-sender-id:
+    description: "Firebase Messaging Sender ID"
+    required: true
+  project-id:
+    description: "Firebase Project ID"
+    required: true
+  auth-domain:
+    description: "Firebase Auth Domain"
+    required: true
+  storage-bucket:
+    description: "Firebase Storage Bucket"
+    required: true
+  measurement-id:
+    description: "Firebase Measurement ID"
+    required: true
+  android-api-key:
+    description: "Firebase Android API Key"
+    required: true
+  android-app-id:
+    description: "Firebase Android App ID"
+    required: true
+  ios-api-key:
+    description: "Firebase iOS API Key"
+    required: true
+  ios-app-id:
+    description: "Firebase iOS App ID"
+    required: true
+  ios-bundle-id:
+    description: "Firebase iOS Bundle ID"
+    required: true
+  template-path:
+    description: "Path to the firebase_options.dart template file"
+    required: false
+    default: "lib/firebase_options.dart.template"
+  output-path:
+    description: "Path for the generated firebase_options.dart file"
+    required: false
+    default: "lib/firebase_options.dart"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate firebase_options.dart from template
+      shell: bash
+      run: |
+        cp ${{ inputs.template-path }} ${{ inputs.output-path }}
+        sed -i 's/{{FIREBASE_WEB_API_KEY}}/${{ inputs.web-api-key }}/g' ${{ inputs.output-path }}
+        sed -i 's/{{FIREBASE_WEB_APP_ID}}/${{ inputs.web-app-id }}/g' ${{ inputs.output-path }}
+        sed -i 's/{{FIREBASE_MESSAGING_SENDER_ID}}/${{ inputs.messaging-sender-id }}/g' ${{ inputs.output-path }}
+        sed -i 's/{{FIREBASE_PROJECT_ID}}/${{ inputs.project-id }}/g' ${{ inputs.output-path }}
+        sed -i 's/{{FIREBASE_AUTH_DOMAIN}}/${{ inputs.auth-domain }}/g' ${{ inputs.output-path }}
+        sed -i 's/{{FIREBASE_STORAGE_BUCKET}}/${{ inputs.storage-bucket }}/g' ${{ inputs.output-path }}
+        sed -i 's/{{FIREBASE_MEASUREMENT_ID}}/${{ inputs.measurement-id }}/g' ${{ inputs.output-path }}
+        sed -i 's/{{FIREBASE_ANDROID_API_KEY}}/${{ inputs.android-api-key }}/g' ${{ inputs.output-path }}
+        sed -i 's/{{FIREBASE_ANDROID_APP_ID}}/${{ inputs.android-app-id }}/g' ${{ inputs.output-path }}
+        sed -i 's/{{FIREBASE_IOS_API_KEY}}/${{ inputs.ios-api-key }}/g' ${{ inputs.output-path }}
+        sed -i 's/{{FIREBASE_IOS_APP_ID}}/${{ inputs.ios-app-id }}/g' ${{ inputs.output-path }}
+        sed -i 's/{{FIREBASE_IOS_BUNDLE_ID}}/${{ inputs.ios-bundle-id }}/g' ${{ inputs.output-path }} 

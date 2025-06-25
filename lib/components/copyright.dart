@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/components/app_version.dart';
+import 'package:mywebsite/util/export.dart';
 
 class Copyright extends StatelessWidget {
   const Copyright({super.key});
@@ -12,10 +13,7 @@ class Copyright extends StatelessWidget {
         children: [
           Text(
             '${DateTime.now().year} ',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-            ),
+            style: Typo.body,
           ),
           const Icon(
             Icons.copyright,
@@ -24,10 +22,7 @@ class Copyright extends StatelessWidget {
           ),
           const Text(
             ' Zander Kotze',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-            ),
+            style: Typo.body,
           ),
         ],
       ),
