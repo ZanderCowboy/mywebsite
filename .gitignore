@@ -46,6 +46,9 @@ project_config.json
 .pub-cache/
 .pub/
 /build/
+**/*.freezed.dart
+**/*.g.dart
+**/*.auto_mappr.dart
 
 # Web related
 
