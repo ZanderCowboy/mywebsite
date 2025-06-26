@@ -1,5 +1,3 @@
-export 'about_me.dart';
-export 'education.dart';
-export 'experience.dart';
-export 'project.dart';
-export 'skill.dart';
+export 'api/export.dart';
+export 'domain/export.dart';
+export 'enums/export.dart';

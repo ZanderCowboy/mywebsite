@@ -1,16 +1,68 @@
-import 'package:mywebsite/gen/assets.gen.dart';
-import 'package:mywebsite/models/export.dart';
+import 'dart:developer' as dev;
 
-part '_about_me.dart';
-part '_educations.dart';
-part '_experiences.dart';
-part '_projects.dart';
-part '_skills.dart';
+import 'package:mywebsite/models/export.dart';
+import 'package:mywebsite/services/remote_config_service.dart';
 
 class AllData {
-  static List<Skill> get skills => _skills;
-  static List<Project> get projects => _projects;
-  static List<Experience> get experiences => _experiences;
-  static List<Education> get educations => _educations;
-  static AboutMe get aboutMe => _aboutMe;
+  static final RemoteConfigService _remoteConfigService = RemoteConfigService();
+
+  /// Get about me data from Remote Config
+  static Future<AboutMeData?> get aboutMe async {
+    try {
+      return await _remoteConfigService.getAboutMeData();
+    } catch (e) {
+      dev.log('Error fetching about me data: $e', name: 'AllData');
+      return null;
+    }
+  }
+
+  /// Get profile details from Remote Config
+  static Future<ProfileDetailsData?> get profileDetails async {
+    try {
+      return await _remoteConfigService.getProfileDetails();
+    } catch (e) {
+      dev.log('Error fetching profile details: $e', name: 'AllData');
+      return null;
+    }
+  }
+
+  /// Get experiences data from Remote Config
+  static Future<List<Experience>?> get experiences async {
+    try {
+      return await _remoteConfigService.getExperienceData();
+    } catch (e) {
+      dev.log('Error fetching experiences data: $e', name: 'AllData');
+      return null;
+    }
+  }
+
+  /// Get educations data from Remote Config
+  static Future<List<Education>?> get educations async {
+    try {
+      return await _remoteConfigService.getEducationData();
+    } catch (e) {
+      dev.log('Error fetching educations data: $e', name: 'AllData');
+      return null;
+    }
+  }
+
+  /// Get projects data from Remote Config
+  static Future<List<Project>?> get projects async {
+    try {
+      return await _remoteConfigService.getProjectsData();
+    } catch (e) {
+      dev.log('Error fetching projects data: $e', name: 'AllData');
+      return null;
+    }
+  }
+
+  /// Get skills data from Remote Config
+  static Future<List<Skill>?> get skills async {
+    try {
+      return await _remoteConfigService.getSkillsData();
+    } catch (e) {
+      dev.log('Error fetching skills data: $e', name: 'AllData');
+      return null;
+    }
+  }
 }

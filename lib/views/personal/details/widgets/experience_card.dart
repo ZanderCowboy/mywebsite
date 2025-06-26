@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mywebsite/models/experience.dart';
+import 'package:mywebsite/models/domain/experience.dart';
 import 'package:mywebsite/util/export.dart';
+import 'package:mywebsite/views/personal/details/widgets/network_image_avatar.dart';
 
 class ExperienceCard extends StatelessWidget {
   const ExperienceCard({
@@ -197,48 +197,13 @@ class _Image extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: borderRadius8,
-        child: _buildCompanyImage(imageUrl),
+        child: NetworkImageAvatar(
+          imageUrl: imageUrl,
+          isCircular: false,
+          width: 75,
+          height: 75,
+        ),
       ),
     );
-  }
-
-  Widget _buildCompanyImage(String imageUrl) {
-    if (imageUrl.toLowerCase().endsWith('.svg')) {
-      return SvgPicture.network(
-        imageUrl,
-        fit: BoxFit.cover,
-        placeholderBuilder: (context) => Container(
-          color: Colors.grey[200],
-          child: const Center(
-            child: CircularProgressIndicator(),
-          ),
-        ),
-      );
-    } else {
-      return Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return Container(
-            color: Colors.grey[200],
-            child: Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
-                    : null,
-              ),
-            ),
-          );
-        },
-        errorBuilder: (_, __, ___) {
-          return Container(
-            color: Colors.grey[200],
-            child: const Icon(Icons.business, color: Colors.grey),
-          );
-        },
-      );
-    }
   }
 }

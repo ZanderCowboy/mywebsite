@@ -1,7 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mywebsite/firebase_options.dart';
+import 'package:mywebsite/bootstrap.dart';
 import 'package:mywebsite/services/analytics_service.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/views/home/home_page.dart';
@@ -9,62 +8,9 @@ import 'package:mywebsite/views/personal/personal_page.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  // Track app opening and first visit
-  final analyticsService = AnalyticsService();
-  await analyticsService.trackAppOpen();
-
-  // Set initial user properties
-  await _setInitialUserProperties(analyticsService);
+  await bootstrap();
 
   runApp(const App());
-}
-
-/// Set initial user properties for analytics
-Future<void> _setInitialUserProperties(
-  AnalyticsService analyticsService,
-) async {
-  try {
-    // Get device information
-    final deviceType = _getDeviceType();
-
-    await analyticsService.setUserProperties(
-      userType: 'visitor', // Default user type for portfolio website
-      deviceType: deviceType,
-      preferredTheme: 'dark', // App uses dark theme
-      primaryLanguage: 'en', // Portfolio is in English
-    );
-  } catch (e) {
-    // Handle errors gracefully
-    debugPrint('Error setting initial user properties: $e');
-  }
-}
-
-/// Determine device type based on the platform
-String _getDeviceType() {
-  if (kIsWeb) {
-    return 'web';
-  }
-
-  switch (defaultTargetPlatform) {
-    case TargetPlatform.iOS:
-      return 'mobile';
-    case TargetPlatform.android:
-      return 'mobile';
-    case TargetPlatform.macOS:
-      return 'desktop';
-    case TargetPlatform.windows:
-      return 'desktop';
-    case TargetPlatform.linux:
-      return 'desktop';
-    case TargetPlatform.fuchsia:
-      return 'mobile';
-  }
 }
 
 class App extends StatelessWidget {

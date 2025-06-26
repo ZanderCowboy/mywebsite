@@ -39,9 +39,8 @@ class GridItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 28),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Material(
             color: Colors.transparent,
@@ -95,7 +94,9 @@ class GridItem extends StatelessWidget {
         child: card,
       );
     } else {
-      return _AnimatedGradientBorder(child: card);
+      return RepaintBoundary(
+        child: _AnimatedGradientBorder(child: card),
+      );
     }
   }
 }
@@ -124,9 +125,10 @@ class _AnimatedGradientBorderState extends State<_AnimatedGradientBorder>
   @override
   void initState() {
     super.initState();
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 3))
-          ..repeat();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 6), // Much slower animation
+    )..repeat();
   }
 
   @override
@@ -144,25 +146,29 @@ class _AnimatedGradientBorderState extends State<_AnimatedGradientBorder>
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
-              width: 3,
+              width: 2, // Reduced border width
               color: Colors.transparent,
             ),
-            gradient: SweepGradient(
+            gradient: LinearGradient(
+              // Much simpler gradient
               colors: const [
                 Color(0xFF3A506B),
                 Color(0xFF5BC0BE),
                 Color(0xFF1C2541),
                 Color(0xFF3A506B),
               ],
-              stops: const [0.0, 0.5, 0.8, 1.0],
-              transform: GradientRotation(_controller.value * 6.28),
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              transform: GradientRotation(
+                _controller.value * 2 * 3.14159,
+              ), // Full rotation
             ),
           ),
           child: Container(
-            margin: const EdgeInsets.all(3),
+            margin: const EdgeInsets.all(2), // Reduced margin
             decoration: BoxDecoration(
               color: const Color(0xFF2A2A2A),
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(16),
             ),
             child: widget.child,
           ),

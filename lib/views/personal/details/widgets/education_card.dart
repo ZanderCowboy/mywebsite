@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
-import 'package:mywebsite/models/education.dart';
+import 'package:mywebsite/models/domain/education.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/network_image_avatar.dart';
 

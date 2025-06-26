@@ -3,6 +3,40 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
 import 'package:mywebsite/util/export.dart';
 
+/// Converts a Google Drive sharing URL to a direct image URL.
+///
+/// [sharingUrl]: The Google Drive sharing URL to convert.
+/// Returns the direct image URL that can be used for loading images.
+String convertGoogleDriveUrl(String sharingUrl) {
+  // Regular expression to extract the file ID from the sharing URL
+  final regExp = RegExp('/d/([a-zA-Z0-9_-]+)');
+  final Match? match = regExp.firstMatch(sharingUrl);
+
+  if (match != null && match.groupCount >= 1) {
+    final fileId = match.group(1)!; // Extract the file ID
+    return 'https://lh3.googleusercontent.com/d/$fileId'; // Return the direct image URL
+  } else {
+    throw ArgumentError('Invalid Google Drive sharing URL');
+  }
+}
+
+/// Processes an image URL, converting Google Drive URLs if necessary.
+///
+/// [imageUrl]: The original image URL.
+/// Returns the processed URL ready for image loading.
+String processImageUrl(String imageUrl) {
+  // Check if the URL is a Google Drive sharing URL
+  if (imageUrl.contains('drive.google.com') && imageUrl.contains('/d/')) {
+    try {
+      return convertGoogleDriveUrl(imageUrl);
+    } catch (e) {
+      // If conversion fails, return the original URL
+      return imageUrl;
+    }
+  }
+  return imageUrl;
+}
+
 /// Loads an image widget (network, SVG, or asset) with loading and error handling.
 ///
 /// [imageUrl]: The URL or asset path of the image.
@@ -46,9 +80,12 @@ Widget loadImageWidget({
   );
 
   if (isNetworkImage) {
-    if (imageUrl.toLowerCase().endsWith('.svg')) {
+    // Process the URL to convert Google Drive URLs if necessary
+    final processedUrl = processImageUrl(imageUrl);
+
+    if (processedUrl.toLowerCase().endsWith('.svg')) {
       return SvgPicture.network(
-        imageUrl,
+        processedUrl,
         placeholderBuilder: (context) => placeholder,
         height: height,
         fit: fit,
@@ -56,7 +93,7 @@ Widget loadImageWidget({
       );
     } else {
       return Image.network(
-        imageUrl,
+        processedUrl,
         fit: fit,
         height: height,
         width: width ?? double.infinity,

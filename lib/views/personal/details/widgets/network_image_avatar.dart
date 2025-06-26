@@ -10,6 +10,7 @@ class NetworkImageAvatar extends StatelessWidget {
     this.width = 45,
     this.height = 45,
     this.timeoutDuration = const Duration(seconds: 10),
+    this.isCircular = true,
     super.key,
   });
 
@@ -19,6 +20,7 @@ class NetworkImageAvatar extends StatelessWidget {
   final double width;
   final double height;
   final Duration timeoutDuration;
+  final bool isCircular;
 
   bool get _isSvg => imageUrl.toLowerCase().endsWith('.svg');
 
@@ -42,31 +44,14 @@ class NetworkImageAvatar extends StatelessWidget {
       ).timeout(timeoutDuration),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircleAvatar(
-            radius: radius,
-            backgroundColor: Colors.grey[200],
-            child: const CircularProgressIndicator(
-              color: Colors.white,
-              strokeWidth: 2,
-            ),
-          );
+          return _buildLoadingWidget();
         }
 
         if (snapshot.hasError || !snapshot.hasData) {
-          return CircleAvatar(
-            radius: radius,
-            backgroundImage: AssetImage(Assets.images.placeholder.path),
-            backgroundColor: Colors.grey[200],
-          );
+          return _buildErrorWidget();
         }
 
-        return CircleAvatar(
-          radius: radius,
-          backgroundColor: Colors.grey[200],
-          child: ClipOval(
-            child: snapshot.data,
-          ),
-        );
+        return _buildImageContainer(snapshot.data!);
       },
     );
   }
@@ -76,36 +61,105 @@ class NetworkImageAvatar extends StatelessWidget {
       future: _loadImage().timeout(timeoutDuration),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircleAvatar(
-            radius: radius,
-            backgroundColor: Colors.grey[200],
-            child: const CircularProgressIndicator(
-              color: Colors.white,
-              strokeWidth: 2,
-            ),
-          );
+          return _buildLoadingWidget();
         }
 
         if (snapshot.hasError || !snapshot.hasData) {
-          return CircleAvatar(
-            radius: radius,
-            backgroundImage: AssetImage(Assets.images.placeholder.path),
-            backgroundColor: Colors.grey[200],
-          );
+          return _buildErrorWidget();
         }
 
-        return CircleAvatar(
-          radius: radius,
-          backgroundImage: snapshot.data,
-          backgroundColor: Colors.grey[200],
+        return _buildImageContainer(
+          Image(image: snapshot.data!),
         );
       },
     );
   }
 
+  Widget _buildLoadingWidget() {
+    if (isCircular) {
+      return CircleAvatar(
+        radius: radius,
+        backgroundColor: Colors.grey[200],
+        child: const CircularProgressIndicator(
+          color: Colors.white,
+          strokeWidth: 2,
+        ),
+      );
+    } else {
+      return Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: const Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+            strokeWidth: 2,
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget _buildErrorWidget() {
+    if (isCircular) {
+      return CircleAvatar(
+        radius: radius,
+        backgroundImage: AssetImage(Assets.images.placeholder.path),
+        backgroundColor: Colors.grey[200],
+      );
+    } else {
+      return Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.asset(
+            Assets.images.placeholder.path,
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget _buildImageContainer(Widget imageWidget) {
+    if (isCircular) {
+      return CircleAvatar(
+        radius: radius,
+        backgroundColor: Colors.grey[200],
+        child: ClipOval(
+          child: imageWidget,
+        ),
+      );
+    } else {
+      return Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: imageWidget,
+        ),
+      );
+    }
+  }
+
   Future<ImageProvider> _loadImage() async {
     try {
-      final image = NetworkImage(imageUrl)..resolve(ImageConfiguration.empty);
+      // Process the URL to convert Google Drive URLs if necessary
+      final processedUrl = processImageUrl(imageUrl);
+      final image = NetworkImage(processedUrl)
+        ..resolve(ImageConfiguration.empty);
       return image;
     } catch (e) {
       // Return placeholder image provider if network image fails
