@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/data/all_data.dart';
+import 'package:mywebsite/models/export.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/experience_card.dart';
 import 'package:mywebsite/views/personal/details/widgets/export.dart';
 
-class Experiences extends StatelessWidget {
+class Experiences extends StatefulWidget {
   const Experiences({
     this.showHeader = true,
     super.key,
@@ -13,33 +14,93 @@ class Experiences extends StatelessWidget {
   final bool showHeader;
 
   @override
-  Widget build(BuildContext context) {
-    final experiences = AllData.experiences;
+  State<Experiences> createState() => _ExperiencesState();
+}
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (showHeader) ...[
-            const Text(
-              'Experience',
-              style: Typo.heading,
+class _ExperiencesState extends State<Experiences> {
+  Future<List<Experience>?>? _experiencesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  void _loadData() {
+    setState(() {
+      _experiencesFuture = AllData.experiences;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<Experience>?>(
+      future: _experiencesFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.hasError || snapshot.data == null) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: 48,
+                  color: Colors.grey[600],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Failed to load experiences',
+                  style: Typo.body.copyWith(
+                    color: Colors.grey[600],
+                  ),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton.icon(
+                  onPressed: _loadData,
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Retry'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: kPrimaryColor,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ],
             ),
-            const BodyDivider(),
-          ],
-          if (!showHeader) gap24,
-          gap16,
-          ...List.generate(
-            experiences.length,
-            (index) => ExperienceCard(
-              experience: experiences[index],
-              isFirst: index == 0,
-              isLast: index == experiences.length - 1,
-              isLeftAligned: index.isEven,
-            ),
+          );
+        }
+
+        final experiences = snapshot.data!;
+
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (widget.showHeader) ...[
+                const Text(
+                  'Experience',
+                  style: Typo.heading,
+                ),
+                const BodyDivider(),
+              ],
+              if (!widget.showHeader) gap24,
+              gap16,
+              ...List.generate(
+                experiences.length,
+                (index) => ExperienceCard(
+                  experience: experiences[index],
+                  isFirst: index == 0,
+                  isLast: index == experiences.length - 1,
+                  isLeftAligned: index.isEven,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
