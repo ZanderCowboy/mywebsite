@@ -52,7 +52,7 @@ class AnalyticsService {
         'day_of_week': _getDayOfWeek(now.weekday),
         'hour_of_day': now.hour,
         'timezone': now.timeZoneName,
-        'is_weekend': now.weekday >= 6,
+        'is_weekend': (now.weekday >= 6).toString(),
       },
     );
 
@@ -72,7 +72,7 @@ class AnalyticsService {
           'first_visit_day_of_week': _getDayOfWeek(now.weekday),
           'first_visit_hour_of_day': now.hour,
           'first_visit_timezone': now.timeZoneName,
-          'first_visit_is_weekend': now.weekday >= 6,
+          'first_visit_is_weekend': (now.weekday >= 6).toString(),
         },
       );
 
@@ -92,7 +92,7 @@ class AnalyticsService {
         await logEvent(
           AnalyticsEvent.appOpened,
           parameters: {
-            'is_returning_user': true,
+            'is_returning_user': 'true',
             'days_since_first_visit': daysSinceFirstVisit,
             'first_visit_date': firstVisit.toIso8601String().split('T')[0],
           },
