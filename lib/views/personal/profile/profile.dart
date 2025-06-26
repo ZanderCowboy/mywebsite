@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mywebsite/components/hero_widget.dart';
 import 'package:mywebsite/models/enums/profile_item_type.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/profile/profile_item.dart';
-import 'package:mywebsite/views/shared/hero_widget.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});

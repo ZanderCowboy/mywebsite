@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
-import 'package:mywebsite/models/project.dart';
+import 'package:mywebsite/models/domain/project.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/util/image_loader.dart';
 import 'package:url_launcher/url_launcher.dart';
