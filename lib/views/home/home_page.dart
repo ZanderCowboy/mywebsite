@@ -1,6 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:mywebsite/bootstrap.dart';
+import 'package:mywebsite/components/background_image.dart';
 import 'package:mywebsite/components/copyright.dart';
+import 'package:mywebsite/components/hero_widget.dart';
 import 'package:mywebsite/components/link_button.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
 import 'package:mywebsite/models/enums/analytics_event.dart';
@@ -8,8 +11,6 @@ import 'package:mywebsite/models/enums/social_platform.dart';
 import 'package:mywebsite/services/analytics_service.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/util/ui_constants.dart';
-import 'package:mywebsite/views/shared/hero_widget.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 part 'widgets/_buttons.dart';
 part 'widgets/_footer.dart';
@@ -38,20 +39,7 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Positioned.fill(
-            child: FadeInImage.memoryNetwork(
-              fit: BoxFit.cover,
-              placeholder: kTransparentImage,
-              image: homePageBackgroundUrl,
-              imageErrorBuilder: (_, __, ___) {
-                return Center(
-                  child: Image.asset(
-                    Assets.images.homePageBackground.path,
-                  ),
-                );
-              },
-            ),
-          ),
+          _buildBackgroundImage(),
           const SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -65,5 +53,24 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  Widget _buildBackgroundImage() {
+    final backgroundImageUrl = globalAppImages?.backgroundImageUrl;
+
+    if (backgroundImageUrl != null && backgroundImageUrl.isNotEmpty) {
+      return BackgroundImage(
+        imageUrl: backgroundImageUrl,
+        fallbackAssetPath: Assets.images.homePageBackground.path,
+        isPositioned: false,
+      );
+    } else {
+      // Fallback to local asset
+      return Center(
+        child: Image.asset(
+          Assets.images.homePageBackground.path,
+        ),
+      );
+    }
   }
 }
