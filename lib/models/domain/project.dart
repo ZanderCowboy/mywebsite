@@ -12,8 +12,6 @@ class Project {
   final List<String> tools;
   final String description;
   final String repoLink;
-
-  /// The URL or path to the image associated with the project.
   final String? imageUrl;
   final bool isNetworkImage;
 }

@@ -3,9 +3,9 @@ class Education {
     required this.schoolName,
     required this.degree,
     required this.description,
+    required this.startDate,
     this.endDate,
     this.fieldOfStudy,
-    this.startDate,
     this.imageUrl,
     this.link,
     this.schoolUrl,
@@ -15,7 +15,7 @@ class Education {
   final String degree;
   final String description;
   final String? fieldOfStudy;
-  final DateTime? startDate;
+  final DateTime startDate;
   final DateTime? endDate;
   final String? imageUrl;
   final String? link;
@@ -23,8 +23,8 @@ class Education {
 
   String get duration {
     if (endDate == null) {
-      return '${startDate?.year} - Present';
+      return '${startDate.year} - Present';
     }
-    return '${startDate?.year} - ${endDate?.year}';
+    return '${startDate.year} - ${endDate?.year}';
   }
 }
