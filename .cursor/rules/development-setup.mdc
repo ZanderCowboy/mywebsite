@@ -1,0 +1,33 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Development Setup Guide
+
+## Prerequisites
+- Flutter SDK
+- Dart SDK
+- Python (for prediction scripts)
+- Git
+
+## Development Environment
+The project includes configuration for:
+- VS Code (`.vscode/` directory)
+- Dev Containers (`.devcontainer/` directory)
+- GitHub Actions (`.github/` directory)
+
+## Getting Started
+1. Clone the repository
+2. Run `flutter pub get` to install dependencies
+3. For Python scripts, install required dependencies
+4. Use VS Code with Flutter and Dart extensions for development
+
+## Testing
+- Unit tests are located in the `test/` directory
+- Run tests using `flutter test`
+
+## Deployment
+- The project includes a [Dockerfile](mdc:Dockerfile) for containerized deployment
+- GitHub Actions workflows are configured in `.github/workflows/`
+

@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Python Prediction Scripts
+
+The project contains two Python scripts for predictions:
+
+- [predict.py](mdc:predict.py): Main prediction script
+- [predict_two.py](mdc:predict_two.py): Secondary prediction script with additional functionality
+
+These scripts are likely used for machine learning or data processing tasks. They should be run from the project root directory.
+
+Note: Make sure you have the required Python dependencies installed before running these scripts.
+
