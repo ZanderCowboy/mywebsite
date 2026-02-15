@@ -25,14 +25,14 @@ class _HeroWidgetState extends State<HeroWidget> {
         return FadeTransition(
           opacity: animation,
           child: ClipOval(
-            child: _buildProfileImage(height: 200, width: 200),
+            child: _buildProfileImage(height: 260, width: 260),
           ),
         );
       },
       tag: 'profile',
       child: Padding(
         padding: allPadding4,
-        child: _buildProfileImage(height: 200, width: 200),
+        child: _buildProfileImage(height: 260, width: 260),
       ),
     );
   }
