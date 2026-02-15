@@ -14,16 +14,16 @@ class Profile extends StatelessWidget {
         borderRadius: borderRadius12,
       ),
       color: kPrimaryColor,
-      child: const SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Padding(
           padding: allPadding24,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              HeroWidget(),
+              const HeroWidget(),
               gap18,
-              Text(
+              const Text(
                 'Zander Kotze',
                 style: Typo.header,
               ),
@@ -31,34 +31,36 @@ class Profile extends StatelessWidget {
               Card(
                 color: kSecondaryColor,
                 child: Padding(
-                  padding: allPadding8,
+                  padding: horizontal40 + vertical16,
                   child: Column(
                     children: [
                       Text(
                         'Software Engineer',
-                        style: TextStyle(
+                        style: Typo.subtitle.copyWith(
                           color: Colors.white,
+                          fontSize: 14,
                         ),
                       ),
                       Text(
                         'Flutter Developer',
-                        style: TextStyle(
+                        style: Typo.subtitle.copyWith(
                           color: Colors.white,
+                          fontSize: 14,
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(
-                width: 225,
+              const SizedBox(
+                width: 250,
                 child: Divider(
                   height: 60,
                   color: Colors.white,
                   thickness: 1,
                 ),
               ),
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ProfileItem(
