@@ -1,28 +1,94 @@
 # mywebsite
 
-My personal website, built using Flutter and Dart
+A responsive personal portfolio and website built with **Flutter** and **Dart**, featuring a dark-themed UI, Firebase integration, and a mobile-first responsive layout.
 
-## Details
+---
 
-- Flutter 3.27.1
-- Dart 3.6.0
-- VS Code
+## About
 
-## Contributers (Copyright)
+This project is a multi-page portfolio site with:
 
-Here are the links to resources I used:
+- **Home** — Landing page with hero section, call-to-action, and navigation to the personal section
+- **Personal** — Profile and detailed sections: About Me, Experience, Projects, Skills, and Education
 
-### Icons
+Content can be driven by **Firebase Remote Config** (e.g. images), with **Firebase Analytics** for usage insights. The app is responsive across mobile, tablet, desktop, and large screens (4K).
 
-Link: <https://icons8.com>
+---
 
-### Background images
+## Tech stack
 
-Link of image on Home Page: Photo by James Wheeler: <https://www.pexels.com/photo/lake-and-mountain-417074/>
+| Category   | Technologies |
+| ---------- | ------------ |
+| **Framework** | Flutter, Dart |
+| **Backend**   | Firebase (Core, Analytics, Remote Config) |
+| **UI**       | Material Design, custom typography (Playfair Display, Anton, Poiret One), responsive breakpoints |
+| **Tooling**   | Freezed, Auto Mappr, Flutter Gen, Very Good Analysis |
 
-Link of image on Personal Website: Photo by Pok Rie: <https://www.pexels.com/photo/top-view-photo-of-rocky-shore-2049422/>
+---
 
-### Skills Icons
+## Getting started
 
-<https://techicons.dev/icons/cplusplus>
-<https://www.svgrepo.com/>
+### Prerequisites
+
+- **Flutter** 3.38+ (stable)
+- **Dart** 3.10+
+- Firebase project (for Analytics and Remote Config)
+
+### Run the app
+
+```bash
+# Install dependencies
+flutter pub get
+
+# Run on Chrome (web)
+flutter run -d chrome
+
+# Or run on your default device
+flutter run
+```
+
+### Code generation
+
+When you change models or mappers, regenerate code with:
+
+```bash
+melos run build_runner
+```
+
+---
+
+## Project structure
+
+```
+lib/
+├── bootstrap.dart          # App startup (Firebase, Remote Config, image loading)
+├── main.dart               # App entry, routes, responsive breakpoints
+├── components/             # Reusable UI (hero, background, links, social pills, etc.)
+├── models/                 # Domain & API models, DTOs, enums
+├── mappers/                # DTO ↔ domain mappers (Auto Mappr)
+├── services/               # Analytics, Remote Config, image loading, app info
+├── util/                   # Constants, typography, colors, extensions
+├── views/
+│   ├── home/               # Home page and widgets
+│   └── personal/           # Personal page, profile, details (tabs)
+└── gen/                    # Generated assets (flutter_gen)
+```
+
+---
+
+## Credits & resources
+
+Attribution for external resources used in this project:
+
+| Resource | Link |
+| -------- | ---- |
+| **Icons** | [Icons8](https://icons8.com) |
+| **Home background** | Photo by [James Wheeler](https://www.pexels.com/photo/lake-and-mountain-417074/) (Pexels) |
+| **Personal page background** | Photo by [Pok Rie](https://www.pexels.com/photo/top-view-photo-of-rocky-shore-2049422/) (Pexels) |
+| **Skills / tech icons** | [Tech Icons](https://techicons.dev/icons/cplusplus), [SVG Repo](https://www.svgrepo.com/) |
+
+---
+
+## License
+
+This project is open source. See the repository and author for usage terms.
