@@ -32,8 +32,8 @@ Content can be driven by **Firebase Remote Config** (e.g. images), with **Fireba
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.41.2-blue?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.11.0-blue?logo=dart)
-
-- Firebase project (for Analytics and Remote Config)
+![Remote Config](https://img.shields.io/badge/firebase-Remote_Config-ec6d00?style=flat&logo=firebase&link=https%3A%2F%2Fconsole.firebase.google.com%2F)
+![Analytics](https://img.shields.io/badge/firebase-Analytics-ec6d00?style=flat&logo=firebase&link=https%3A%2F%2Fconsole.firebase.google.com%2F)
 
 ### Run the app
 
