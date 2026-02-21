@@ -26,13 +26,11 @@ class _PersonalPageMobile extends StatelessWidget {
               backgroundColor: Colors.transparent.withValues(alpha: 0.5),
               elevation: 0,
               automaticallyImplyLeading: false,
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  color: kBackButtonColor,
-                  onPressed: () => _navigateToHome(context),
-                ),
-              ],
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                color: kBackButtonColor,
+                onPressed: () => _navigateToHome(context),
+              ),
               title: const Text(
                 'Personal Details',
                 style: TextStyle(color: Colors.white),
