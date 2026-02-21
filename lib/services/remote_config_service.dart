@@ -37,9 +37,9 @@ class RemoteConfigService with RemoteConfigGetters {
       if (jsonString.isEmpty) return null;
 
       final jsonData = json.decode(jsonString) as Map<String, dynamic>;
-      final dto = AboutMeDataDTO.fromJson(jsonData);
+      final dto = AboutMeDTO.fromJson(jsonData);
 
-      final aboutMe = AboutMeMapper().convert<AboutMeDataDTO, AboutMeData>(
+      final aboutMe = AboutMeMapper().convert<AboutMeDTO, AboutMeData>(
         dto,
       );
       return aboutMe;
@@ -160,5 +160,20 @@ class RemoteConfigService with RemoteConfigGetters {
 
   Future<String?> getProfileImageUrl() async {
     return getString(RemoteConfigImages.profileImage.imageName);
+  }
+
+  /// Returns the value of a feature flag from Remote Config.
+  Future<bool> getFeatureFlag(RemoteConfigFeatureFlags flag) async {
+    return getBool(flag.key);
+  }
+
+  /// Loads all personal-details feature flags in one call.
+  Future<Map<RemoteConfigFeatureFlags, bool>> getFeatureFlags() async {
+    final entries = await Future.wait(
+      RemoteConfigFeatureFlags.values.map(
+        (flag) async => MapEntry(flag, await getFeatureFlag(flag)),
+      ),
+    );
+    return Map.fromEntries(entries);
   }
 }

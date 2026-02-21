@@ -1,5 +1,6 @@
 import 'dart:developer' as dev;
 
+import 'package:mywebsite/models/enums/remote_config_keys.dart';
 import 'package:mywebsite/models/export.dart';
 import 'package:mywebsite/services/remote_config_service.dart';
 
@@ -63,6 +64,16 @@ class AllData {
     } catch (e) {
       dev.log('Error fetching skills data: $e', name: 'AllData');
       return null;
+    }
+  }
+
+  /// Get personal details feature flags from Remote Config.
+  static Future<Map<RemoteConfigFeatureFlags, bool>> get featureFlags async {
+    try {
+      return await _remoteConfigService.getFeatureFlags();
+    } catch (e) {
+      dev.log('Error fetching feature flags: $e', name: 'AllData');
+      return {};
     }
   }
 }

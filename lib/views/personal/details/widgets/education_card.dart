@@ -47,6 +47,13 @@ class EducationCard extends StatelessWidget {
                           style: Typo.subtitle,
                         ),
                       ),
+                      Text(
+                        education.displayDate,
+                        style: Typo.subtitle.copyWith(
+                          color: Colors.grey[400],
+                          fontSize: 11,
+                        ),
+                      ),
                       if (education.link != null)
                         IconButton(
                           icon: const Icon(Icons.link),
