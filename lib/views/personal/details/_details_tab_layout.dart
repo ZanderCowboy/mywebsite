@@ -1,6 +1,6 @@
 part of 'details.dart';
 
-class _DetailsTabLayout extends HookWidget {
+class _DetailsTabLayout extends StatefulWidget {
   const _DetailsTabLayout({
     required this.isSmall,
     required this.flags,
@@ -10,18 +10,45 @@ class _DetailsTabLayout extends HookWidget {
   final Map<RemoteConfigFeatureFlags, bool> flags;
 
   @override
-  Widget build(BuildContext context) {
-    final index = useState(0);
-    final controller = useTabController(
-      initialLength: _sectionCount,
-      initialIndex: index.value,
-    );
+  State<_DetailsTabLayout> createState() => _DetailsTabLayoutState();
+}
 
+class _DetailsTabLayoutState extends State<_DetailsTabLayout>
+    with SingleTickerProviderStateMixin {
+  late final TabController _controller;
+  int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(
+      length: _sectionCount,
+      initialIndex: _index,
+      vsync: this,
+    );
+    _controller.addListener(_handleTabChange);
+  }
+
+  @override
+  void dispose() {
+    _controller
+      ..removeListener(_handleTabChange)
+      ..dispose();
+    super.dispose();
+  }
+
+  void _handleTabChange() {
+    if (_index == _controller.index) return;
+    setState(() => _index = _controller.index);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final tabBarHeader = TabBarHeader(
-      controller: controller,
-      onTap: (value) => index.value = value,
-      isScrollable: !isSmall,
-      isSmallScreen: isSmall,
+      controller: _controller,
+      onTap: (value) => setState(() => _index = value),
+      isScrollable: !widget.isSmall,
+      isSmallScreen: widget.isSmall,
     );
 
     return DefaultTabController(
@@ -39,8 +66,7 @@ class _DetailsTabLayout extends HookWidget {
                   padding: allPadding24,
                   child: Align(
                     alignment: Alignment.topCenter,
-                    child:
-                        _getBody(index: index.value, constraints: constraints),
+                    child: _getBody(index: _index, constraints: constraints),
                   ),
                 ),
               ),
@@ -61,18 +87,18 @@ class _DetailsTabLayout extends HookWidget {
   }) {
     return switch (index) {
       0 => AboutMe(
-          flags: flags,
-          showHeader: !isSmall,
+          flags: widget.flags,
+          showHeader: !widget.isSmall,
         ),
       1 => Experiences(
-          flags: flags,
-          showHeader: !isSmall,
+          flags: widget.flags,
+          showHeader: !widget.isSmall,
         ),
-      2 => Projects(showHeader: !isSmall),
-      3 => Skills(showHeader: !isSmall),
+      2 => Projects(showHeader: !widget.isSmall),
+      3 => Skills(showHeader: !widget.isSmall),
       4 => Educations(
-          flags: flags,
-          showHeader: !isSmall,
+          flags: widget.flags,
+          showHeader: !widget.isSmall,
         ),
       _ => const Text('No data available'),
     };
@@ -86,7 +112,7 @@ class _DetailsTabLayout extends HookWidget {
       margin: allPadding4,
       decoration: BoxDecoration(
         color: kTernaryColor,
-        borderRadius: isSmall
+        borderRadius: widget.isSmall
             ? const BorderRadius.only(
                 topLeft: radius8,
                 topRight: radius8,
@@ -96,7 +122,7 @@ class _DetailsTabLayout extends HookWidget {
                 topRight: radius8,
               ),
       ),
-      constraints: isSmall
+      constraints: widget.isSmall
           ? const BoxConstraints(
               minHeight: 50,
             )
@@ -107,7 +133,7 @@ class _DetailsTabLayout extends HookWidget {
       child: child,
     );
 
-    return isSmall
+    return widget.isSmall
         ? header
         : Row(
             mainAxisAlignment: MainAxisAlignment.end,

@@ -1,6 +1,6 @@
 part of 'details.dart';
 
-class _DetailsScrollLayout extends HookWidget {
+class _DetailsScrollLayout extends StatefulWidget {
   const _DetailsScrollLayout({
     required this.isSmall,
     required this.flags,
@@ -10,66 +10,74 @@ class _DetailsScrollLayout extends HookWidget {
   final Map<RemoteConfigFeatureFlags, bool> flags;
 
   @override
-  Widget build(BuildContext context) {
-    final scrollController = useScrollController();
-    final currentIndex = useState(0);
-    final sectionKeys = useState(
-      List.generate(_sectionCount, (_) => GlobalKey()),
-    );
-    final contentKey = useMemoized(GlobalKey.new, []);
+  State<_DetailsScrollLayout> createState() => _DetailsScrollLayoutState();
+}
 
-    void scrollToSection(int index) {
-      currentIndex.value = index;
-      final key = sectionKeys.value[index];
-      final keyContext = key.currentContext;
-      if (keyContext != null) {
-        Scrollable.ensureVisible(
-          keyContext,
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeInOut,
-        );
+class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
+  final ScrollController _scrollController = ScrollController();
+  final GlobalKey _contentKey = GlobalKey();
+  late final List<GlobalKey> _sectionKeys;
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _sectionKeys = List.generate(_sectionCount, (_) => GlobalKey());
+    _scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController
+      ..removeListener(_scrollListener)
+      ..dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    final position = _scrollController.position;
+    final contentContext = _contentKey.currentContext;
+    if (contentContext == null) return;
+    final contentBox = contentContext.findRenderObject() as RenderBox?;
+    if (contentBox == null) return;
+
+    final viewportCenter = position.pixels + position.viewportDimension / 2;
+    var newIndex = 0;
+    for (var i = 0; i < _sectionCount; i++) {
+      final sectionContext = _sectionKeys[i].currentContext;
+      if (sectionContext == null) continue;
+      final sectionBox = sectionContext.findRenderObject() as RenderBox?;
+      if (sectionBox == null) continue;
+      final sectionTop =
+          contentBox.globalToLocal(sectionBox.localToGlobal(Offset.zero)).dy;
+      if (sectionTop <= viewportCenter) {
+        newIndex = i;
       }
     }
+    if (_currentIndex != newIndex) {
+      setState(() => _currentIndex = newIndex);
+    }
+  }
 
-    useEffect(
-      () {
-        void listener() {
-          final position = scrollController.position;
-          final contentContext = contentKey.currentContext;
-          if (contentContext == null) return;
-          final contentBox = contentContext.findRenderObject() as RenderBox?;
-          if (contentBox == null) return;
+  void _scrollToSection(int index) {
+    setState(() => _currentIndex = index);
+    final key = _sectionKeys[index];
+    final keyContext = key.currentContext;
+    if (keyContext != null) {
+      Scrollable.ensureVisible(
+        keyContext,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
 
-          final viewportCenter =
-              position.pixels + position.viewportDimension / 2;
-          var newIndex = 0;
-          for (var i = 0; i < _sectionCount; i++) {
-            final sectionContext = sectionKeys.value[i].currentContext;
-            if (sectionContext == null) continue;
-            final sectionBox = sectionContext.findRenderObject() as RenderBox?;
-            if (sectionBox == null) continue;
-            final sectionTop = contentBox
-                .globalToLocal(sectionBox.localToGlobal(Offset.zero))
-                .dy;
-            if (sectionTop <= viewportCenter) {
-              newIndex = i;
-            }
-          }
-          if (currentIndex.value != newIndex) {
-            currentIndex.value = newIndex;
-          }
-        }
-
-        scrollController.addListener(listener);
-        return () => scrollController.removeListener(listener);
-      },
-      [scrollController],
-    );
-
+  @override
+  Widget build(BuildContext context) {
     final sectionNavBar = SectionNavBar(
-      currentIndex: currentIndex.value,
-      onSectionTap: scrollToSection,
-      isSmallScreen: isSmall,
+      currentIndex: _currentIndex,
+      onSectionTap: _scrollToSection,
+      isSmallScreen: widget.isSmall,
     );
 
     return LayoutBuilder(
@@ -84,44 +92,44 @@ class _DetailsScrollLayout extends HookWidget {
               child: Padding(
                 padding: allPadding24,
                 child: SingleChildScrollView(
-                  controller: scrollController,
+                  controller: _scrollController,
                   child: Column(
-                    key: contentKey,
+                    key: _contentKey,
                     children: [
                       KeyedSubtree(
-                        key: sectionKeys.value[0],
+                        key: _sectionKeys[0],
                         child: AboutMe(
-                          flags: flags,
+                          flags: widget.flags,
                           wrapInScrollView: false,
                         ),
                       ),
                       gap24,
                       KeyedSubtree(
-                        key: sectionKeys.value[1],
+                        key: _sectionKeys[1],
                         child: Experiences(
-                          flags: flags,
+                          flags: widget.flags,
                           wrapInScrollView: false,
                         ),
                       ),
                       gap24,
                       KeyedSubtree(
-                        key: sectionKeys.value[2],
+                        key: _sectionKeys[2],
                         child: const Projects(
                           wrapInScrollView: false,
                         ),
                       ),
                       gap24,
                       KeyedSubtree(
-                        key: sectionKeys.value[3],
+                        key: _sectionKeys[3],
                         child: const Skills(
                           wrapInScrollView: false,
                         ),
                       ),
                       gap24,
                       KeyedSubtree(
-                        key: sectionKeys.value[4],
+                        key: _sectionKeys[4],
                         child: Educations(
-                          flags: flags,
+                          flags: widget.flags,
                           wrapInScrollView: false,
                         ),
                       ),
@@ -148,7 +156,7 @@ class _DetailsScrollLayout extends HookWidget {
       margin: allPadding4,
       decoration: BoxDecoration(
         color: kTernaryColor,
-        borderRadius: isSmall
+        borderRadius: widget.isSmall
             ? const BorderRadius.only(
                 topLeft: radius8,
                 topRight: radius8,
@@ -158,7 +166,7 @@ class _DetailsScrollLayout extends HookWidget {
                 topRight: radius8,
               ),
       ),
-      constraints: isSmall
+      constraints: widget.isSmall
           ? const BoxConstraints(
               minHeight: 50,
             )
@@ -170,7 +178,7 @@ class _DetailsScrollLayout extends HookWidget {
       child: child,
     );
 
-    return isSmall
+    return widget.isSmall
         ? header
         : Row(
             mainAxisAlignment: MainAxisAlignment.end,
