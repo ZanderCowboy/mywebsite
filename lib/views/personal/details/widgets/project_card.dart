@@ -8,10 +8,12 @@ import 'package:url_launcher/url_launcher.dart';
 class ProjectCard extends StatelessWidget {
   const ProjectCard({
     required this.project,
+    this.expandDescription = false,
     super.key,
   });
 
   final Project project;
+  final bool expandDescription;
 
   @override
   Widget build(BuildContext context) {
@@ -113,13 +115,26 @@ class ProjectCard extends StatelessWidget {
                     .toList(),
               ),
               gap16,
-              Text(
-                project.description,
-                style: const TextStyle(
-                  fontSize: 16,
-                  height: 1.5,
+              if (expandDescription)
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Text(
+                      project.description,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        height: 1.5,
+                      ),
+                    ),
+                  ),
+                )
+              else
+                Text(
+                  project.description,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    height: 1.5,
+                  ),
                 ),
-              ),
             ],
           ),
         ),

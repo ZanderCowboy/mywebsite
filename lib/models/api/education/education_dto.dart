@@ -25,6 +25,8 @@ class EducationDTO with _$EducationDTO {
     String? imageUrl,
     String? link,
     String? schoolUrl,
+    String? dateDisplay,
+    String? type,
   }) = _EducationDTO;
 
   factory EducationDTO.fromJson(Map<String, dynamic> json) =>

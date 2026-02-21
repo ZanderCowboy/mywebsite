@@ -9,6 +9,8 @@ class Education {
     this.imageUrl,
     this.link,
     this.schoolUrl,
+    this.dateDisplay,
+    this.type,
   });
 
   final String schoolName;
@@ -20,6 +22,10 @@ class Education {
   final String? imageUrl;
   final String? link;
   final String? schoolUrl;
+  final String? dateDisplay;
+  final String? type;
+
+  String get displayDate => dateDisplay ?? duration;
 
   String get duration {
     if (endDate == null) {

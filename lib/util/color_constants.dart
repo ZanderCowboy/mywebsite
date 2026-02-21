@@ -4,3 +4,4 @@ const kBackgroundColor = Color(0xFF121212);
 const kPrimaryColor = Color(0xFF1E1E1F);
 const kSecondaryColor = Color(0xFF2B2B2C);
 const kTernaryColor = Color(0xFF2C2C2D);
+const kBackButtonColor = Color(0xFFE8E8E8);
