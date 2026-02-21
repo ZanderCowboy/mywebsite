@@ -22,7 +22,7 @@ Content can be driven by **Firebase Remote Config** (e.g. images), with **Fireba
 | **Framework** | Flutter, Dart |
 | **Backend** | Firebase (Core, Analytics, Remote Config) |
 | **UI** | Material Design, custom typography (Playfair Display, Anton, Poiret One), responsive breakpoints |
-| **Tooling** | Freezed, Auto Mappr, Flutter Gen, Very Good Analysis |
+| **Tooling** | Auto Mappr, Flutter Gen, Very Good Analysis |
 
 ---
 

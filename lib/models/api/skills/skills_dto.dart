@@ -1,27 +1,37 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-part 'skills_dto.freezed.dart';
 part 'skills_dto.g.dart';
 
-@freezed
-class SkillsDataDTO with _$SkillsDataDTO {
-  const factory SkillsDataDTO({
-    required List<SkillDTO> skills,
-  }) = _SkillsDataDTO;
+@JsonSerializable(explicitToJson: true)
+class SkillsDataDTO {
+  const SkillsDataDTO({
+    required this.skills,
+  });
 
   factory SkillsDataDTO.fromJson(Map<String, dynamic> json) =>
       _$SkillsDataDTOFromJson(json);
+
+  final List<SkillDTO> skills;
+
+  Map<String, dynamic> toJson() => _$SkillsDataDTOToJson(this);
 }
 
-@freezed
-class SkillDTO with _$SkillDTO {
-  const factory SkillDTO({
-    required String name,
-    required String description,
-    required String level,
-    required String imageUrl,
-  }) = _SkillDTO;
+@JsonSerializable()
+class SkillDTO {
+  const SkillDTO({
+    required this.name,
+    required this.description,
+    required this.level,
+    required this.imageUrl,
+  });
 
   factory SkillDTO.fromJson(Map<String, dynamic> json) =>
       _$SkillDTOFromJson(json);
+
+  final String name;
+  final String description;
+  final String level;
+  final String imageUrl;
+
+  Map<String, dynamic> toJson() => _$SkillDTOToJson(this);
 }

@@ -19,10 +19,8 @@ dependencies:
   firebase_remote_config: ^5.4.5
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.21.2
   flutter_svg: ^2.0.7
   footer: ^0.0.4
-  freezed_annotation: ^2.4.4
   gap: ^3.0.1
   google_fonts: ^6.1.0
   http: ^1.1.0
@@ -42,7 +40,6 @@ dev_dependencies:
   flutter_gen_runner: ^5.10.0
   flutter_test:
     sdk: flutter
-  freezed: ^2.5.8
   json_serializable: ^6.9.5
   very_good_analysis: ^5.1.0
 
