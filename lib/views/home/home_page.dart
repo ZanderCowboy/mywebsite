@@ -57,20 +57,14 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildBackgroundImage() {
     final backgroundImageUrl = globalAppImages?.backgroundImageUrl;
+    final fallbackImagePath = Assets.images.homePageBackground.path;
 
-    if (backgroundImageUrl != null && backgroundImageUrl.isNotEmpty) {
-      return BackgroundImage(
-        imageUrl: backgroundImageUrl,
-        fallbackAssetPath: Assets.images.homePageBackground.path,
-        isPositioned: false,
-      );
-    } else {
-      // Fallback to local asset
-      return Center(
-        child: Image.asset(
-          Assets.images.homePageBackground.path,
-        ),
-      );
-    }
+    return BackgroundImage(
+      imageUrl: backgroundImageUrl ?? fallbackImagePath,
+      isPositioned: false,
+      fallbackImage: Center(
+        child: Image.asset(fallbackImagePath),
+      ),
+    );
   }
 }
