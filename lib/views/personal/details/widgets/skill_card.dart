@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/models/domain/skill.dart';
 import 'package:mywebsite/util/export.dart';
+import 'package:mywebsite/views/personal/details/utils/level_to_stars.dart';
 import 'package:mywebsite/views/personal/details/widgets/expanded_skill_card.dart';
 import 'package:mywebsite/views/personal/details/widgets/network_image_avatar.dart';
 
@@ -21,21 +22,9 @@ class SkillCard extends StatefulWidget {
 class _SkillCardState extends State<SkillCard> {
   bool _hovered = false;
 
-  static int _levelToStars(String level) {
-    final lower = level.toLowerCase();
-    if (lower == 'beginner' || lower == '1') return 1;
-    if (lower == 'intermediate' || lower == '2') return 2;
-    if (lower == 'advanced' || lower == '3') return 3;
-    if (lower == 'expert' || lower == '4') return 4;
-    if (lower == '5') return 5;
-    final parsed = int.tryParse(level);
-    if (parsed != null && parsed >= 1 && parsed <= 5) return parsed;
-    return 0;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final stars = _levelToStars(widget.skill.level);
+    final stars = levelToStars(widget.skill.level);
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hovered = true),

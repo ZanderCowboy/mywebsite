@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mywebsite/components/body_divider.dart';
 import 'package:mywebsite/data/all_data.dart';
 import 'package:mywebsite/models/export.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/widgets/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/skill_card.dart';
 
 class Skills extends StatefulWidget {

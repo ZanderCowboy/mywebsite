@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mywebsite/components/social_pill.dart';
+import 'package:mywebsite/components/export.dart';
 import 'package:mywebsite/data/all_data.dart';
 import 'package:mywebsite/models/enums/export.dart';
 import 'package:mywebsite/models/enums/remote_config_keys.dart';
