@@ -8,10 +8,12 @@ import 'package:mywebsite/views/personal/details/widgets/skill_card.dart';
 class Skills extends StatefulWidget {
   const Skills({
     this.showHeader = true,
+    this.wrapInScrollView = true,
     super.key,
   });
 
   final bool showHeader;
+  final bool wrapInScrollView;
 
   @override
   State<Skills> createState() => _SkillsState();
@@ -75,65 +77,80 @@ class _SkillsState extends State<Skills> {
 
         final skills = snapshot.data!;
 
-        return SingleChildScrollView(
-          child: SizedBox(
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (widget.showHeader) ...[
-                  const Text(
-                    'Skills',
-                    style: Typo.heading,
-                  ),
-                  const BodyDivider(),
-                ],
-                if (!widget.showHeader) gap24,
-                gap24,
-                Center(
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      final isSmallScreen = constraints.maxWidth < 820;
-                      final skillsPerRow = isSmallScreen ? 2 : 3;
-
-                      return Column(
-                        children: [
-                          Wrap(
-                            spacing: 4,
-                            runSpacing: 4,
-                            alignment: WrapAlignment.center,
-                            children: skills
-                                .take(skillsPerRow)
-                                .map(
-                                  (skill) => SizedBox(
-                                    width: 180,
-                                    height: 180,
-                                    child: SkillCard(
-                                      skill: skill,
-                                      isLarge: true,
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                          gap24,
-                          Wrap(
-                            spacing: 4,
-                            runSpacing: 4,
-                            children: skills
-                                .skip(skillsPerRow)
-                                .map((skill) => SkillCard(skill: skill))
-                                .toList(),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
+        final content = SizedBox(
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (widget.showHeader) ...[
+                const Text(
+                  'Skills',
+                  style: Typo.heading,
                 ),
+                const BodyDivider(),
               ],
-            ),
+              if (!widget.showHeader) gap24,
+              gap24,
+              Center(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isSmallScreen = constraints.maxWidth < 820;
+                    final skillsPerRow = isSmallScreen ? 2 : 3;
+
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Wrap(
+                          spacing: 4,
+                          runSpacing: 4,
+                          alignment: WrapAlignment.center,
+                          children: skills
+                              .take(skillsPerRow)
+                              .map(
+                                (skill) => SizedBox(
+                                  width: 180,
+                                  height: 220,
+                                  child: SkillCard(
+                                    skill: skill,
+                                    isLarge: true,
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                        gap24,
+                        Wrap(
+                          spacing: 4,
+                          runSpacing: 4,
+                          alignment: WrapAlignment.center,
+                          children: skills
+                              .skip(skillsPerRow)
+                              .map(
+                                (skill) => SizedBox(
+                                  width: 180,
+                                  height: 220,
+                                  child: SkillCard(
+                                    skill: skill,
+                                    isLarge: true,
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         );
+
+        if (widget.wrapInScrollView) {
+          return SingleChildScrollView(child: content);
+        }
+        return content;
       },
     );
   }

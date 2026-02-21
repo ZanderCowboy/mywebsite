@@ -8,10 +8,14 @@ import 'package:mywebsite/views/personal/details/widgets/export.dart';
 class Experiences extends StatefulWidget {
   const Experiences({
     this.showHeader = true,
+    this.wrapInScrollView = true,
+    this.useParagraphs = false,
     super.key,
   });
 
   final bool showHeader;
+  final bool wrapInScrollView;
+  final bool useParagraphs;
 
   @override
   State<Experiences> createState() => _ExperiencesState();
@@ -75,31 +79,35 @@ class _ExperiencesState extends State<Experiences> {
 
         final experiences = snapshot.data!;
 
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (widget.showHeader) ...[
-                const Text(
-                  'Experience',
-                  style: Typo.heading,
-                ),
-                const BodyDivider(),
-              ],
-              if (!widget.showHeader) gap24,
-              gap16,
-              ...List.generate(
-                experiences.length,
-                (index) => ExperienceCard(
-                  experience: experiences[index],
-                  isFirst: index == 0,
-                  isLast: index == experiences.length - 1,
-                  isLeftAligned: index.isEven,
-                ),
+        final content = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (widget.showHeader) ...[
+              const Text(
+                'Experience',
+                style: Typo.heading,
               ),
+              const BodyDivider(),
             ],
-          ),
+            if (!widget.showHeader) gap24,
+            gap16,
+            ...List.generate(
+              experiences.length,
+              (index) => ExperienceCard(
+                experience: experiences[index],
+                isFirst: index == 0,
+                isLast: index == experiences.length - 1,
+                isLeftAligned: index.isEven,
+                useParagraphs: widget.useParagraphs,
+              ),
+            ),
+          ],
         );
+
+        if (widget.wrapInScrollView) {
+          return SingleChildScrollView(child: content);
+        }
+        return content;
       },
     );
   }

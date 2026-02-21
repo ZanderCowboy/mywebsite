@@ -8,10 +8,14 @@ import 'package:mywebsite/views/personal/details/widgets/export.dart';
 class Educations extends StatefulWidget {
   const Educations({
     this.showHeader = true,
+    this.wrapInScrollView = true,
+    this.useSplit = false,
     super.key,
   });
 
   final bool showHeader;
+  final bool wrapInScrollView;
+  final bool useSplit;
 
   @override
   State<Educations> createState() => _EducationsState();
@@ -75,28 +79,68 @@ class _EducationsState extends State<Educations> {
 
         final educations = snapshot.data!;
 
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (widget.showHeader) ...[
-                const Text(
-                  'Educations',
-                  style: Typo.heading,
-                ),
-                const BodyDivider(),
-              ],
-              if (!widget.showHeader) gap24,
-              gap12,
+        final content = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (widget.showHeader) ...[
+              const Text(
+                'Education',
+                style: Typo.heading,
+              ),
+              const BodyDivider(),
+            ],
+            if (!widget.showHeader) gap24,
+            gap12,
+            if (widget.useSplit) ...[
+              ..._buildSplitSection(educations),
+            ] else ...[
               ...educations.map(
-                (education) => EducationCard(
-                  education: education,
-                ),
+                (e) => EducationCard(education: e),
               ),
             ],
-          ),
+          ],
         );
+
+        if (widget.wrapInScrollView) {
+          return SingleChildScrollView(child: content);
+        }
+        return content;
       },
     );
+  }
+
+  List<Widget> _buildSplitSection(List<Education> educations) {
+    final accreditation =
+        educations.where((e) => e.type?.toLowerCase() == 'accreditation');
+    final formal =
+        educations.where((e) => e.type?.toLowerCase() != 'accreditation');
+
+    return [
+      if (accreditation.isNotEmpty) ...[
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Text(
+            'Accreditation',
+            style: Typo.heading.copyWith(fontSize: 20),
+          ),
+        ),
+        ...accreditation.map(
+          (e) => EducationCard(education: e),
+        ),
+        gap16,
+      ],
+      if (formal.isNotEmpty) ...[
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Text(
+            'Formal Education',
+            style: Typo.heading.copyWith(fontSize: 20),
+          ),
+        ),
+        ...formal.map(
+          (e) => EducationCard(education: e),
+        ),
+      ],
+    ];
   }
 }
