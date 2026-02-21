@@ -4,16 +4,19 @@ part 'about_me_dto.freezed.dart';
 part 'about_me_dto.g.dart';
 
 @freezed
-class AboutMeDataDTO with _$AboutMeDataDTO {
-  const factory AboutMeDataDTO({
+class AboutMeDTO with _$AboutMeDTO {
+  const factory AboutMeDTO({
     required String description,
     required List<SocialPillDTO> socialPills,
     required List<String> professionalSkills,
     required List<String> personalInterests,
-  }) = _AboutMeDataDTO;
+    String? cvLink,
+    String? quote,
+    String? ongoingProjectsText,
+  }) = _AboutMeDTO;
 
-  factory AboutMeDataDTO.fromJson(Map<String, dynamic> json) =>
-      _$AboutMeDataDTOFromJson(json);
+  factory AboutMeDTO.fromJson(Map<String, dynamic> json) =>
+      _$AboutMeDTOFromJson(json);
 }
 
 @freezed
