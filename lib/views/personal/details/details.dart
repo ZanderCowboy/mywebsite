@@ -28,6 +28,7 @@ class Details extends HookWidget {
     // final useV2Layout = flags[RemoteConfigFeatureFlags.useV2Layout] ?? true;
     const useV2Layout = true;
 
+    // ignore: dead_code
     if (useV2Layout) {
       return _DetailsScrollLayout(
         isSmall: isSmall,
