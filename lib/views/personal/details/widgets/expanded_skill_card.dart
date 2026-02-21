@@ -78,7 +78,7 @@ class ExpandedSkillCard extends StatelessWidget {
                 if (_levelToStars(skill.level) > 0) ...[
                   gap8,
                   ...List.generate(
-                    4,
+                    5,
                     (i) => Icon(
                       i < _levelToStars(skill.level)
                           ? Icons.star
