@@ -42,3 +42,18 @@ enum RemoteConfigFeatureFlags {
 
   final String key;
 }
+
+enum RemoteConfigDashboard {
+  discordUrl('discord_url'),
+  githubUrl('github_url'),
+  instagramUrl('instagram_url'),
+  linkedInUrl('linkedin_url'),
+  personalUrl('personal_url'),
+  xUrl('x_url'),
+  youtubeUrl('youtube_url'),
+  ;
+
+  const RemoteConfigDashboard(this.key);
+
+  final String key;
+}

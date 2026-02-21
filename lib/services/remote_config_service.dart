@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:mywebsite/mappers/export.dart';
 import 'package:mywebsite/mixin/remote_config_mixin.dart';
@@ -33,7 +32,6 @@ class RemoteConfigService with RemoteConfigGetters {
   Future<AboutMeData?> getAboutMeData() async {
     try {
       final jsonString = await getString(RemoteConfigKeys.aboutMe.key);
-      log('jsonString: $jsonString');
       if (jsonString.isEmpty) return null;
 
       final jsonData = json.decode(jsonString) as Map<String, dynamic>;
@@ -52,7 +50,6 @@ class RemoteConfigService with RemoteConfigGetters {
   Future<ProfileDetailsData?> getProfileDetails() async {
     try {
       final jsonString = await getString(RemoteConfigKeys.profileDetails.key);
-      log('jsonString: $jsonString');
       if (jsonString.isEmpty) return null;
 
       final jsonData = json.decode(jsonString) as Map<String, dynamic>;
@@ -73,7 +70,6 @@ class RemoteConfigService with RemoteConfigGetters {
   Future<List<Experience>?> getExperienceData() async {
     try {
       final jsonString = await getString(RemoteConfigKeys.experience.key);
-      log('jsonString: $jsonString');
       if (jsonString.isEmpty) return null;
 
       final jsonData = json.decode(jsonString) as Map<String, dynamic>;
@@ -96,7 +92,6 @@ class RemoteConfigService with RemoteConfigGetters {
   Future<List<Education>?> getEducationData() async {
     try {
       final jsonString = await getString(RemoteConfigKeys.education.key);
-      log('jsonString: $jsonString');
       if (jsonString.isEmpty) return null;
 
       final jsonData = json.decode(jsonString) as Map<String, dynamic>;
@@ -118,7 +113,6 @@ class RemoteConfigService with RemoteConfigGetters {
   Future<List<Project>?> getProjectsData() async {
     try {
       final jsonString = await getString(RemoteConfigKeys.projects.key);
-      log('jsonString: $jsonString');
       if (jsonString.isEmpty) return null;
 
       final jsonData = json.decode(jsonString) as Map<String, dynamic>;
@@ -138,7 +132,6 @@ class RemoteConfigService with RemoteConfigGetters {
   Future<List<Skill>?> getSkillsData() async {
     try {
       final jsonString = await getString(RemoteConfigKeys.skills.key);
-      log('jsonString: $jsonString');
       if (jsonString.isEmpty) return null;
 
       final jsonData = json.decode(jsonString) as Map<String, dynamic>;
@@ -162,16 +155,20 @@ class RemoteConfigService with RemoteConfigGetters {
     return getString(RemoteConfigImages.profileImage.imageName);
   }
 
-  /// Returns the value of a feature flag from Remote Config.
-  Future<bool> getFeatureFlag(RemoteConfigFeatureFlags flag) async {
-    return getBool(flag.key);
-  }
-
   /// Loads all personal-details feature flags in one call.
   Future<Map<RemoteConfigFeatureFlags, bool>> getFeatureFlags() async {
     final entries = await Future.wait(
       RemoteConfigFeatureFlags.values.map(
-        (flag) async => MapEntry(flag, await getFeatureFlag(flag)),
+        (flag) async => MapEntry(flag, await getBool(flag.key)),
+      ),
+    );
+    return Map.fromEntries(entries);
+  }
+
+  Future<Map<RemoteConfigDashboard, String>> getDashboard() async {
+    final entries = await Future.wait(
+      RemoteConfigDashboard.values.map(
+        (flag) async => MapEntry(flag, await getString(flag.key)),
       ),
     );
     return Map.fromEntries(entries);

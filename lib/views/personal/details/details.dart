@@ -25,10 +25,8 @@ class Details extends HookWidget {
     final snapshot = useFuture(flagsFuture);
     final flags = snapshot.data ?? _defaultFlags();
 
-    // final useV2Layout = flags[RemoteConfigFeatureFlags.useV2Layout] ?? true;
-    const useV2Layout = true;
+    final useV2Layout = flags[RemoteConfigFeatureFlags.useV2Layout] ?? true;
 
-    // ignore: dead_code
     if (useV2Layout) {
       return _DetailsScrollLayout(
         isSmall: isSmall,
@@ -36,7 +34,6 @@ class Details extends HookWidget {
       );
     }
 
-    // ignore: dead_code
     return _DetailsTabLayout(
       isSmall: isSmall,
       flags: flags,

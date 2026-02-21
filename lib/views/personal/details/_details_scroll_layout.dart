@@ -91,30 +91,22 @@ class _DetailsScrollLayout extends HookWidget {
                       KeyedSubtree(
                         key: sectionKeys.value[0],
                         child: AboutMe(
+                          flags: flags,
                           wrapInScrollView: false,
-                          showQuote: flags[
-                                  RemoteConfigFeatureFlags.aboutMeShowQuote] ??
-                              false,
-                          useSplit:
-                              flags[RemoteConfigFeatureFlags.aboutMeUseSplit] ??
-                                  false,
                         ),
                       ),
                       gap24,
                       KeyedSubtree(
                         key: sectionKeys.value[1],
                         child: Experiences(
+                          flags: flags,
                           wrapInScrollView: false,
-                          useParagraphs: flags[RemoteConfigFeatureFlags
-                                  .experienceUseParagraphs] ??
-                              false,
                         ),
                       ),
                       gap24,
                       KeyedSubtree(
                         key: sectionKeys.value[2],
                         child: const Projects(
-                          // showHeader: true,
                           wrapInScrollView: false,
                         ),
                       ),
@@ -122,7 +114,6 @@ class _DetailsScrollLayout extends HookWidget {
                       KeyedSubtree(
                         key: sectionKeys.value[3],
                         child: const Skills(
-                          // showHeader: true,
                           wrapInScrollView: false,
                         ),
                       ),
@@ -130,10 +121,8 @@ class _DetailsScrollLayout extends HookWidget {
                       KeyedSubtree(
                         key: sectionKeys.value[4],
                         child: Educations(
+                          flags: flags,
                           wrapInScrollView: false,
-                          useSplit: flags[
-                                  RemoteConfigFeatureFlags.educationUseSplit] ??
-                              false,
                         ),
                       ),
                     ],

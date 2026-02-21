@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/data/all_data.dart';
+import 'package:mywebsite/models/enums/remote_config_keys.dart';
 import 'package:mywebsite/models/export.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/education_card.dart';
@@ -7,15 +8,15 @@ import 'package:mywebsite/views/personal/details/widgets/export.dart';
 
 class Educations extends StatefulWidget {
   const Educations({
+    required this.flags,
     this.showHeader = true,
     this.wrapInScrollView = true,
-    this.useSplit = false,
     super.key,
   });
 
   final bool showHeader;
   final bool wrapInScrollView;
-  final bool useSplit;
+  final Map<RemoteConfigFeatureFlags, bool> flags;
 
   @override
   State<Educations> createState() => _EducationsState();
@@ -78,6 +79,8 @@ class _EducationsState extends State<Educations> {
         }
 
         final educations = snapshot.data!;
+        final useSplit =
+            widget.flags[RemoteConfigFeatureFlags.educationUseSplit] ?? false;
 
         final content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +94,7 @@ class _EducationsState extends State<Educations> {
             ],
             if (!widget.showHeader) gap24,
             gap12,
-            if (widget.useSplit) ...[
+            if (useSplit) ...[
               ..._buildSplitSection(educations),
             ] else ...[
               ...educations.map(

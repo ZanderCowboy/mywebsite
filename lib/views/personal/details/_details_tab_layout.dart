@@ -61,20 +61,18 @@ class _DetailsTabLayout extends HookWidget {
   }) {
     return switch (index) {
       0 => AboutMe(
+          flags: flags,
           showHeader: !isSmall,
-          showQuote: flags[RemoteConfigFeatureFlags.aboutMeShowQuote] ?? false,
-          useSplit: flags[RemoteConfigFeatureFlags.aboutMeUseSplit] ?? false,
         ),
       1 => Experiences(
+          flags: flags,
           showHeader: !isSmall,
-          useParagraphs:
-              flags[RemoteConfigFeatureFlags.experienceUseParagraphs] ?? false,
         ),
       2 => Projects(showHeader: !isSmall),
       3 => Skills(showHeader: !isSmall),
       4 => Educations(
+          flags: flags,
           showHeader: !isSmall,
-          useSplit: flags[RemoteConfigFeatureFlags.educationUseSplit] ?? false,
         ),
       _ => const Text('No data available'),
     };

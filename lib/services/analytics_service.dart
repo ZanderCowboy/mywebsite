@@ -13,7 +13,6 @@ class AnalyticsService {
 
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
-  /// Get the Firebase Analytics instance
   FirebaseAnalytics get analytics => _analytics;
 
   /// Get the Firebase Analytics Observer for navigation tracking

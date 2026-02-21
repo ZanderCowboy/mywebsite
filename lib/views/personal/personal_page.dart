@@ -25,7 +25,6 @@ class _PersonalPageState extends State<PersonalPage> {
   @override
   void initState() {
     super.initState();
-    // Log personal page view when the page is loaded
     _analyticsService.logEvent(AnalyticsEvent.personalPageView);
   }
 

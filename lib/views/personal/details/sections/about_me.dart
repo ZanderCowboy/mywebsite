@@ -3,23 +3,22 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mywebsite/components/social_pill.dart';
 import 'package:mywebsite/data/all_data.dart';
 import 'package:mywebsite/models/enums/export.dart';
+import 'package:mywebsite/models/enums/remote_config_keys.dart';
 import 'package:mywebsite/models/export.dart' as models;
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/export.dart';
 
 class AboutMe extends StatefulWidget {
   const AboutMe({
+    required this.flags,
     this.showHeader = true,
     this.wrapInScrollView = true,
-    this.showQuote = false,
-    this.useSplit = false,
     super.key,
   });
 
   final bool showHeader;
   final bool wrapInScrollView;
-  final bool showQuote;
-  final bool useSplit;
+  final Map<RemoteConfigFeatureFlags, bool> flags;
 
   @override
   State<AboutMe> createState() => _AboutMeState();
@@ -82,6 +81,10 @@ class _AboutMeState extends State<AboutMe> {
         }
 
         final aboutMe = snapshot.data!;
+        final showQuote =
+            widget.flags[RemoteConfigFeatureFlags.aboutMeShowQuote] ?? false;
+        final useSplit =
+            widget.flags[RemoteConfigFeatureFlags.aboutMeUseSplit] ?? false;
 
         final content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +105,7 @@ class _AboutMeState extends State<AboutMe> {
               ),
               const BodyDivider(),
             ],
-            if (widget.showQuote &&
+            if (showQuote &&
                 aboutMe.quote != null &&
                 aboutMe.quote!.isNotEmpty) ...[
               if (widget.showHeader) gap16 else gap40,
@@ -121,7 +124,7 @@ class _AboutMeState extends State<AboutMe> {
             ],
             LayoutBuilder(
               builder: (context, constraints) {
-                final useTwoColumns = widget.useSplit &&
+                final useTwoColumns = useSplit &&
                     constraints.maxWidth >= 550 &&
                     (aboutMe.ongoingProjectsText != null &&
                         aboutMe.ongoingProjectsText!.isNotEmpty);

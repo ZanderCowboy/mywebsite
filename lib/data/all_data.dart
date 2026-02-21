@@ -76,4 +76,13 @@ class AllData {
       return {};
     }
   }
+
+  static Future<Map<RemoteConfigDashboard, String>> get dashboard async {
+    try {
+      return await _remoteConfigService.getDashboard();
+    } catch (e) {
+      dev.log('Error fetching dashboard values: $e', name: 'AllData');
+      return {};
+    }
+  }
 }
