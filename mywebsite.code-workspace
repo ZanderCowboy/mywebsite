@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "automatic",
+		"java.configuration.updateBuildConfiguration": "automatic"
+	},
+	"extensions": {
+		"recommendations": [
+			"Dart-Code.flutter",
+			"dart-code.dart-code"
+		]
+	}
+}
