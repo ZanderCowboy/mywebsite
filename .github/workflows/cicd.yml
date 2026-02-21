@@ -1,4 +1,4 @@
-name: CI/CD Workflow for GH Pages
+name: CI/CD
 
 on:
   pull_request:
@@ -82,6 +82,7 @@ jobs:
           echo "version_rel=${version}" >> $GITHUB_OUTPUT
 
       - name: Get pubspec.yaml version
+        if: join(github.event.pull_request.labels.*.name, '') == ''
         uses: actions/download-artifact@v4
         with:
           name: pubspec-file-release
@@ -119,13 +120,13 @@ jobs:
         run: |
           version_number="${{ needs.bumpVersion.outputs.version_number }}"
           version_release="${{ needs.bumpVersion.outputs.version_release }}"
-          
+
           # Extract build number (everything after the +)
           build_number=$(echo "$version_number" | sed 's/.*+//')
-          
+
           # Extract build name (version without build number)
           build_name=$(echo "$version_number" | sed 's/+.*//')
-          
+
           echo "build_name=$build_name" >> $GITHUB_OUTPUT
           echo "build_number=$build_number" >> $GITHUB_OUTPUT
           echo "version_release=$version_release" >> $GITHUB_OUTPUT

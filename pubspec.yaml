@@ -55,6 +55,7 @@ flutter:
     - assets/images/profile/
     - assets/images/projects/
     - assets/images/skills/
+    - assets/images/svgs/
 
   fonts:
     - family: PlayfairDisplay
