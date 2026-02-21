@@ -17,12 +17,12 @@ Content can be driven by **Firebase Remote Config** (e.g. images), with **Fireba
 
 ## Tech stack
 
-| Category   | Technologies |
+| Category | Technologies |
 | ---------- | ------------ |
 | **Framework** | Flutter, Dart |
-| **Backend**   | Firebase (Core, Analytics, Remote Config) |
-| **UI**       | Material Design, custom typography (Playfair Display, Anton, Poiret One), responsive breakpoints |
-| **Tooling**   | Freezed, Auto Mappr, Flutter Gen, Very Good Analysis |
+| **Backend** | Firebase (Core, Analytics, Remote Config) |
+| **UI** | Material Design, custom typography (Playfair Display, Anton, Poiret One), responsive breakpoints |
+| **Tooling** | Freezed, Auto Mappr, Flutter Gen, Very Good Analysis |
 
 ---
 
@@ -30,8 +30,9 @@ Content can be driven by **Firebase Remote Config** (e.g. images), with **Fireba
 
 ### Prerequisites
 
-- **Flutter** 3.38+ (stable)
-- **Dart** 3.10+
+![Flutter](https://img.shields.io/badge/Flutter-3.41.2-blue?logo=flutter)
+![Dart](https://img.shields.io/badge/Dart-3.11.0-blue?logo=dart)
+
 - Firebase project (for Analytics and Remote Config)
 
 ### Run the app
@@ -52,14 +53,14 @@ flutter run
 When you change models or mappers, regenerate code with:
 
 ```bash
-melos run build_runner
+dart run build_runner build
 ```
 
 ---
 
 ## Project structure
 
-```
+```md
 lib/
 ├── bootstrap.dart          # App startup (Firebase, Remote Config, image loading)
 ├── main.dart               # App entry, routes, responsive breakpoints
@@ -86,9 +87,10 @@ Attribution for external resources used in this project:
 | **Home background** | Photo by [James Wheeler](https://www.pexels.com/photo/lake-and-mountain-417074/) (Pexels) |
 | **Personal page background** | Photo by [Pok Rie](https://www.pexels.com/photo/top-view-photo-of-rocky-shore-2049422/) (Pexels) |
 | **Skills / tech icons** | [Tech Icons](https://techicons.dev/icons/cplusplus), [SVG Repo](https://www.svgrepo.com/) |
+| **Badges** | [Badges](https://shields.io/badges) |
 
 ---
 
 ## License
 
-This project is open source. See the repository and author for usage terms.
+This project is open source. See the repository and author for usage terms and license [available here](./LICENSE)

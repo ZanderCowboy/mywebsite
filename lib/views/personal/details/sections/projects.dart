@@ -94,7 +94,7 @@ class _ProjectsState extends State<Projects> {
                     constraints.maxWidth > 1200 && projects.length >= 2;
 
                 if (useEqualHeight) {
-                  // TODO @ZanderCowboy: Remove IntrinsicHeight since it is resource intensive
+                  // TODO(ZanderCowboy): Remove IntrinsicHeight since it is resource intensive.
                   return IntrinsicHeight(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
