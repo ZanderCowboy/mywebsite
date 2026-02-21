@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
 import 'package:mywebsite/util/image_loader.dart';
@@ -156,10 +157,16 @@ class NetworkImageAvatar extends StatelessWidget {
 
   Future<ImageProvider> _loadImage() async {
     try {
-      // Process the URL to convert Google Drive URLs if necessary
+      if (imageUrl.isEmpty) {
+        return AssetImage(Assets.images.placeholder.path);
+      }
+
+      // Process the URL to convert Google Drive URLs if necessary.
+      // CachedNetworkImageProvider uses disk cache to avoid 429 rate limits.
       final processedUrl = processImageUrl(imageUrl);
-      final image = NetworkImage(processedUrl)
+      final image = CachedNetworkImageProvider(processedUrl)
         ..resolve(ImageConfiguration.empty);
+
       return image;
     } catch (e) {
       // Return placeholder image provider if network image fails
