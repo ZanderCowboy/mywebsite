@@ -118,25 +118,3 @@ jobs:
           commit_message: "Bump build number to ${{ steps.version.outputs.version }}"
           file_pattern: "pubspec.*"
           branch: main
-
-  deploy-staging:
-    name: Deploy to staging
-    needs: [build]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Download Web Build
-        uses: actions/download-artifact@v4
-        with:
-          name: web-staging
-          path: ./web-staging
-
-      - name: Deploy to Staging Repo
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          personal_token: ${{ secrets.DEPLOY_TOKEN }}
-          external_repository: ZanderCowboy/mywebsite-staging
-          publish_dir: ./web-staging
-          publish_branch: gh-pages-staging
-          cname: "staging.zanderkotze.co.za"
