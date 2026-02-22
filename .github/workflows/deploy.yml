@@ -22,7 +22,7 @@ jobs:
       version_release: ${{ steps.version-output.outputs.version_release }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Bump version and build number
         id: bump-version
@@ -50,7 +50,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: main
 
@@ -75,7 +75,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: main
           fetch-depth: 0
@@ -105,7 +105,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout tagged commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: "v${{ needs.bump-version.outputs.version_release }}"
 
