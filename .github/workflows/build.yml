@@ -132,9 +132,6 @@ jobs:
           name: web-staging
           path: ./web-staging
 
-      - name: Create CNAME file
-        run: echo "staging.zanderkotze.co.za" > ./build/web/CNAME
-
       - name: Deploy to Staging Repo
         uses: peaceiris/actions-gh-pages@v3
         with:
