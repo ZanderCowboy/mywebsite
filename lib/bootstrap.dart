@@ -33,7 +33,6 @@ Future<void> bootstrap() async {
   final imageService = ImageService();
   globalAppImages = await imageService.loadAppImages();
 
-  // Track app opening and first visit
   final analyticsService = AnalyticsService();
   await analyticsService.trackAppOpen();
 
@@ -65,16 +64,12 @@ String _getDeviceType() {
 
   switch (defaultTargetPlatform) {
     case TargetPlatform.iOS:
-      return 'mobile';
     case TargetPlatform.android:
-      return 'mobile';
-    case TargetPlatform.macOS:
-      return 'desktop';
-    case TargetPlatform.windows:
-      return 'desktop';
-    case TargetPlatform.linux:
-      return 'desktop';
     case TargetPlatform.fuchsia:
       return 'mobile';
+    case TargetPlatform.macOS:
+    case TargetPlatform.windows:
+    case TargetPlatform.linux:
+      return 'desktop';
   }
 }
