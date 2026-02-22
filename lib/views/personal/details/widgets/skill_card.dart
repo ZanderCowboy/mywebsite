@@ -35,6 +35,7 @@ class _SkillCardState extends State<SkillCard> {
         transform: Matrix4.identity()..scale(_hovered ? 1.05 : 1.0),
         transformAlignment: Alignment.center,
         child: Card(
+          shape: RoundedRectangleBorder(borderRadius: borderRadius12),
           color: kSecondaryColor,
           elevation: _hovered ? 8 : 4,
           margin: allPadding8,
@@ -56,20 +57,20 @@ class _SkillCardState extends State<SkillCard> {
                       ? NetworkImageAvatar(
                           imageUrl: widget.skill.imageUrl,
                           radius: 40,
-                          width: widget.isLarge ? 120 : 80,
-                          height: widget.isLarge ? 120 : 80,
+                          width: widget.isLarge ? 116 : 80,
+                          height: widget.isLarge ? 116 : 80,
                           isCircular: false,
                         )
                       : Image.asset(
                           widget.skill.imageUrl,
                           fit: BoxFit.contain,
-                          width: widget.isLarge ? 120 : 80,
-                          height: widget.isLarge ? 120 : 80,
+                          width: widget.isLarge ? 116 : 80,
+                          height: widget.isLarge ? 116 : 80,
                         ),
                 ),
                 gap8,
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: horizontal8,
                   child: Text(
                     widget.skill.name,
                     style: Typo.subtitle,
@@ -92,7 +93,7 @@ class _SkillCardState extends State<SkillCard> {
                     ),
                   ),
                 ],
-                gap24,
+                gap18,
               ],
             ),
           ),

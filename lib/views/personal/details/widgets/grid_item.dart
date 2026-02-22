@@ -6,7 +6,7 @@ class GridItem extends StatelessWidget {
   const GridItem({
     required this.icon,
     required this.title,
-    this.iconStyle = const IconStyle(Colors.white, 40),
+    this.iconStyle = const IconStyle(color: Colors.white, size: 32),
     this.subtitle = '',
     this.shimmer = false,
     super.key,
@@ -36,22 +36,22 @@ class GridItem extends StatelessWidget {
           ),
         ],
         color: const Color(0xFF2D3339),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: borderRadius16,
       ),
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+      padding: horizontal10 + vertical14,
       child: Row(
         children: [
           Material(
             color: Colors.transparent,
             elevation: 6,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: borderRadius12,
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.black.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: borderRadius12,
               ),
-              padding: const EdgeInsets.all(8),
+              padding: allPadding8,
               child: Icon(
                 icon,
                 color: iconStyle.color,
@@ -102,10 +102,13 @@ class GridItem extends StatelessWidget {
 }
 
 class IconStyle {
-  const IconStyle(this.color, this.size);
+  const IconStyle({
+    this.color,
+    this.size,
+  });
 
-  final Color color;
-  final double size;
+  final Color? color;
+  final double? size;
 }
 
 class _HoverAnimatedGradientBorder extends StatefulWidget {
@@ -165,7 +168,7 @@ class _HoverAnimatedGradientBorderState
         builder: (context, child) {
           return Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: borderRadius18,
               border: Border.all(
                 width: 2,
                 color: _hovered
@@ -189,10 +192,10 @@ class _HoverAnimatedGradientBorderState
                   : null,
             ),
             child: Container(
-              margin: const EdgeInsets.all(2),
+              margin: allPadding2,
               decoration: BoxDecoration(
                 color: const Color(0xFF2D3339),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: borderRadius16,
               ),
               child: widget.child,
             ),

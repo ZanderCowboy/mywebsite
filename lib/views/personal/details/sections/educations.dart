@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mywebsite/components/body_divider.dart';
+import 'package:mywebsite/components/export.dart';
 import 'package:mywebsite/data/all_data.dart';
 import 'package:mywebsite/models/enums/remote_config_keys.dart';
 import 'package:mywebsite/models/export.dart';
@@ -47,34 +47,9 @@ class _EducationsState extends State<Educations> {
         }
 
         if (snapshot.hasError || snapshot.data == null) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 48,
-                  color: Colors.grey[600],
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Failed to load education',
-                  style: Typo.body.copyWith(
-                    color: Colors.grey[600],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton.icon(
-                  onPressed: _loadData,
-                  icon: const Icon(Icons.refresh),
-                  label: const Text('Retry'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kPrimaryColor,
-                    foregroundColor: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+          return ErrorWithRetry(
+            errorMessage: 'Failed to load education',
+            onPressed: _loadData,
           );
         }
 
