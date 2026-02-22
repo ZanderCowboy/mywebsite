@@ -17,20 +17,20 @@ We use a template-based approach where:
 
 Add the following secrets to your GitHub repository (Settings → Secrets and variables → Actions):
 
-| Secret Name | Description | Example Value |
+| Secret Name | Description | **Example** Value |
 |-------------|-------------|---------------|
-| `FIREBASE_WEB_API_KEY` | Web API Key | `AIzaSyBLb-48wqK1Eyolk3HHa8573EQ7O_Erazc` |
-| `FIREBASE_WEB_APP_ID` | Web App ID | `1:897607184986:web:7501301afce60806e0de63` |
-| `FIREBASE_MESSAGING_SENDER_ID` | Messaging Sender ID | `897607184986` |
-| `FIREBASE_PROJECT_ID` | Project ID | `my-website-1135d` |
-| `FIREBASE_AUTH_DOMAIN` | Auth Domain | `my-website-1135d.firebaseapp.com` |
-| `FIREBASE_STORAGE_BUCKET` | Storage Bucket | `my-website-1135d.firebasestorage.app` |
-| `FIREBASE_MEASUREMENT_ID` | Measurement ID (Analytics) | `G-QBEKXLQJ1E` |
-| `FIREBASE_ANDROID_API_KEY` | Android API Key | `AIzaSyCabZQQXI9lN31YVnoskh9cjQX2cq_KSRA` |
-| `FIREBASE_ANDROID_APP_ID` | Android App ID | `1:897607184986:android:f3dddd600448c06ee0de63` |
-| `FIREBASE_IOS_API_KEY` | iOS API Key | `AIzaSyAu5QfNReg1nvY2clPKFwLeRLkpNC02sG0` |
-| `FIREBASE_IOS_APP_ID` | iOS App ID | `1:897607184986:ios:98f287c469cb54f9e0de63` |
-| `FIREBASE_IOS_BUNDLE_ID` | iOS Bundle ID | `co.za.zanderkotze.mywebsite` |
+| `FIREBASE_WEB_API_KEY` | Web API Key | `AIzaSyA1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q` |
+| `FIREBASE_WEB_APP_ID` | Web App ID | `1:123456789:web:abcdef123456e0de63` |
+| `FIREBASE_MESSAGING_SENDER_ID` | Messaging Sender ID | `123456789` |
+| `FIREBASE_PROJECT_ID` | Project ID | `your-project-id` |
+| `FIREBASE_AUTH_DOMAIN` | Auth Domain | `your-project-id.firebaseapp.com` |
+| `FIREBASE_STORAGE_BUCKET` | Storage Bucket | `your-project-id.firebasestorage.app` |
+| `FIREBASE_MEASUREMENT_ID` | Measurement ID (Analytics) | `G-ABCDEFGHIJ` |
+| `FIREBASE_ANDROID_API_KEY` | Android API Key | `AIzaSyB1C2D3E4F5G6H7I8J9K0L1M2N3O4P5Q6R` |
+| `FIREBASE_ANDROID_APP_ID` | Android App ID | `1:123456789:android:abcdef123456e0de63` |
+| `FIREBASE_IOS_API_KEY` | iOS API Key | `AIzaSyC1D2E3F4G5H6I7J8K9L0M1N2O3P4Q5R6S` |
+| `FIREBASE_IOS_APP_ID` | iOS App ID | `1:123456789:ios:abcdef123456e0de63` |
+| `FIREBASE_IOS_BUNDLE_ID` | iOS Bundle ID | `com.yourcompany.yourapp` |
 
 ### How to Get These Values
 
@@ -44,25 +44,25 @@ Add the following secrets to your GitHub repository (Settings → Secrets and va
 
 ### Option 1: Using .env file (Recommended)
 
-1. Create a `.env` file in the project root:
+1.Create a `.env` file in the project root:
 
 ```bash
 # Firebase Configuration
-FIREBASE_WEB_API_KEY=AIzaSyBLb-48wqK1Eyolk3HHa8573EQ7O_Erazc
-FIREBASE_WEB_APP_ID=1:897607184986:web:7501301afce60806e0de63
-FIREBASE_MESSAGING_SENDER_ID=897607184986
-FIREBASE_PROJECT_ID=my-website-1135d
-FIREBASE_AUTH_DOMAIN=my-website-1135d.firebaseapp.com
-FIREBASE_STORAGE_BUCKET=my-website-1135d.firebasestorage.app
-FIREBASE_MEASUREMENT_ID=G-QBEKXLQJ1E
-FIREBASE_ANDROID_API_KEY=AIzaSyCabZQQXI9lN31YVnoskh9cjQX2cq_KSRA
-FIREBASE_ANDROID_APP_ID=1:897607184986:android:f3dddd600448c06ee0de63
-FIREBASE_IOS_API_KEY=AIzaSyAu5QfNReg1nvY2clPKFwLeRLkpNC02sG0
-FIREBASE_IOS_APP_ID=1:897607184986:ios:98f287c469cb54f9e0de63
-FIREBASE_IOS_BUNDLE_ID=co.za.zanderkotze.mywebsite
+FIREBASE_WEB_API_KEY=your_web_api_key_here
+FIREBASE_WEB_APP_ID=your_web_app_id_here
+FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id_here
+FIREBASE_PROJECT_ID=your_project_id_here
+FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
+FIREBASE_STORAGE_BUCKET=your_project_id.firebasestorage.app
+FIREBASE_MEASUREMENT_ID=your_measurement_id_here
+FIREBASE_ANDROID_API_KEY=your_android_api_key_here
+FIREBASE_ANDROID_APP_ID=your_android_app_id_here
+FIREBASE_IOS_API_KEY=your_ios_api_key_here
+FIREBASE_IOS_APP_ID=your_ios_app_id_here
+FIREBASE_IOS_BUNDLE_ID=com.yourcompany.yourapp
 ```
 
-2. Run the setup script:
+2.Run the setup script:
 
 ```bash
 chmod +x scripts/setup_firebase_config.sh
@@ -74,8 +74,8 @@ chmod +x scripts/setup_firebase_config.sh
 Export the environment variables in your shell:
 
 ```bash
-export FIREBASE_WEB_API_KEY="AIzaSyBLb-48wqK1Eyolk3HHa8573EQ7O_Erazc"
-export FIREBASE_WEB_APP_ID="1:897607184986:web:7501301afce60806e0de63"
+export FIREBASE_WEB_API_KEY="your_web_api_key_here"
+export FIREBASE_WEB_APP_ID="your_web_app_id_here"
 # ... export all other variables
 ./scripts/setup_firebase_config.sh
 ```
