@@ -1,4 +1,4 @@
-.PHONY: r rebuild
+.PHONY: r rebuild mr
 
-r rebuild:
-	dart run build_runner build --delete-conflicting-outputs
+r rebuild mr:
+	flutter pub run build_runner build --delete-conflicting-outputs
