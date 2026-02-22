@@ -1,8 +1,26 @@
 import 'package:mywebsite/models/enums/analytics_event.dart';
+import 'package:mywebsite/models/parameters.dart';
 import 'package:mywebsite/services/analytics_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<void> launchURL(String url) async {
+/// Launch a URL with optional analytics context
+Future<void> launchURL(
+  String url, {
+  Parameters? analyticsParams,
+  bool skipAnalytics = false,
+}) async {
+  if (skipAnalytics) {
+    // Skip analytics completely
+    if (url.startsWith('mailto:')) {
+      await _launchEmail(url);
+    } else if (url.startsWith('tel:')) {
+      await _launchPhone(url);
+    } else {
+      await _launchGenericURL(url);
+    }
+    return;
+  }
+
   final analyticsService = AnalyticsService();
 
   // Handle different URL types
@@ -10,53 +28,80 @@ Future<void> launchURL(String url) async {
     final email = url.replaceFirst('mailto:', '');
     await analyticsService.logEvent(
       AnalyticsEvent.emailClick,
-      parameters: {'email_address': email},
+      parameters: analyticsParams ?? Parameters(emailAddress: email),
     );
     await _launchEmail(url);
   } else if (url.startsWith('tel:')) {
     final phone = url.replaceFirst('tel:', '');
     await analyticsService.logEvent(
       AnalyticsEvent.phoneClick,
-      parameters: {'phone_number': phone},
+      parameters: analyticsParams ?? Parameters(phoneNumber: phone),
     );
     await _launchPhone(url);
   } else {
-    // Log social media clicks based on URL patterns
-    if (url.contains('linkedin.com')) {
-      await analyticsService.logEvent(
-        AnalyticsEvent.socialMediaClick,
-        parameters: {'platform': 'LinkedIn', 'url': url},
-      );
-    } else if (url.contains('github.com')) {
-      await analyticsService.logEvent(
-        AnalyticsEvent.socialMediaClick,
-        parameters: {'platform': 'GitHub', 'url': url},
-      );
-    } else if (url.contains('twitter.com') || url.contains('x.com')) {
-      await analyticsService.logEvent(
-        AnalyticsEvent.socialMediaClick,
-        parameters: {'platform': 'X (Twitter)', 'url': url},
-      );
-    } else if (url.contains('instagram.com')) {
-      await analyticsService.logEvent(
-        AnalyticsEvent.socialMediaClick,
-        parameters: {'platform': 'Instagram', 'url': url},
-      );
-    } else if (url.contains('youtube.com')) {
-      await analyticsService.logEvent(
-        AnalyticsEvent.socialMediaClick,
-        parameters: {'platform': 'YouTube', 'url': url},
-      );
-    } else if (url.contains('discord.com')) {
-      await analyticsService.logEvent(
-        AnalyticsEvent.socialMediaClick,
-        parameters: {'platform': 'Discord', 'url': url},
-      );
+    // If custom parameters provided, use them
+    if (analyticsParams != null) {
+      // Determine event type based on parameters or URL
+      var event = AnalyticsEvent.externalLinkClick;
+
+      // Check for specific item types
+      if (analyticsParams.itemType == 'cv') {
+        event = AnalyticsEvent.cvDownload;
+      } else if (analyticsParams.itemType == 'social_pill' ||
+          analyticsParams.linkType == 'social_media') {
+        event = AnalyticsEvent.socialMediaClick;
+      } else if (analyticsParams.itemType == 'education_link' ||
+          analyticsParams.linkType == 'education') {
+        event = AnalyticsEvent.educationLinkClick;
+      } else if (url.contains('linkedin.com') ||
+          url.contains('github.com') ||
+          url.contains('twitter.com') ||
+          url.contains('x.com') ||
+          url.contains('instagram.com') ||
+          url.contains('youtube.com') ||
+          url.contains('discord.com')) {
+        event = AnalyticsEvent.socialMediaClick;
+      }
+
+      await analyticsService.logEvent(event, parameters: analyticsParams);
     } else {
-      await analyticsService.logEvent(
-        AnalyticsEvent.externalLinkClick,
-        parameters: {'url': url},
-      );
+      // Default behavior: Log social media clicks based on URL patterns
+      if (url.contains('linkedin.com')) {
+        await analyticsService.logEvent(
+          AnalyticsEvent.socialMediaClick,
+          parameters: Parameters(platform: 'LinkedIn', url: url),
+        );
+      } else if (url.contains('github.com')) {
+        await analyticsService.logEvent(
+          AnalyticsEvent.socialMediaClick,
+          parameters: Parameters(platform: 'GitHub', url: url),
+        );
+      } else if (url.contains('twitter.com') || url.contains('x.com')) {
+        await analyticsService.logEvent(
+          AnalyticsEvent.socialMediaClick,
+          parameters: Parameters(platform: 'X (Twitter)', url: url),
+        );
+      } else if (url.contains('instagram.com')) {
+        await analyticsService.logEvent(
+          AnalyticsEvent.socialMediaClick,
+          parameters: Parameters(platform: 'Instagram', url: url),
+        );
+      } else if (url.contains('youtube.com')) {
+        await analyticsService.logEvent(
+          AnalyticsEvent.socialMediaClick,
+          parameters: Parameters(platform: 'YouTube', url: url),
+        );
+      } else if (url.contains('discord.com')) {
+        await analyticsService.logEvent(
+          AnalyticsEvent.socialMediaClick,
+          parameters: Parameters(platform: 'Discord', url: url),
+        );
+      } else {
+        await analyticsService.logEvent(
+          AnalyticsEvent.externalLinkClick,
+          parameters: Parameters(url: url),
+        );
+      }
     }
     await _launchGenericURL(url);
   }

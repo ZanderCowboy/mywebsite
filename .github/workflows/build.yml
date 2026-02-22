@@ -1,0 +1,141 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - "main"
+    types:
+      - "closed"
+
+jobs:
+  bump-build-number:
+    name: Bump build number
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    outputs:
+      version_number: ${{ steps.version-output.outputs.version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Bump build number only
+        id: bump-build
+        uses: ./.github/actions/app-versioning
+        with:
+          bump-strategy: "none"
+          bump-build: "true"
+          file-path: "pubspec.yaml"
+          upload-filename: "pubspec-build-bump"
+
+      - name: Set version output
+        id: version-output
+        run: |
+          echo "version=${{ steps.bump-build.outputs.version-number }}" >> $GITHUB_OUTPUT
+
+  build:
+    name: Build Web
+    needs: [bump-build-number]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: Setup Firebase Configuration
+        uses: ./.github/actions/setup-firebase-config
+        with:
+          web-api-key: ${{ secrets.FIREBASE_WEB_API_KEY }}
+          web-app-id: ${{ secrets.FIREBASE_WEB_APP_ID }}
+          messaging-sender-id: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+          project-id: ${{ secrets.FIREBASE_PROJECT_ID }}
+          auth-domain: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+          storage-bucket: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+          measurement-id: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
+          android-api-key: ${{ secrets.FIREBASE_ANDROID_API_KEY }}
+          android-app-id: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          ios-api-key: ${{ secrets.FIREBASE_IOS_API_KEY }}
+          ios-app-id: ${{ secrets.FIREBASE_IOS_APP_ID }}
+          ios-bundle-id: ${{ secrets.FIREBASE_IOS_BUNDLE_ID }}
+
+      - name: Download bumped pubspec.yaml
+        uses: actions/download-artifact@v4
+        with:
+          name: pubspec-build-bump
+          path: ${{ github.workspace }}
+
+      - name: Extract version components
+        id: version
+        run: |
+          version_number="${{ needs.bump-build-number.outputs.version_number }}"
+
+          # Extract build number (everything after the +)
+          build_number=$(echo "$version_number" | sed 's/.*+//')
+
+          # Extract build name (version without build number)
+          build_name=$(echo "$version_number" | sed 's/+.*//')
+
+          echo "build_name=$build_name" >> $GITHUB_OUTPUT
+          echo "build_number=$build_number" >> $GITHUB_OUTPUT
+
+      - name: Build Web
+        run: flutter build web --base-href='/' --release --build-name=${{ steps.version.outputs.build_name }} --build-number=${{ steps.version.outputs.build_number }}
+
+      - name: Upload Web Build Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-staging
+          path: ./build/web
+
+  commit-build-number:
+    name: Commit build number to main
+    needs: [build, bump-build-number]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Extract version for commit message
+        id: version
+        run: |
+          version_number="${{ needs.bump-build-number.outputs.version_number }}"
+          echo "version=$version_number" >> $GITHUB_OUTPUT
+
+      - name: Download bumped pubspec.yaml
+        uses: actions/download-artifact@v4
+        with:
+          name: pubspec-build-bump
+          path: ${{ github.workspace }}
+
+      - name: Commit bumped version to main
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Bump build number to ${{ steps.version.outputs.version }}"
+          file_pattern: "pubspec.*"
+          branch: main
+
+  deploy-staging:
+    name: Deploy to staging
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download Web Build
+        uses: actions/download-artifact@v4
+        with:
+          name: web-staging
+          path: ./web-staging
+
+      - name: Deploy to gh-pages-staging
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./web-staging
+          publish_branch: gh-pages-staging
+          cname: ""

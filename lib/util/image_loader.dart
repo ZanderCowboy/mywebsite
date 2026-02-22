@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
@@ -92,20 +93,15 @@ Widget loadImageWidget({
         width: width ?? double.infinity,
       );
     } else {
-      return Image.network(
-        processedUrl,
+      // Use disk-backed cache to avoid 429 rate limits during development.
+      // Cached images persist across app restarts (default ~7 days).
+      return CachedNetworkImage(
+        imageUrl: processedUrl,
         fit: fit,
         height: height,
         width: width ?? double.infinity,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) {
-            return child;
-          }
-          return placeholder;
-        },
-        errorBuilder: (_, error, stackTrace) {
-          return errorWidget;
-        },
+        placeholder: (_, __) => placeholder,
+        errorWidget: (_, __, ___) => errorWidget,
       );
     }
   } else {

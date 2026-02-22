@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
 import 'package:mywebsite/models/domain/education.dart';
+import 'package:mywebsite/models/parameters.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/network_image_avatar.dart';
 
@@ -11,6 +12,34 @@ class EducationCard extends StatelessWidget {
   });
 
   final Education education;
+
+  void _handleSchoolUrlClick(String url, String schoolName) {
+    launchURL(
+      url,
+      analyticsParams: Parameters(
+        url: url,
+        section: 'personal_page',
+        tabName: 'Education',
+        itemType: 'school_logo',
+        itemName: schoolName,
+        linkType: 'education',
+      ),
+    );
+  }
+
+  void _handleEducationLinkClick(String url, String degree) {
+    launchURL(
+      url,
+      analyticsParams: Parameters(
+        url: url,
+        section: 'personal_page',
+        tabName: 'Education',
+        itemType: 'education_link',
+        itemName: degree,
+        linkType: 'education',
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +57,10 @@ class EducationCard extends StatelessWidget {
                   NetworkImageAvatar(
                     imageUrl: education.imageUrl!,
                     onTap: education.schoolUrl != null
-                        ? () => launchURL(education.schoolUrl!)
+                        ? () => _handleSchoolUrlClick(
+                              education.schoolUrl!,
+                              education.schoolName,
+                            )
                         : null,
                   )
                 else
@@ -47,11 +79,21 @@ class EducationCard extends StatelessWidget {
                           style: Typo.subtitle,
                         ),
                       ),
+                      Text(
+                        education.displayDate,
+                        style: Typo.subtitle.copyWith(
+                          color: Colors.grey[400],
+                          fontSize: 11,
+                        ),
+                      ),
                       if (education.link != null)
                         IconButton(
                           icon: const Icon(Icons.link),
                           onPressed: () {
-                            launchURL(education.link!);
+                            _handleEducationLinkClick(
+                              education.link!,
+                              education.degree,
+                            );
                           },
                         ),
                     ],

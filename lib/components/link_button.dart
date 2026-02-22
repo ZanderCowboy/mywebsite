@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
 import 'package:mywebsite/models/enums/export.dart';
+import 'package:mywebsite/models/parameters.dart';
 import 'package:mywebsite/services/analytics_service.dart';
 import 'package:mywebsite/util/launcher.dart';
 import 'package:mywebsite/util/ui_constants.dart';
@@ -39,7 +40,7 @@ class LinkButton extends StatelessWidget {
             () {
               analyticsService.logEvent(
                 AnalyticsEvent.externalLinkClick,
-                parameters: {'url': link ?? ''},
+                parameters: Parameters(url: link ?? ''),
               );
               launchURL(link ?? '');
             },

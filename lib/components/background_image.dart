@@ -8,7 +8,7 @@ import 'package:transparent_image/transparent_image.dart';
 class BackgroundImage extends StatelessWidget {
   const BackgroundImage({
     required this.imageUrl,
-    required this.fallbackAssetPath,
+    required this.fallbackImage,
     super.key,
     this.fit = BoxFit.cover,
     this.isPositioned = true,
@@ -17,8 +17,8 @@ class BackgroundImage extends StatelessWidget {
   /// The network URL for the background image
   final String imageUrl;
 
-  /// The local asset path to use as fallback
-  final String fallbackAssetPath;
+  /// The fallback image [Widget] to use as fallback
+  final Widget fallbackImage;
 
   /// How the image should be fitted within its bounds
   final BoxFit fit;
@@ -33,9 +33,7 @@ class BackgroundImage extends StatelessWidget {
       placeholder: kTransparentImage,
       image: imageUrl,
       imageErrorBuilder: (_, __, ___) {
-        return Center(
-          child: Image.asset(fallbackAssetPath),
-        );
+        return fallbackImage;
       },
     );
 

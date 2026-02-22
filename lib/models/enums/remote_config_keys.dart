@@ -1,8 +1,8 @@
 enum RemoteConfigKeys {
-  profileDetails('profile_details'),
   aboutMe('about_me'),
-  experience('experience'),
   education('education'),
+  experience('experience'),
+  profileDetails('profile_details'),
   projects('projects'),
   skills('skills'),
   ;
@@ -20,4 +20,40 @@ enum RemoteConfigImages {
   const RemoteConfigImages(this.imageName);
 
   final String imageName;
+}
+
+enum RemoteConfigFeatureFlags {
+  /// Toggles quote on About Me section
+  aboutMeShowQuote('about_me_show_quote'),
+
+  /// Toggles newspaper layout on About Me section
+  aboutMeUseSplit('about_me_use_split'),
+
+  /// Toggles split on Education section to use Formal/Accreditation view
+  educationUseSplit('education_use_split'),
+
+  /// Toggles to use paragraphs on Experience section instead of bullet points
+  experienceUseParagraphs('experience_use_paragraphs'),
+
+  /// Toggles to use the new scroll-to-proceed layout
+  useV2Layout('use_v2_layout');
+
+  const RemoteConfigFeatureFlags(this.key);
+
+  final String key;
+}
+
+enum RemoteConfigDashboard {
+  discordUrl('discord_url'),
+  githubUrl('github_url'),
+  instagramUrl('instagram_url'),
+  linkedInUrl('linkedin_url'),
+  personalUrl('personal_url'),
+  xUrl('x_url'),
+  youtubeUrl('youtube_url'),
+  ;
+
+  const RemoteConfigDashboard(this.key);
+
+  final String key;
 }

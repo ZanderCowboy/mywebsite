@@ -4,12 +4,18 @@ class AboutMeData {
     required this.socialPills,
     required this.professionalSkills,
     required this.personalInterests,
+    this.cvLink,
+    this.quote,
+    this.ongoingProjectsText,
   });
 
   final String description;
   final List<SocialPill> socialPills;
   final List<String> professionalSkills;
   final List<String> personalInterests;
+  final String? cvLink;
+  final String? quote;
+  final String? ongoingProjectsText;
 }
 
 class SocialPill {

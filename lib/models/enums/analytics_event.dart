@@ -4,6 +4,7 @@ enum AnalyticsEvent {
   homePageView('home_page_view'),
   personalPageView('personal_page_view'),
   personalSectionView('personal_section_view'),
+  personalTabChange('personal_tab_change'),
 
   // Navigation Events
   navigateToPersonal('navigate_to_personal'),
@@ -23,6 +24,7 @@ enum AnalyticsEvent {
   skillClick('skill_click'),
   experienceView('experience_view'),
   educationView('education_view'),
+  educationLinkClick('education_link_click'),
 
   // UI Interaction Events
   avatarClick('avatar_click'),

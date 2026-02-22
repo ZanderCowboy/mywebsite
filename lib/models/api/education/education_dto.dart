@@ -1,32 +1,51 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-part 'education_dto.freezed.dart';
 part 'education_dto.g.dart';
 
-@freezed
-class EducationDataDTO with _$EducationDataDTO {
-  const factory EducationDataDTO({
-    required List<EducationDTO> education,
-  }) = _EducationDataDTO;
+@JsonSerializable(explicitToJson: true)
+class EducationDataDTO {
+  const EducationDataDTO({
+    required this.education,
+  });
 
   factory EducationDataDTO.fromJson(Map<String, dynamic> json) =>
       _$EducationDataDTOFromJson(json);
+
+  final List<EducationDTO> education;
+
+  Map<String, dynamic> toJson() => _$EducationDataDTOToJson(this);
 }
 
-@freezed
-class EducationDTO with _$EducationDTO {
-  const factory EducationDTO({
-    required String schoolName,
-    required String degree,
-    required String description,
-    String? endDate,
-    String? fieldOfStudy,
-    String? startDate,
-    String? imageUrl,
-    String? link,
-    String? schoolUrl,
-  }) = _EducationDTO;
+@JsonSerializable()
+class EducationDTO {
+  const EducationDTO({
+    required this.schoolName,
+    required this.degree,
+    required this.description,
+    this.endDate,
+    this.fieldOfStudy,
+    this.startDate,
+    this.imageUrl,
+    this.link,
+    this.schoolUrl,
+    this.dateDisplay,
+    this.type,
+  });
 
   factory EducationDTO.fromJson(Map<String, dynamic> json) =>
       _$EducationDTOFromJson(json);
+
+  final String schoolName;
+  final String degree;
+  final String description;
+  final String? endDate;
+  final String? fieldOfStudy;
+  final String? startDate;
+  final String? imageUrl;
+  final String? link;
+  final String? schoolUrl;
+  final String? dateDisplay;
+  final String? type;
+
+  Map<String, dynamic> toJson() => _$EducationDTOToJson(this);
 }

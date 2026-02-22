@@ -18,7 +18,6 @@ class App extends StatelessWidget {
     super.key,
   });
 
-  // Create an AnalyticsService instance
   static final AnalyticsService analyticsService = AnalyticsService();
 
   @override
@@ -53,7 +52,6 @@ class App extends StatelessWidget {
     );
   }
 
-  /// Update device type user property based on screen size (useful for web)
   void _updateDeviceTypeBasedOnScreenSize(BuildContext context) {
     if (kIsWeb) {
       final screenWidth = MediaQuery.of(context).size.width;

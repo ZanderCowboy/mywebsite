@@ -25,7 +25,6 @@ Future<void> bootstrap() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Initialize Remote Config
   final remoteConfigService = RemoteConfigService();
   await remoteConfigService.initialize();
 
@@ -38,26 +37,22 @@ Future<void> bootstrap() async {
   final analyticsService = AnalyticsService();
   await analyticsService.trackAppOpen();
 
-  // Set initial user properties
   await _setInitialUserProperties(analyticsService);
 }
 
-/// Set initial user properties for analytics
 Future<void> _setInitialUserProperties(
   AnalyticsService analyticsService,
 ) async {
   try {
-    // Get device information
     final deviceType = _getDeviceType();
 
     await analyticsService.setUserProperties(
-      userType: 'visitor', // Default user type for portfolio website
+      userType: 'visitor',
       deviceType: deviceType,
-      preferredTheme: 'dark', // App uses dark theme
-      primaryLanguage: 'en', // Portfolio is in English
+      preferredTheme: 'dark',
+      primaryLanguage: 'en',
     );
   } catch (e) {
-    // Handle errors gracefully
     debugPrint('Error setting initial user properties: $e');
   }
 }

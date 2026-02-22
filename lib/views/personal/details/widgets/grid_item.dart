@@ -35,7 +35,7 @@ class GridItem extends StatelessWidget {
             blurStyle: BlurStyle.outer,
           ),
         ],
-        color: const Color(0xFF2A2A2A),
+        color: const Color(0xFF2D3339),
         borderRadius: BorderRadius.circular(16),
       ),
       alignment: Alignment.center,
@@ -95,7 +95,7 @@ class GridItem extends StatelessWidget {
       );
     } else {
       return RepaintBoundary(
-        child: _AnimatedGradientBorder(child: card),
+        child: _HoverAnimatedGradientBorder(child: card),
       );
     }
   }
@@ -108,27 +108,29 @@ class IconStyle {
   final double size;
 }
 
-class _AnimatedGradientBorder extends StatefulWidget {
-  const _AnimatedGradientBorder({required this.child});
+class _HoverAnimatedGradientBorder extends StatefulWidget {
+  const _HoverAnimatedGradientBorder({required this.child});
 
   final Widget child;
 
   @override
-  State<_AnimatedGradientBorder> createState() =>
-      _AnimatedGradientBorderState();
+  State<_HoverAnimatedGradientBorder> createState() =>
+      _HoverAnimatedGradientBorderState();
 }
 
-class _AnimatedGradientBorderState extends State<_AnimatedGradientBorder>
+class _HoverAnimatedGradientBorderState
+    extends State<_HoverAnimatedGradientBorder>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  bool _hovered = false;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 6), // Much slower animation
-    )..repeat();
+      duration: const Duration(seconds: 6),
+    );
   }
 
   @override
@@ -137,43 +139,66 @@ class _AnimatedGradientBorderState extends State<_AnimatedGradientBorder>
     super.dispose();
   }
 
+  void _onEnter(PointerEvent _) {
+    setState(() {
+      _hovered = true;
+      _controller.repeat();
+    });
+  }
+
+  void _onExit(PointerEvent _) {
+    setState(() {
+      _hovered = false;
+      _controller
+        ..stop()
+        ..reset();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(
-              width: 2, // Reduced border width
-              color: Colors.transparent,
-            ),
-            gradient: LinearGradient(
-              // Much simpler gradient
-              colors: const [
-                Color(0xFF3A506B),
-                Color(0xFF5BC0BE),
-                Color(0xFF1C2541),
-                Color(0xFF3A506B),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              transform: GradientRotation(
-                _controller.value * 2 * 3.14159,
-              ), // Full rotation
-            ),
-          ),
-          child: Container(
-            margin: const EdgeInsets.all(2), // Reduced margin
+    return MouseRegion(
+      onEnter: _onEnter,
+      onExit: _onExit,
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Container(
             decoration: BoxDecoration(
-              color: const Color(0xFF2A2A2A),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(
+                width: 2,
+                color: _hovered
+                    ? Colors.transparent
+                    : const Color(0xFF3A506B).withValues(alpha: 0.5),
+              ),
+              gradient: _hovered
+                  ? LinearGradient(
+                      colors: const [
+                        Color(0xFF3A506B),
+                        Color(0xFF5BC0BE),
+                        Color(0xFF1C2541),
+                        Color(0xFF3A506B),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      transform: GradientRotation(
+                        _controller.value * 2 * 3.14159,
+                      ),
+                    )
+                  : null,
             ),
-            child: widget.child,
-          ),
-        );
-      },
+            child: Container(
+              margin: const EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                color: const Color(0xFF2D3339),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: widget.child,
+            ),
+          );
+        },
+      ),
     );
   }
 }

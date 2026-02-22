@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
 import 'package:mywebsite/models/domain/project.dart';
+import 'package:mywebsite/models/parameters.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/util/image_loader.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ProjectCard extends StatelessWidget {
   const ProjectCard({
     required this.project,
+    this.expandDescription = false,
     super.key,
   });
 
   final Project project;
+  final bool expandDescription;
+
+  void _handleProjectClick() {
+    launchURL(
+      project.repoLink,
+      analyticsParams: Parameters(
+        url: project.repoLink,
+        section: 'personal_page',
+        tabName: 'Projects',
+        itemType: 'project_card',
+        itemName: project.name,
+        linkType: 'project',
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +36,7 @@ class ProjectCard extends StatelessWidget {
       elevation: 4,
       margin: vertical16,
       child: InkWell(
-        onTap: () async {
-          final uri = Uri.parse(project.repoLink);
-          if (await canLaunchUrl(uri)) {
-            await launchUrl(
-              uri,
-              mode: LaunchMode.externalApplication,
-            );
-          }
-        },
+        onTap: _handleProjectClick,
         child: Container(
           padding: allPadding10,
           width: double.infinity,
@@ -113,13 +121,26 @@ class ProjectCard extends StatelessWidget {
                     .toList(),
               ),
               gap16,
-              Text(
-                project.description,
-                style: const TextStyle(
-                  fontSize: 16,
-                  height: 1.5,
+              if (expandDescription)
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Text(
+                      project.description,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        height: 1.5,
+                      ),
+                    ),
+                  ),
+                )
+              else
+                Text(
+                  project.description,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    height: 1.5,
+                  ),
                 ),
-              ),
             ],
           ),
         ),

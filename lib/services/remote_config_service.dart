@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:mywebsite/mappers/export.dart';
 import 'package:mywebsite/mixin/remote_config_mixin.dart';
 import 'package:mywebsite/models/enums/remote_config_keys.dart';
-import 'package:mywebsite/models/export.dart';
 
 class RemoteConfigService with RemoteConfigGetters {
   factory RemoteConfigService() {
@@ -29,129 +26,14 @@ class RemoteConfigService with RemoteConfigGetters {
     await _remoteConfig.fetchAndActivate();
   }
 
-  /// Fetch and parse about me data from Remote Config
-  Future<AboutMeData?> getAboutMeData() async {
-    try {
-      final jsonString = await getString(RemoteConfigKeys.aboutMe.key);
-      log('jsonString: $jsonString');
-      if (jsonString.isEmpty) return null;
+  Future<Map<String, dynamic>> getJson(String key) async {
+    final jsonString = await getString(key);
 
-      final jsonData = json.decode(jsonString) as Map<String, dynamic>;
-      final dto = AboutMeDataDTO.fromJson(jsonData);
+    if (jsonString.isEmpty) return {};
 
-      final aboutMe = AboutMeMapper().convert<AboutMeDataDTO, AboutMeData>(
-        dto,
-      );
-      return aboutMe;
-    } catch (e) {
-      return null;
-    }
-  }
+    final jsonData = json.decode(jsonString) as Map<String, dynamic>;
 
-  /// Fetch and parse profile details from Remote Config
-  Future<ProfileDetailsData?> getProfileDetails() async {
-    try {
-      final jsonString = await getString(RemoteConfigKeys.profileDetails.key);
-      log('jsonString: $jsonString');
-      if (jsonString.isEmpty) return null;
-
-      final jsonData = json.decode(jsonString) as Map<String, dynamic>;
-      final dto = ProfileDetailsDataDTO.fromJson(jsonData);
-
-      final profileDetails = ProfileDetailsMapper()
-          .convert<ProfileDetailsDataDTO, ProfileDetailsData>(
-        dto,
-      );
-
-      return profileDetails;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  /// Fetch and parse experience data from Remote Config
-  Future<List<Experience>?> getExperienceData() async {
-    try {
-      final jsonString = await getString(RemoteConfigKeys.experience.key);
-      log('jsonString: $jsonString');
-      if (jsonString.isEmpty) return null;
-
-      final jsonData = json.decode(jsonString) as Map<String, dynamic>;
-      final dto = ExperienceDataDTO.fromJson(jsonData);
-
-      final experiences = dto.experience
-          .map(
-            (item) =>
-                ExperienceMapper().convert<ExperienceDTO, Experience>(item),
-          )
-          .toList();
-
-      return experiences;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  /// Fetch and parse education data from Remote Config
-  Future<List<Education>?> getEducationData() async {
-    try {
-      final jsonString = await getString(RemoteConfigKeys.education.key);
-      log('jsonString: $jsonString');
-      if (jsonString.isEmpty) return null;
-
-      final jsonData = json.decode(jsonString) as Map<String, dynamic>;
-      final dto = EducationDataDTO.fromJson(jsonData);
-
-      final educations = dto.education
-          .map(
-            (item) => EducationMapper().convert<EducationDTO, Education>(item),
-          )
-          .toList();
-
-      return educations;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  /// Fetch and parse projects data from Remote Config
-  Future<List<Project>?> getProjectsData() async {
-    try {
-      final jsonString = await getString(RemoteConfigKeys.projects.key);
-      log('jsonString: $jsonString');
-      if (jsonString.isEmpty) return null;
-
-      final jsonData = json.decode(jsonString) as Map<String, dynamic>;
-      final dto = ProjectsDataDTO.fromJson(jsonData);
-
-      final projects = dto.projects
-          .map((item) => ProjectsMapper().convert<ProjectDTO, Project>(item))
-          .toList();
-
-      return projects;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  /// Fetch and parse skills data from Remote Config
-  Future<List<Skill>?> getSkillsData() async {
-    try {
-      final jsonString = await getString(RemoteConfigKeys.skills.key);
-      log('jsonString: $jsonString');
-      if (jsonString.isEmpty) return null;
-
-      final jsonData = json.decode(jsonString) as Map<String, dynamic>;
-      final dto = SkillsDataDTO.fromJson(jsonData);
-
-      final skills = dto.skills
-          .map((item) => SkillsMapper().convert<SkillDTO, Skill>(item))
-          .toList();
-
-      return skills;
-    } catch (e) {
-      return null;
-    }
+    return jsonData;
   }
 
   Future<String?> getBackgroundImageUrl() async {
@@ -160,5 +42,24 @@ class RemoteConfigService with RemoteConfigGetters {
 
   Future<String?> getProfileImageUrl() async {
     return getString(RemoteConfigImages.profileImage.imageName);
+  }
+
+  /// Loads all personal-details feature flags in one call.
+  Future<Map<RemoteConfigFeatureFlags, bool>> getFeatureFlags() async {
+    final entries = await Future.wait(
+      RemoteConfigFeatureFlags.values.map(
+        (flag) async => MapEntry(flag, await getBool(flag.key)),
+      ),
+    );
+    return Map.fromEntries(entries);
+  }
+
+  Future<Map<RemoteConfigDashboard, String>> getDashboard() async {
+    final entries = await Future.wait(
+      RemoteConfigDashboard.values.map(
+        (flag) async => MapEntry(flag, await getString(flag.key)),
+      ),
+    );
+    return Map.fromEntries(entries);
   }
 }

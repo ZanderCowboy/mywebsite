@@ -3,7 +3,7 @@ import 'package:mywebsite/mappers/about_me_mapper.auto_mappr.dart';
 import 'package:mywebsite/models/export.dart';
 
 @AutoMappr([
-  MapType<AboutMeDataDTO, AboutMeData>(),
+  MapType<AboutMeDTO, AboutMeData>(),
   MapType<SocialPillDTO, SocialPill>(),
 ])
 class AboutMeMapper extends $AboutMeMapper {}

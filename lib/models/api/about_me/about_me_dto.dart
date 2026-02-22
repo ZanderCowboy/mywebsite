@@ -1,29 +1,47 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-part 'about_me_dto.freezed.dart';
 part 'about_me_dto.g.dart';
 
-@freezed
-class AboutMeDataDTO with _$AboutMeDataDTO {
-  const factory AboutMeDataDTO({
-    required String description,
-    required List<SocialPillDTO> socialPills,
-    required List<String> professionalSkills,
-    required List<String> personalInterests,
-  }) = _AboutMeDataDTO;
+@JsonSerializable(explicitToJson: true)
+class AboutMeDTO {
+  const AboutMeDTO({
+    required this.description,
+    required this.socialPills,
+    required this.professionalSkills,
+    required this.personalInterests,
+    this.cvLink,
+    this.quote,
+    this.ongoingProjectsText,
+  });
 
-  factory AboutMeDataDTO.fromJson(Map<String, dynamic> json) =>
-      _$AboutMeDataDTOFromJson(json);
+  factory AboutMeDTO.fromJson(Map<String, dynamic> json) =>
+      _$AboutMeDTOFromJson(json);
+
+  final String description;
+  final List<SocialPillDTO> socialPills;
+  final List<String> professionalSkills;
+  final List<String> personalInterests;
+  final String? cvLink;
+  final String? quote;
+  final String? ongoingProjectsText;
+
+  Map<String, dynamic> toJson() => _$AboutMeDTOToJson(this);
 }
 
-@freezed
-class SocialPillDTO with _$SocialPillDTO {
-  const factory SocialPillDTO({
-    required String name,
-    required String url,
-    required String iconUrl,
-  }) = _SocialPillDTO;
+@JsonSerializable()
+class SocialPillDTO {
+  const SocialPillDTO({
+    required this.name,
+    required this.url,
+    required this.iconUrl,
+  });
 
   factory SocialPillDTO.fromJson(Map<String, dynamic> json) =>
       _$SocialPillDTOFromJson(json);
+
+  final String name;
+  final String url;
+  final String iconUrl;
+
+  Map<String, dynamic> toJson() => _$SocialPillDTOToJson(this);
 }

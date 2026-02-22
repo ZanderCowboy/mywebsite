@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:mywebsite/data/all_data.dart';
+import 'package:mywebsite/models/enums/analytics_event.dart';
+import 'package:mywebsite/models/enums/remote_config_keys.dart';
+import 'package:mywebsite/models/parameters.dart';
+import 'package:mywebsite/services/analytics_service.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/sections/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/export.dart';
 
-const kFirstIndex = 0;
+part '_details_scroll_layout.dart';
+part '_details_tab_layout.dart';
 
-class Details extends HookWidget {
+const _sectionCount = 5;
+
+class Details extends StatefulWidget {
   const Details({
     this.isSmall = false,
     super.key,
@@ -15,105 +22,44 @@ class Details extends HookWidget {
   final bool isSmall;
 
   @override
+  State<Details> createState() => _DetailsState();
+}
+
+class _DetailsState extends State<Details> {
+  late Future<Map<RemoteConfigFeatureFlags, bool>> _flagsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _flagsFuture = AllData.featureFlags;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final index = useState(kFirstIndex);
-    final controller = useTabController(
-      initialLength: 5,
-      initialIndex: index.value,
-    );
+    return FutureBuilder<Map<RemoteConfigFeatureFlags, bool>>(
+      future: _flagsFuture,
+      builder: (context, snapshot) {
+        final flags = snapshot.data ?? _defaultFlags();
+        final useV2Layout = flags[RemoteConfigFeatureFlags.useV2Layout] ?? true;
 
-    final tabBarHeader = TabBarHeader(
-      controller: controller,
-      onTap: (value) {
-        index.value = value;
+        if (useV2Layout) {
+          return _DetailsScrollLayout(
+            isSmall: widget.isSmall,
+            flags: flags,
+          );
+        }
+
+        return _DetailsTabLayout(
+          isSmall: widget.isSmall,
+          flags: flags,
+        );
       },
-      isScrollable: !isSmall,
-      isSmallScreen: isSmall,
-    );
-
-    return DefaultTabController(
-      length: 5,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return Stack(
-            children: [
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: borderRadius12,
-                ),
-                color: kPrimaryColor,
-                child: Padding(
-                  padding: allPadding24,
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: _getBody(
-                      index: index.value,
-                      constraints: constraints,
-                    ),
-                  ),
-                ),
-              ),
-              _getTabHeader(
-                child: tabBarHeader,
-                constraints: constraints,
-              ),
-            ],
-          );
-        },
-      ),
     );
   }
+}
 
-  Widget _getBody({
-    required int index,
-    required BoxConstraints constraints,
-  }) {
-    final showHeader = !isSmall;
-
-    return switch (index) {
-      0 => AboutMe(showHeader: showHeader),
-      1 => Experiences(showHeader: showHeader),
-      2 => Projects(showHeader: showHeader),
-      3 => Skills(showHeader: showHeader),
-      4 => Educations(showHeader: showHeader),
-      _ => const Text('No data available'),
-    };
-  }
-
-  Widget _getTabHeader({
-    required Widget child,
-    required BoxConstraints constraints,
-  }) {
-    final header = Container(
-      margin: allPadding4,
-      decoration: BoxDecoration(
-        color: kTernaryColor,
-        borderRadius: isSmall
-            ? const BorderRadius.only(
-                topLeft: radius8,
-                topRight: radius8,
-              )
-            : const BorderRadius.only(
-                bottomLeft: radius8,
-                topRight: radius8,
-              ),
-      ),
-      constraints: isSmall
-          ? const BoxConstraints(
-              minHeight: 50,
-            )
-          : BoxConstraints(
-              minHeight: 50,
-              maxWidth: constraints.maxWidth * 0.70,
-            ),
-      child: child,
-    );
-
-    return isSmall
-        ? header
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [header],
-          );
-  }
+Map<RemoteConfigFeatureFlags, bool> _defaultFlags() {
+  return {
+    for (final f in RemoteConfigFeatureFlags.values) f: false,
+  };
 }

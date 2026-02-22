@@ -25,7 +25,7 @@ class _Buttons extends StatelessWidget {
               onPressed: () {
                 analyticsService.logEvent(
                   AnalyticsEvent.navigateToPersonal,
-                  parameters: {'source': 'home_button'},
+                  parameters: Parameters(source: 'home_button'),
                 );
                 Navigator.pushNamed(context, kPersonalPageRoute);
               },
