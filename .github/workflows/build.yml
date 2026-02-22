@@ -132,10 +132,14 @@ jobs:
           name: web-staging
           path: ./web-staging
 
-      - name: Deploy to gh-pages-staging
+      - name: Create CNAME file
+        run: echo "staging.zanderkotze.co.za" > ./build/web/CNAME
+
+      - name: Deploy to Staging Repo
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          external_repository: ZanderCowboy/mywebsite-staging
           publish_dir: ./web-staging
           publish_branch: gh-pages-staging
-          cname: ""
+          cname: "staging.zanderkotze.co.za"
