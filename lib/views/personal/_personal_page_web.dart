@@ -8,7 +8,7 @@ class _PersonalPageWeb extends StatelessWidget {
   void _navigateToHome(BuildContext context) {
     analyticsService.logEvent(
       AnalyticsEvent.navigateToHome,
-      parameters: {'source': 'personal_fab'},
+      parameters: Parameters(source: 'personal_fab'),
     );
     Navigator.pushNamed(context, kHomePageRoute);
   }

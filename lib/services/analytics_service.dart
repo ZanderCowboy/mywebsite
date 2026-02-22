@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mywebsite/models/enums/analytics_event.dart';
+import 'package:mywebsite/models/parameters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Service for handling Firebase Analytics throughout the app
@@ -12,22 +13,24 @@ class AnalyticsService {
   static final AnalyticsService _instance = AnalyticsService._internal();
 
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-
   FirebaseAnalytics get analytics => _analytics;
 
-  /// Get the Firebase Analytics Observer for navigation tracking
   FirebaseAnalyticsObserver get observer =>
       FirebaseAnalyticsObserver(analytics: _analytics);
 
-  /// Generic method to log any analytics event
   Future<void> logEvent(
     AnalyticsEvent event, {
-    Map<String, dynamic>? parameters,
+    Parameters? parameters,
   }) async {
-    await _logEvent(event.eventName, parameters: parameters);
+    var json = <String, dynamic>{};
+
+    if (parameters != null) {
+      json = parameters.toJson();
+    }
+
+    await _logEvent(event.eventName, parameters: json);
   }
 
-  /// Log custom events with string event names (for events not in the enum)
   Future<void> logCustomEvent(
     String eventName, {
     Map<String, dynamic>? parameters,
@@ -35,14 +38,12 @@ class AnalyticsService {
     await _logEvent(eventName, parameters: parameters);
   }
 
-  /// Track app opening and first visit with date/time data
   Future<void> trackAppOpen() async {
     final now = DateTime.now();
     final prefs = await SharedPreferences.getInstance();
 
-    // Always log app opened
-    await logEvent(
-      AnalyticsEvent.appOpened,
+    await _logEvent(
+      AnalyticsEvent.appOpened.eventName,
       parameters: {
         'timestamp': now.toIso8601String(),
         'date': now.toIso8601String().split('T')[0], // YYYY-MM-DD
@@ -55,14 +56,12 @@ class AnalyticsService {
       },
     );
 
-    // Check if this is the first visit
     const firstVisitKey = 'analytics_first_visit';
     final hasVisitedBefore = prefs.getBool(firstVisitKey) ?? false;
 
     if (!hasVisitedBefore) {
-      // Log first visit
-      await logEvent(
-        AnalyticsEvent.firstVisit,
+      await _logEvent(
+        AnalyticsEvent.firstVisit.eventName,
         parameters: {
           'first_visit_timestamp': now.toIso8601String(),
           'first_visit_date': now.toIso8601String().split('T')[0],
@@ -75,7 +74,6 @@ class AnalyticsService {
         },
       );
 
-      // Mark as visited
       await prefs.setBool(firstVisitKey, true);
 
       // Also set the first visit timestamp for future reference
@@ -87,9 +85,8 @@ class AnalyticsService {
         final firstVisit = DateTime.parse(firstVisitTimestamp);
         final daysSinceFirstVisit = now.difference(firstVisit).inDays;
 
-        // Add returning user context to app opened event
-        await logEvent(
-          AnalyticsEvent.appOpened,
+        await _logEvent(
+          AnalyticsEvent.appOpened.eventName,
           parameters: {
             'is_returning_user': 'true',
             'days_since_first_visit': daysSinceFirstVisit,
@@ -100,7 +97,6 @@ class AnalyticsService {
     }
   }
 
-  /// Helper method to convert weekday number to string
   String _getDayOfWeek(int weekday) {
     switch (weekday) {
       case 1:
@@ -122,7 +118,6 @@ class AnalyticsService {
     }
   }
 
-  /// Set user properties for better analytics segmentation
   Future<void> setUserProperties({
     String? userType,
     String? preferredTheme,
@@ -130,7 +125,10 @@ class AnalyticsService {
     String? primaryLanguage,
   }) async {
     if (userType != null) {
-      await _analytics.setUserProperty(name: 'user_type', value: userType);
+      await _analytics.setUserProperty(
+        name: 'user_type',
+        value: userType,
+      );
     }
     if (preferredTheme != null) {
       await _analytics.setUserProperty(
@@ -139,7 +137,10 @@ class AnalyticsService {
       );
     }
     if (deviceType != null) {
-      await _analytics.setUserProperty(name: 'device_type', value: deviceType);
+      await _analytics.setUserProperty(
+        name: 'device_type',
+        value: deviceType,
+      );
     }
     if (primaryLanguage != null) {
       await _analytics.setUserProperty(
@@ -149,29 +150,6 @@ class AnalyticsService {
     }
   }
 
-  /// Set user ID for analytics (if you have user authentication)
-  Future<void> setUserId(String userId) async {
-    try {
-      await _analytics.setUserId(id: userId);
-    } catch (e) {
-      if (kDebugMode) {
-        print('Error setting user ID: $e');
-      }
-    }
-  }
-
-  /// Reset analytics data (useful for logout scenarios)
-  Future<void> resetAnalyticsData() async {
-    try {
-      await _analytics.resetAnalyticsData();
-    } catch (e) {
-      if (kDebugMode) {
-        print('Error resetting analytics data: $e');
-      }
-    }
-  }
-
-  /// Private method to handle all event logging with error handling
   Future<void> _logEvent(
     String eventName, {
     Map<String, dynamic>? parameters,

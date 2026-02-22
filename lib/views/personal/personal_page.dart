@@ -3,6 +3,7 @@ import 'package:mywebsite/bootstrap.dart';
 import 'package:mywebsite/components/background_image.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
 import 'package:mywebsite/models/enums/analytics_event.dart';
+import 'package:mywebsite/models/parameters.dart';
 import 'package:mywebsite/services/analytics_service.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/details.dart';

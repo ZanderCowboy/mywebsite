@@ -8,7 +8,7 @@ class _PersonalPageMobile extends StatelessWidget {
   void _navigateToHome(BuildContext context) {
     analyticsService.logEvent(
       AnalyticsEvent.navigateToHome,
-      parameters: {'source': 'personal_mobile_appbar'},
+      parameters: Parameters(source: 'personal_mobile_appbar'),
     );
     Navigator.pushNamed(context, kHomePageRoute);
   }

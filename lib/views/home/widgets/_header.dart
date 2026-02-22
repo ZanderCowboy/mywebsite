@@ -14,7 +14,7 @@ class _Header extends StatelessWidget {
         const Text(
           'ZANDER KOTZE',
           style: TextStyle(
-            fontFamily: 'Anton',
+            fontFamily: FontFamily.anton,
             fontSize: 55,
             color: Colors.white,
             letterSpacing: 1.5,
@@ -38,7 +38,7 @@ class _Header extends StatelessWidget {
                   TypewriterAnimatedText(
                     'Hi there! Here are a few of my links.',
                     textStyle: const TextStyle(
-                      fontFamily: 'PoiretOne',
+                      fontFamily: FontFamily.poiretOne,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,

@@ -6,8 +6,10 @@ import 'package:mywebsite/components/copyright.dart';
 import 'package:mywebsite/components/hero_widget.dart';
 import 'package:mywebsite/components/link_button.dart';
 import 'package:mywebsite/gen/assets.gen.dart';
+import 'package:mywebsite/gen/fonts.gen.dart';
 import 'package:mywebsite/models/enums/analytics_event.dart';
 import 'package:mywebsite/models/enums/social_platform.dart';
+import 'package:mywebsite/models/parameters.dart';
 import 'package:mywebsite/services/analytics_service.dart';
 import 'package:mywebsite/util/constants.dart';
 import 'package:mywebsite/util/ui_constants.dart';
@@ -29,7 +31,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // Log home page view when the page is loaded
     _analyticsService.logEvent(AnalyticsEvent.homePageView);
   }
 
