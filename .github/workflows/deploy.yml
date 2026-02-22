@@ -1,0 +1,162 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      version-bump:
+        description: "Version bump type"
+        required: true
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+
+jobs:
+  bump-version:
+    name: Bump version
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      version_number: ${{ steps.version-output.outputs.version }}
+      version_release: ${{ steps.version-output.outputs.version_release }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Bump version and build number
+        id: bump-version
+        uses: ./.github/actions/app-versioning
+        with:
+          bump-strategy: "${{ inputs.version-bump }}"
+          bump-build: "true"
+          file-path: "pubspec.yaml"
+          upload-filename: "pubspec-release-bump"
+
+      - name: Set version outputs
+        id: version-output
+        run: |
+          version_number="${{ steps.bump-version.outputs.version-number }}"
+          version_release=$(echo "$version_number" | sed 's/+.*//')
+
+          echo "version=$version_number" >> $GITHUB_OUTPUT
+          echo "version_release=$version_release" >> $GITHUB_OUTPUT
+
+  commit-version:
+    name: Commit version to main
+    needs: [bump-version]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Download bumped pubspec.yaml
+        uses: actions/download-artifact@v4
+        with:
+          name: pubspec-release-bump
+          path: ${{ github.workspace }}
+
+      - name: Commit bumped version to main
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Release version ${{ needs.bump-version.outputs.version_number }}"
+          file_pattern: "pubspec.*"
+          branch: main
+
+  tag-and-release:
+    name: Create tag and release
+    needs: [commit-version, bump-version]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Create tag
+        id: create-tag
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "v${{ needs.bump-version.outputs.version_release }}"
+          message: "Release ${{ needs.bump-version.outputs.version_release }}"
+
+      - name: Create GitHub release
+        if: steps.create-tag.outputs.tag_exists == 'false'
+        uses: ncipollo/release-action@v1
+        with:
+          tag: "v${{ needs.bump-version.outputs.version_release }}"
+          name: "v${{ needs.bump-version.outputs.version_release }}"
+          generateReleaseNotes: true
+          draft: false
+          prerelease: false
+
+  deploy-production:
+    name: Deploy to production
+    needs: [tag-and-release, bump-version]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout tagged commit
+        uses: actions/checkout@v4
+        with:
+          ref: "v${{ needs.bump-version.outputs.version_release }}"
+
+      - name: Set up Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: Setup Firebase Configuration
+        uses: ./.github/actions/setup-firebase-config
+        with:
+          web-api-key: ${{ secrets.FIREBASE_WEB_API_KEY }}
+          web-app-id: ${{ secrets.FIREBASE_WEB_APP_ID }}
+          messaging-sender-id: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+          project-id: ${{ secrets.FIREBASE_PROJECT_ID }}
+          auth-domain: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+          storage-bucket: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+          measurement-id: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
+          android-api-key: ${{ secrets.FIREBASE_ANDROID_API_KEY }}
+          android-app-id: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          ios-api-key: ${{ secrets.FIREBASE_IOS_API_KEY }}
+          ios-app-id: ${{ secrets.FIREBASE_IOS_APP_ID }}
+          ios-bundle-id: ${{ secrets.FIREBASE_IOS_BUNDLE_ID }}
+
+      - name: Download bumped pubspec.yaml
+        uses: actions/download-artifact@v4
+        with:
+          name: pubspec-release-bump
+          path: ${{ github.workspace }}
+
+      - name: Extract version components
+        id: version
+        run: |
+          version_number="${{ needs.bump-version.outputs.version_number }}"
+
+          # Extract build number (everything after the +)
+          build_number=$(echo "$version_number" | sed 's/.*+//')
+
+          # Extract build name (version without build number)
+          build_name=$(echo "$version_number" | sed 's/+.*//')
+
+          echo "build_name=$build_name" >> $GITHUB_OUTPUT
+          echo "build_number=$build_number" >> $GITHUB_OUTPUT
+
+      - name: Build Web for production
+        run: flutter build web --base-href='/' --release --build-name=${{ steps.version.outputs.build_name }} --build-number=${{ steps.version.outputs.build_number }}
+
+      - name: Create CNAME file
+        run: echo "zanderkotze.co.za" > ./build/web/CNAME
+
+      - name: Deploy to gh-pages (production)
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
+          publish_branch: gh-pages

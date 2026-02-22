@@ -1,0 +1,51 @@
+name: Lint
+
+on:
+  pull_request:
+    branches:
+      - "main"
+    types:
+      - "opened"
+      - "synchronize"
+      - "reopened"
+
+jobs:
+  run-lint:
+    name: Flutter Lint
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Flutter
+        uses: ./.github/actions/setup-flutter
+
+      - name: Setup Firebase Configuration
+        uses: ./.github/actions/setup-firebase-config
+        with:
+          web-api-key: ${{ secrets.FIREBASE_WEB_API_KEY }}
+          web-app-id: ${{ secrets.FIREBASE_WEB_APP_ID }}
+          messaging-sender-id: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+          project-id: ${{ secrets.FIREBASE_PROJECT_ID }}
+          auth-domain: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+          storage-bucket: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+          measurement-id: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
+          android-api-key: ${{ secrets.FIREBASE_ANDROID_API_KEY }}
+          android-app-id: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          ios-api-key: ${{ secrets.FIREBASE_IOS_API_KEY }}
+          ios-app-id: ${{ secrets.FIREBASE_IOS_APP_ID }}
+          ios-bundle-id: ${{ secrets.FIREBASE_IOS_BUNDLE_ID }}
+
+      - name: flutter analyze
+        run: flutter analyze
+
+      - name: Analyzing code with Dart analyzer
+        run: dart analyze --fatal-infos
