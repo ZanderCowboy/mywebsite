@@ -55,7 +55,7 @@ jobs:
           ref: main
 
       - name: Download bumped pubspec.yaml
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: pubspec-release-bump
           path: ${{ github.workspace }}
@@ -129,7 +129,7 @@ jobs:
           ios-bundle-id: ${{ secrets.FIREBASE_IOS_BUNDLE_ID }}
 
       - name: Download bumped pubspec.yaml
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: pubspec-release-bump
           path: ${{ github.workspace }}
