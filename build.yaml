@@ -1,0 +1,12 @@
+targets:
+  $default:
+    builders:
+      auto_mappr:
+        enabled: true
+        generate_for:
+          - lib/mappers/**_mapper.dart
+      json_serializable:
+        enabled: true
+        options:
+          explicit_to_json: true
+          field_rename: snake
