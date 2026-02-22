@@ -104,8 +104,8 @@ class ProjectCard extends StatelessWidget {
               ),
               gap12,
               Wrap(
-                spacing: 8,
-                runSpacing: 8,
+                spacing: 6,
+                runSpacing: 6,
                 children: project.tools
                     .map(
                       (tool) => Chip(
@@ -120,7 +120,7 @@ class ProjectCard extends StatelessWidget {
                     )
                     .toList(),
               ),
-              gap16,
+              gap12,
               if (expandDescription)
                 Expanded(
                   child: SingleChildScrollView(

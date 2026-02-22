@@ -5,7 +5,6 @@ import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/network_image_avatar.dart';
 
 // Fixed height for all experience cards
-const double _cardFixedHeight = 220;
 const double _gapBetweenCards = 16;
 
 class ExperienceCard extends StatelessWidget {
@@ -26,11 +25,14 @@ class ExperienceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: omit_local_variable_types
+    final double cardFixedHeight = context.isSmallScreen ? 350 : 220;
+
     final card = Card(
       color: kSecondaryColor,
       margin: EdgeInsets.zero,
       child: SizedBox(
-        height: _cardFixedHeight,
+        height: cardFixedHeight,
         child: Padding(
           padding: allPadding16,
           child: Column(
@@ -101,12 +103,14 @@ class ExperienceCard extends StatelessWidget {
     );
 
     final totalHeight =
-        isLast ? _cardFixedHeight : _cardFixedHeight + _gapBetweenCards;
+        isLast ? cardFixedHeight : cardFixedHeight + _gapBetweenCards;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Timeline(
+          cardHeight: cardFixedHeight,
+          timelineWidth: 24,
           isFirst: isFirst,
           isLast: isLast,
           height: totalHeight,

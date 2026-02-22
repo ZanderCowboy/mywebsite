@@ -27,6 +27,7 @@ class App extends StatelessWidget {
         // Update device type based on screen size for web users
         WidgetsBinding.instance.addPostFrameCallback((_) {
           _updateDeviceTypeBasedOnScreenSize(context);
+          _updateDeviceTheme(context);
         });
 
         return ResponsiveBreakpoints.builder(
@@ -39,7 +40,7 @@ class App extends StatelessWidget {
           ],
         );
       },
-      title: 'Zander Kotze Website',
+      title: 'Zander Kotze',
       theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       home: const HomePage(),
@@ -65,8 +66,20 @@ class App extends StatelessWidget {
         deviceType = 'desktop';
       }
 
-      // Update user properties with screen-size-based device type
       analyticsService.setUserProperties(deviceType: deviceType);
     }
+  }
+
+  void _updateDeviceTheme(BuildContext context) {
+    final platformBrightness = MediaQuery.of(context).platformBrightness;
+    String theme;
+
+    if (platformBrightness == Brightness.light) {
+      theme = 'light';
+    } else {
+      theme = 'dark';
+    }
+
+    analyticsService.setUserProperties(preferredTheme: theme);
   }
 }

@@ -77,34 +77,9 @@ class _AboutMeState extends State<AboutMe> {
         }
 
         if (snapshot.hasError || snapshot.data == null) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 48,
-                  color: Colors.grey[600],
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Failed to load data',
-                  style: Typo.body.copyWith(
-                    color: Colors.grey[600],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton.icon(
-                  onPressed: _loadData,
-                  icon: const Icon(Icons.refresh),
-                  label: const Text('Retry'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kPrimaryColor,
-                    foregroundColor: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+          return ErrorWithRetry(
+            errorMessage: 'Failed to load about me data',
+            onPressed: _loadData,
           );
         }
 
@@ -113,12 +88,15 @@ class _AboutMeState extends State<AboutMe> {
             widget.flags[RemoteConfigFeatureFlags.aboutMeShowQuote] ?? false;
         final useSplit =
             widget.flags[RemoteConfigFeatureFlags.aboutMeUseSplit] ?? false;
+        final useLayoutV2 =
+            widget.flags[RemoteConfigFeatureFlags.useV2Layout] ?? false;
 
         final content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             if (widget.showHeader) ...[
+              if (useLayoutV2 && !context.isLargeScreen) gap32,
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +116,7 @@ class _AboutMeState extends State<AboutMe> {
                 aboutMe.quote!.isNotEmpty) ...[
               if (widget.showHeader) gap16 else gap40,
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
+                padding: vertical8,
                 child: Text(
                   aboutMe.quote!,
                   style: Typo.body.copyWith(
@@ -288,6 +266,10 @@ class _AboutMeState extends State<AboutMe> {
                     ...aboutMe.professionalSkills.map(
                       (skill) => GridItem(
                         icon: Icons.code,
+                        iconStyle: IconStyle(
+                          color: Colors.white,
+                          size: context.isSmallScreen ? 24 : 32,
+                        ),
                         title: skill,
                         subtitle: 'Professional Skill',
                       ),
@@ -295,6 +277,10 @@ class _AboutMeState extends State<AboutMe> {
                     ...aboutMe.personalInterests.map(
                       (interest) => GridItem(
                         icon: Icons.favorite,
+                        iconStyle: IconStyle(
+                          color: Colors.white,
+                          size: context.isSmallScreen ? 24 : 32,
+                        ),
                         title: interest,
                         subtitle: 'Personal Interest',
                       ),
