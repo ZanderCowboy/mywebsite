@@ -61,7 +61,7 @@ jobs:
           path: ${{ github.workspace }}
 
       - name: Commit bumped version to main
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Release version ${{ needs.bump-version.outputs.version_number }}"
           file_pattern: "pubspec.*"
