@@ -10,6 +10,11 @@ class Parameters {
     this.emailAddress,
     this.phoneNumber,
     this.platform,
+    this.tabName,
+    this.itemType,
+    this.itemName,
+    this.section,
+    this.linkType,
   });
 
   factory Parameters.fromJson(Map<String, dynamic> json) =>
@@ -20,6 +25,11 @@ class Parameters {
   final String? emailAddress;
   final String? phoneNumber;
   final String? platform;
+  final String? tabName;
+  final String? itemType;
+  final String? itemName;
+  final String? section;
+  final String? linkType;
 
   Map<String, dynamic> toJson() => _$ParametersToJson(this);
 }

@@ -5,6 +5,7 @@ import 'package:mywebsite/data/all_data.dart';
 import 'package:mywebsite/models/enums/export.dart';
 import 'package:mywebsite/models/enums/remote_config_keys.dart';
 import 'package:mywebsite/models/export.dart' as models;
+import 'package:mywebsite/models/parameters.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/widgets/export.dart';
 
@@ -37,6 +38,33 @@ class _AboutMeState extends State<AboutMe> {
     setState(() {
       _aboutMeFuture = AllData.aboutMe;
     });
+  }
+
+  void _handleCVDownload(String cvUrl) {
+    launchURL(
+      cvUrl,
+      analyticsParams: Parameters(
+        url: cvUrl,
+        section: 'personal_page',
+        tabName: 'About Me',
+        itemType: 'cv',
+        linkType: 'download',
+      ),
+    );
+  }
+
+  void _handleSocialPillClick(String platform, String url) {
+    launchURL(
+      url,
+      analyticsParams: Parameters(
+        platform: platform,
+        url: url,
+        section: 'personal_page',
+        tabName: 'About Me',
+        itemType: 'social_pill',
+        linkType: 'social_media',
+      ),
+    );
   }
 
   @override
@@ -192,7 +220,10 @@ class _AboutMeState extends State<AboutMe> {
                             )
                           : Icon(Icons.link, size: iconSize),
                       label: socialPill.name,
-                      onTap: () => launchURL(socialPill.url),
+                      onTap: () => _handleSocialPillClick(
+                        socialPill.name,
+                        socialPill.url,
+                      ),
                     );
                   }).toList(),
                 );
@@ -206,7 +237,7 @@ class _AboutMeState extends State<AboutMe> {
                       SocialPill(
                         iconWidget: const Icon(Icons.download, size: 18),
                         label: 'Download CV',
-                        onTap: () => launchURL(aboutMe.cvLink!),
+                        onTap: () => _handleCVDownload(aboutMe.cvLink!),
                       ),
                     ],
                   );
@@ -221,7 +252,7 @@ class _AboutMeState extends State<AboutMe> {
                           child: SocialPill(
                             iconWidget: const Icon(Icons.download, size: 18),
                             label: 'Download CV',
-                            onTap: () => launchURL(aboutMe.cvLink!),
+                            onTap: () => _handleCVDownload(aboutMe.cvLink!),
                           ),
                         ),
                       ),

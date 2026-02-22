@@ -25,7 +25,7 @@ class AnalyticsService {
     var json = <String, dynamic>{};
 
     if (parameters != null) {
-      json = parameters.toJson();
+      json = parameters.toJson()..removeWhere((key, value) => value == null);
     }
 
     await _logEvent(event.eventName, parameters: json);

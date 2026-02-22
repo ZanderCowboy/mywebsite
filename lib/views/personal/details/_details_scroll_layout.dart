@@ -18,6 +18,7 @@ class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
   final GlobalKey _contentKey = GlobalKey();
   late final List<GlobalKey> _sectionKeys;
   int _currentIndex = 0;
+  final AnalyticsService _analyticsService = AnalyticsService();
 
   @override
   void initState() {
@@ -56,6 +57,17 @@ class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
     }
     if (_currentIndex != newIndex) {
       setState(() => _currentIndex = newIndex);
+
+      // Log section view analytics
+      final sectionName = _getSectionName(newIndex);
+      _analyticsService.logEvent(
+        AnalyticsEvent.personalSectionView,
+        parameters: Parameters(
+          tabName: sectionName,
+          section: 'personal_page',
+          itemType: 'scroll_section',
+        ),
+      );
     }
   }
 
@@ -70,6 +82,28 @@ class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
         curve: Curves.easeInOut,
       );
     }
+
+    // Log navigation click analytics
+    final sectionName = _getSectionName(index);
+    _analyticsService.logEvent(
+      AnalyticsEvent.personalTabChange,
+      parameters: Parameters(
+        tabName: sectionName,
+        section: 'personal_page',
+        itemType: 'section_nav_click',
+      ),
+    );
+  }
+
+  String _getSectionName(int index) {
+    return switch (index) {
+      0 => 'About Me',
+      1 => 'Experience',
+      2 => 'Projects',
+      3 => 'Skills',
+      4 => 'Education',
+      _ => 'Unknown',
+    };
   }
 
   @override

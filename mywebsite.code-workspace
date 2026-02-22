@@ -7,7 +7,10 @@
 	"settings": {
 		"java.compile.nullAnalysis.mode": "automatic",
 		"java.configuration.updateBuildConfiguration": "automatic",
-		"dart.sdkPath": "C:\\Programming\\Flutter\\flutter\\bin"
+		"dart.sdkPath": "C:\\Programming\\Flutter\\flutter\\bin",
+		"chat.tools.terminal.autoApprove": {
+			"flutter": true
+		}
 	},
 	"extensions": {
 		"recommendations": [

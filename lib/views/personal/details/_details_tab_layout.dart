@@ -17,6 +17,7 @@ class _DetailsTabLayoutState extends State<_DetailsTabLayout>
     with SingleTickerProviderStateMixin {
   late final TabController _controller;
   int _index = 0;
+  final AnalyticsService _analyticsService = AnalyticsService();
 
   @override
   void initState() {
@@ -40,6 +41,27 @@ class _DetailsTabLayoutState extends State<_DetailsTabLayout>
   void _handleTabChange() {
     if (_index == _controller.index) return;
     setState(() => _index = _controller.index);
+
+    // Log tab change analytics
+    final tabName = _getTabName(_controller.index);
+    _analyticsService.logEvent(
+      AnalyticsEvent.personalTabChange,
+      parameters: Parameters(
+        tabName: tabName,
+        section: 'personal_page',
+      ),
+    );
+  }
+
+  String _getTabName(int index) {
+    return switch (index) {
+      0 => 'About Me',
+      1 => 'Experience',
+      2 => 'Projects',
+      3 => 'Skills',
+      4 => 'Education',
+      _ => 'Unknown',
+    };
   }
 
   @override
