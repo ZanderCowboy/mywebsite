@@ -26,7 +26,7 @@ class ErrorWithRetry extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Failed to load experiences',
+            errorMessage ?? 'Failed to load data',
             style: Typo.body.copyWith(
               color: Colors.grey[600],
             ),
