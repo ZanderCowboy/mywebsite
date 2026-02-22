@@ -83,7 +83,7 @@ jobs:
         run: flutter build web --base-href='/' --release --build-name=${{ steps.version.outputs.build_name }} --build-number=${{ steps.version.outputs.build_number }}
 
       - name: Upload Web Build Files
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: web-staging
           path: ./build/web
