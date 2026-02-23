@@ -31,7 +31,7 @@ dependencies:
   shimmer: ^3.0.0
   transparent_image: ^2.0.1
   url_launcher: ^6.2.5
-  version: ^2.0.1
+  version: ^3.0.2
 
 dev_dependencies:
   auto_mappr: ^2.3.0
