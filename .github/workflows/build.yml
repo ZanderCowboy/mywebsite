@@ -133,7 +133,7 @@ jobs:
           path: ./web-staging
 
       - name: Deploy to Staging Repo
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.DEPLOY_TOKEN }}
           external_repository: ZanderCowboy/mywebsite-staging
