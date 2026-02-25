@@ -23,7 +23,12 @@
 				"name": "mywebsite",
 				"request": "launch",
 				"type": "dart",
-				"args": []
+			},
+			{
+				"name": "mywebsite (no network)",
+				"request": "launch",
+				"type": "dart",
+				"flutterMode": "debug",
 			},
 			{
 				"name": "mywebsite (profile mode)",
