@@ -53,6 +53,7 @@ flutter:
     - assets/images/projects/
     - assets/images/skills/
     - assets/images/svgs/
+    - assets/mock_data/
 
   fonts:
     - family: PlayfairDisplay

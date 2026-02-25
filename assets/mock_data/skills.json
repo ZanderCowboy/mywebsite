@@ -1,0 +1,22 @@
+{
+    "skills": [
+        {
+            "name": "Flutter",
+            "description": "Mock Flutter skill description",
+            "level": "Expert",
+            "imageUrl": "assets\\images\\home_page_background.jpg"
+        },
+        {
+            "name": "Firebase",
+            "description": "Mock Firebase skill description",
+            "level": "Advanced",
+            "imageUrl": "assets\\images\\home_page_background.jpg"
+        },
+        {
+            "name": "Dart",
+            "description": "Mock Dart skill description",
+            "level": "Expert",
+            "imageUrl": "assets\\images\\home_page_background.jpg"
+        }
+    ]
+}
