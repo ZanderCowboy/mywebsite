@@ -21,10 +21,10 @@ class GridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final card = AnimatedContainer(
+      height: 100,
       duration: const Duration(milliseconds: 400),
       constraints: const BoxConstraints(
         minWidth: 220,
-        minHeight: 500,
       ),
       decoration: BoxDecoration(
         boxShadow: [
@@ -72,16 +72,16 @@ class GridItem extends StatelessWidget {
                 Text(
                   title,
                   style: Typo.title,
-                  softWrap: true,
-                  overflow: TextOverflow.visible,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 gap4,
                 Flexible(
                   child: Text(
                     subtitle,
                     style: Typo.subtitle,
-                    softWrap: true,
-                    overflow: TextOverflow.visible,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
