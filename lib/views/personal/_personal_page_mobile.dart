@@ -5,9 +5,13 @@ part of 'personal_page.dart';
 const _sectionCount = 6;
 
 class _PersonalPageMobile extends StatefulWidget {
-  const _PersonalPageMobile({required this.analyticsService});
+  const _PersonalPageMobile({
+    required this.analyticsService,
+    required this.onNavigateToHome,
+  });
 
   final AnalyticsService analyticsService;
+  final VoidCallback onNavigateToHome;
 
   @override
   State<_PersonalPageMobile> createState() => _PersonalPageMobileState();
@@ -34,12 +38,12 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
     super.dispose();
   }
 
-  void _navigateToHome(BuildContext context) {
+  void _navigateToHome() {
     widget.analyticsService.logEvent(
       AnalyticsEvent.navigateToHome,
       parameters: Parameters(source: 'personal_mobile_appbar'),
     );
-    Navigator.pushNamed(context, kHomePageRoute);
+    widget.onNavigateToHome();
   }
 
   void _scrollListener() {
@@ -134,53 +138,40 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
     };
   }
 
-  Future<Map<RemoteConfigFeatureFlags, bool>> _getFlags() async {
-    final flags = AllData.featureFlags;
-
-    return flags;
-  }
-
   @override
   Widget build(BuildContext context) {
     const double toolbarExpandedHeight = 56;
+    final flags = AllData.instance.featureFlags;
+    final bool useV2Layout =
+        flags[RemoteConfigFeatureFlags.useV2Layout] ?? true;
+    final double bottomHeight = useV2Layout ? 50.0 : 0;
 
-    return FutureBuilder(
-      future: _getFlags(),
-      builder: (context, asyncSnapshot) {
-        final flags = asyncSnapshot.data ?? _defaultFlags();
-        final bool useV2Layout =
-            asyncSnapshot.connectionState == ConnectionState.waiting ||
-                (flags[RemoteConfigFeatureFlags.useV2Layout] ?? true);
-        final double bottomHeight = useV2Layout ? 50.0 : 0;
-
-        return Scaffold(
-          extendBodyBehindAppBar: true,
-          body: _PersonalPageBody(
-            child: CustomScrollView(
-              controller: _scrollController,
-              slivers: [
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: _PersonalMobileAppBarDelegate(
-                    bottomHeight: bottomHeight,
-                    toolbarExpandedHeight: toolbarExpandedHeight,
-                    onBackTap: () => _navigateToHome(context),
-                    currentIndex: _currentIndex,
-                    onSectionTap: _scrollToSection,
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                    child: _MobileContent(sectionKeys: _sectionKeys),
-                  ),
-                ),
-              ],
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      body: _PersonalPageBody(
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _PersonalMobileAppBarDelegate(
+                bottomHeight: bottomHeight,
+                toolbarExpandedHeight: toolbarExpandedHeight,
+                onBackTap: _navigateToHome,
+                currentIndex: _currentIndex,
+                onSectionTap: _scrollToSection,
+              ),
             ),
-          ),
-        );
-      },
+            SliverToBoxAdapter(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child: _MobileContent(sectionKeys: _sectionKeys),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -192,114 +183,103 @@ class _MobileContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: AllData.featureFlags,
-      builder: (context, snapshot) {
-        final flags = snapshot.data ?? _defaultFlags();
+    final flags = AllData.instance.featureFlags;
 
-        return LayoutBuilder(
-          builder: (context, constraints) => Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              KeyedSubtree(
-                key: sectionKeys[0],
-                child: const Profile(),
-              ),
-              gap16,
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: borderRadius12,
-                ),
-                color: kPrimaryColor,
-                child: Padding(
-                  padding: allPadding24,
-                  child: KeyedSubtree(
-                    key: sectionKeys[1],
-                    child: AboutMe(
-                      flags: flags,
-                      wrapInScrollView: false,
-                    ),
-                  ),
-                ),
-              ),
-              gap12,
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: borderRadius12,
-                ),
-                color: kPrimaryColor,
-                child: Padding(
-                  padding: allPadding24,
-                  child: KeyedSubtree(
-                    key: sectionKeys[2],
-                    child: Experiences(
-                      flags: flags,
-                      wrapInScrollView: false,
-                    ),
-                  ),
-                ),
-              ),
-              gap12,
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: borderRadius12,
-                ),
-                color: kPrimaryColor,
-                child: Padding(
-                  padding: allPadding24,
-                  child: KeyedSubtree(
-                    key: sectionKeys[3],
-                    child: const Projects(
-                      wrapInScrollView: false,
-                    ),
-                  ),
-                ),
-              ),
-              gap12,
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: borderRadius12,
-                ),
-                color: kPrimaryColor,
-                child: Padding(
-                  padding: allPadding24,
-                  child: KeyedSubtree(
-                    key: sectionKeys[4],
-                    child: const Skills(
-                      wrapInScrollView: false,
-                    ),
-                  ),
-                ),
-              ),
-              gap12,
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: borderRadius12,
-                ),
-                color: kPrimaryColor,
-                child: Padding(
-                  padding: allPadding24,
-                  child: KeyedSubtree(
-                    key: sectionKeys[5],
-                    child: Educations(
-                      flags: flags,
-                      wrapInScrollView: false,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+    return LayoutBuilder(
+      builder: (context, constraints) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          KeyedSubtree(
+            key: sectionKeys[0],
+            child: const Profile(),
           ),
-        );
-      },
+          gap16,
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: borderRadius12,
+            ),
+            color: kPrimaryColor,
+            child: Padding(
+              padding: allPadding24,
+              child: KeyedSubtree(
+                key: sectionKeys[1],
+                child: AboutMe(
+                  flags: flags,
+                  wrapInScrollView: false,
+                ),
+              ),
+            ),
+          ),
+          gap12,
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: borderRadius12,
+            ),
+            color: kPrimaryColor,
+            child: Padding(
+              padding: allPadding24,
+              child: KeyedSubtree(
+                key: sectionKeys[2],
+                child: Experiences(
+                  flags: flags,
+                  wrapInScrollView: false,
+                ),
+              ),
+            ),
+          ),
+          gap12,
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: borderRadius12,
+            ),
+            color: kPrimaryColor,
+            child: Padding(
+              padding: allPadding24,
+              child: KeyedSubtree(
+                key: sectionKeys[3],
+                child: const Projects(
+                  wrapInScrollView: false,
+                ),
+              ),
+            ),
+          ),
+          gap12,
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: borderRadius12,
+            ),
+            color: kPrimaryColor,
+            child: Padding(
+              padding: allPadding24,
+              child: KeyedSubtree(
+                key: sectionKeys[4],
+                child: const Skills(
+                  wrapInScrollView: false,
+                ),
+              ),
+            ),
+          ),
+          gap12,
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: borderRadius12,
+            ),
+            color: kPrimaryColor,
+            child: Padding(
+              padding: allPadding24,
+              child: KeyedSubtree(
+                key: sectionKeys[5],
+                child: Educations(
+                  flags: flags,
+                  wrapInScrollView: false,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
-}
-
-Map<RemoteConfigFeatureFlags, bool> _defaultFlags() {
-  return {
-    for (final f in RemoteConfigFeatureFlags.values) f: false,
-  };
 }
 
 class _PersonalMobileAppBarDelegate extends SliverPersistentHeaderDelegate {

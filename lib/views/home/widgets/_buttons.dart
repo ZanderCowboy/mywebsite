@@ -1,7 +1,11 @@
 part of '../home_page.dart';
 
 class _Buttons extends StatelessWidget {
-  const _Buttons();
+  const _Buttons({
+    required this.onNavigateToPersonal,
+  });
+
+  final VoidCallback onNavigateToPersonal;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class _Buttons extends StatelessWidget {
                   AnalyticsEvent.navigateToPersonal,
                   parameters: Parameters(source: 'home_button'),
                 );
-                Navigator.pushNamed(context, kPersonalPageRoute);
+                onNavigateToPersonal();
               },
               backgroundColor: personalWebsiteColor,
               buttonImage: Assets.images.home.rocketLaunch.path,
