@@ -1,3 +1,5 @@
+import 'dart:developer' as dev show log;
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mywebsite/models/enums/analytics_event.dart';
@@ -156,7 +158,7 @@ class AnalyticsService {
   }) async {
     try {
       if (kDebugMode) {
-        print(
+        dev.log(
           'Analytics Event: $eventName ${parameters != null ? 'with parameters: $parameters' : ''}',
         );
       }
@@ -167,7 +169,7 @@ class AnalyticsService {
       );
     } catch (e) {
       if (kDebugMode) {
-        print('Error logging analytics event $eventName: $e');
+        dev.log('Error logging analytics event $eventName: $e');
       }
     }
   }

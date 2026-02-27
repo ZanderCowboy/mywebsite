@@ -38,7 +38,6 @@ class RemoteConfigService with RemoteConfigGetters {
   }
 
   Future<Map<String, dynamic>> getJson(String key) async {
-    // In debug mode, load from local assets
     if (kDebugMode) {
       return _loadMockData(key);
     }
