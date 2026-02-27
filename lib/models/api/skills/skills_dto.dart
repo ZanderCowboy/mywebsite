@@ -31,7 +31,7 @@ class SkillDTO {
   final String name;
   final String description;
   final String level;
-  final String imageUrl;
+  final String? imageUrl;
 
   Map<String, dynamic> toJson() => _$SkillDTOToJson(this);
 }

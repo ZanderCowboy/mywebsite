@@ -6,6 +6,7 @@ class _Buttons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final analyticsService = AnalyticsService();
+
     return Padding(
       padding: allPadding10,
       child: Container(
