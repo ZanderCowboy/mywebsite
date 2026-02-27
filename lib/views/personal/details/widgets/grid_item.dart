@@ -48,7 +48,7 @@ class GridItem extends StatelessWidget {
             elevation: 6,
             borderRadius: borderRadius12,
             child: Container(
-              alignment: AlignmentGeometry.center,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: Colors.black.withValues(alpha: 0.15),
                 borderRadius: borderRadius12,

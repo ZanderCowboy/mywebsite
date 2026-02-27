@@ -60,7 +60,11 @@ class RemoteConfigService with RemoteConfigGetters {
       return json.decode(jsonString) as Map<String, dynamic>;
     } catch (e) {
       if (kDebugMode) {
-        print('Error loading mock data for $key: $e');
+        log(
+          'Error loading mock data for $key',
+          error: e,
+          name: 'RemoteConfigService',
+        );
       }
       return {};
     }

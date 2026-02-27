@@ -106,6 +106,7 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
       });
     } else {
       // If context is null, re-enable immediately
+      if (!mounted) return;
       setState(() => _isScrollingProgrammatically = false);
     }
 
@@ -147,7 +148,9 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
       future: _getFlags(),
       builder: (context, asyncSnapshot) {
         final flags = asyncSnapshot.data ?? _defaultFlags();
-        final useV2Layout = flags[RemoteConfigFeatureFlags.useV2Layout] ?? true;
+        final bool useV2Layout =
+            asyncSnapshot.connectionState == ConnectionState.waiting ||
+                (flags[RemoteConfigFeatureFlags.useV2Layout] ?? true);
         final double bottomHeight = useV2Layout ? 50.0 : 0;
 
         return Scaffold(
