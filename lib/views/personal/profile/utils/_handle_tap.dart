@@ -1,4 +1,4 @@
-part of '../profile_item.dart';
+part of '../widgets/profile_item.dart';
 
 void _handleTap(ProfileItemType type) {
   switch (type) {
