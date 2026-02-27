@@ -23,68 +23,44 @@ class Educations extends StatefulWidget {
 }
 
 class _EducationsState extends State<Educations> {
-  Future<List<Education>?>? _educationsFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadData();
-  }
-
-  void _loadData() {
-    setState(() {
-      _educationsFuture = AllData.educations;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Education>?>(
-      future: _educationsFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
+    final educations = AllData.instance.educations;
 
-        if (snapshot.hasError || snapshot.data == null) {
-          return ErrorWithRetry(
-            errorMessage: 'Failed to load education',
-            onPressed: _loadData,
-          );
-        }
+    if (educations == null || educations.isEmpty) {
+      return const Center(
+        child: Text('No education records available.'),
+      );
+    }
+    final useSplit =
+        widget.flags[RemoteConfigFeatureFlags.educationUseSplit] ?? false;
 
-        final educations = snapshot.data!;
-        final useSplit =
-            widget.flags[RemoteConfigFeatureFlags.educationUseSplit] ?? false;
-
-        final content = Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (widget.showHeader) ...[
-              const Text(
-                'Education',
-                style: Typo.heading,
-              ),
-              const BodyDivider(),
-            ],
-            if (!widget.showHeader) gap24,
-            gap12,
-            if (useSplit) ...[
-              ..._buildSplitSection(educations),
-            ] else ...[
-              ...educations.map(
-                (e) => EducationCard(education: e),
-              ),
-            ],
-          ],
-        );
-
-        if (widget.wrapInScrollView) {
-          return SingleChildScrollView(child: content);
-        }
-        return content;
-      },
+    final content = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (widget.showHeader) ...[
+          const Text(
+            'Education',
+            style: Typo.heading,
+          ),
+          const BodyDivider(),
+        ],
+        if (!widget.showHeader) gap24,
+        gap12,
+        if (useSplit) ...[
+          ..._buildSplitSection(educations),
+        ] else ...[
+          ...educations.map(
+            (e) => EducationCard(education: e),
+          ),
+        ],
+      ],
     );
+
+    if (widget.wrapInScrollView) {
+      return SingleChildScrollView(child: content);
+    }
+    return content;
   }
 
   List<Widget> _buildSplitSection(List<Education> educations) {
