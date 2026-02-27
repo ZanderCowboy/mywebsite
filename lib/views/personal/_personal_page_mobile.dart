@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, dead_code, prefer_const_constructors
+// ignore_for_file: omit_local_variable_types
 
 part of 'personal_page.dart';
 
@@ -48,7 +48,7 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
 
     // Threshold: when a section's top is at this position or above, it's considered active
     // This accounts for the pinned header (toolbarExpandedHeight 56 + bottomHeight 50 = 106)
-    const double activationThreshold = 150.0;
+    const activationThreshold = 150.0;
     var newIndex = 0;
 
     for (var i = 0; i < _sectionCount; i++) {
@@ -128,40 +128,51 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
     };
   }
 
+  Future<Map<RemoteConfigFeatureFlags, bool>> _getFlags() async {
+    final flags = AllData.featureFlags;
+
+    return flags;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final useV2Layout = flags[RemoteConfigFeatureFlags.useV2Layout] ?? true;
-    const useV2Layout = true;
-    const updateWithReal = true;
     const double toolbarExpandedHeight = 56;
-    const double bottomHeight = updateWithReal ? 50.0 : 0;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      body: _PersonalPageBody(
-        child: CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: _PersonalMobileAppBarDelegate(
-                bottomHeight: bottomHeight,
-                toolbarExpandedHeight: toolbarExpandedHeight,
-                onBackTap: () => _navigateToHome(context),
-                currentIndex: _currentIndex,
-                onSectionTap: _scrollToSection,
-              ),
+    return FutureBuilder(
+      future: _getFlags(),
+      builder: (context, asyncSnapshot) {
+        final flags = asyncSnapshot.data ?? _defaultFlags();
+        final useV2Layout = flags[RemoteConfigFeatureFlags.useV2Layout] ?? true;
+        final double bottomHeight = useV2Layout ? 50.0 : 0;
+
+        return Scaffold(
+          extendBodyBehindAppBar: true,
+          body: _PersonalPageBody(
+            child: CustomScrollView(
+              controller: _scrollController,
+              slivers: [
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _PersonalMobileAppBarDelegate(
+                    bottomHeight: bottomHeight,
+                    toolbarExpandedHeight: toolbarExpandedHeight,
+                    onBackTap: () => _navigateToHome(context),
+                    currentIndex: _currentIndex,
+                    onSectionTap: _scrollToSection,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                    child: _MobileContent(sectionKeys: _sectionKeys),
+                  ),
+                ),
+              ],
             ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                child: _MobileContent(sectionKeys: _sectionKeys),
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -332,7 +343,7 @@ class _PersonalMobileAppBarDelegate extends SliverPersistentHeaderDelegate {
                         color: kBackButtonColor,
                         onPressed: onBackTap,
                       ),
-                      title: Text(
+                      title: const Text(
                         'Personal Details',
                         textAlign: TextAlign.center,
                         style: TextStyle(
