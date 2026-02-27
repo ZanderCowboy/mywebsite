@@ -31,7 +31,9 @@ class _SkillCardState extends State<SkillCard> {
       cursor: SystemMouseCursors.click,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        transform: Matrix4.identity()..scale(_hovered ? 1.05 : 1.0),
+        transform: _hovered
+            ? Matrix4.diagonal3Values(1.05, 1.05, 1)
+            : Matrix4.identity(),
         transformAlignment: Alignment.center,
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: borderRadius12),
