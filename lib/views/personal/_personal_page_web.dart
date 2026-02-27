@@ -54,7 +54,7 @@ class _WebContent extends StatelessWidget {
         padding: allPadding16,
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final isSmall = constraints.maxWidth < 750;
+            final isSmall = constraints.maxWidth < 600;
 
             if (isSmall) {
               return const _SmallWebLayout();

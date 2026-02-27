@@ -6,7 +6,7 @@ class GridItem extends StatelessWidget {
   const GridItem({
     required this.icon,
     required this.title,
-    this.iconStyle = const IconStyle(color: Colors.white, size: 32),
+    this.iconStyle = const IconStyle(size: 32),
     this.subtitle = '',
     this.shimmer = false,
     super.key,
@@ -24,6 +24,7 @@ class GridItem extends StatelessWidget {
       duration: const Duration(milliseconds: 400),
       constraints: const BoxConstraints(
         minWidth: 220,
+        minHeight: 500,
       ),
       decoration: BoxDecoration(
         boxShadow: [
@@ -39,7 +40,7 @@ class GridItem extends StatelessWidget {
         borderRadius: borderRadius16,
       ),
       alignment: Alignment.center,
-      padding: horizontal10 + vertical14,
+      padding: horizontal10 + vertical8,
       child: Row(
         children: [
           Material(
@@ -47,11 +48,14 @@ class GridItem extends StatelessWidget {
             elevation: 6,
             borderRadius: borderRadius12,
             child: Container(
+              alignment: AlignmentGeometry.center,
               decoration: BoxDecoration(
                 color: Colors.black.withValues(alpha: 0.15),
                 borderRadius: borderRadius12,
               ),
-              padding: allPadding8,
+              padding: allPadding4,
+              height: iconStyle.size * 1.5,
+              width: iconStyle.size * 1.5,
               child: Icon(
                 icon,
                 color: iconStyle.color,
@@ -71,7 +75,7 @@ class GridItem extends StatelessWidget {
                   softWrap: true,
                   overflow: TextOverflow.visible,
                 ),
-                gap8,
+                gap4,
                 Flexible(
                   child: Text(
                     subtitle,
@@ -103,12 +107,12 @@ class GridItem extends StatelessWidget {
 
 class IconStyle {
   const IconStyle({
-    this.color,
-    this.size,
+    this.color = Colors.white,
+    this.size = 12.0,
   });
 
   final Color? color;
-  final double? size;
+  final double size;
 }
 
 class _HoverAnimatedGradientBorder extends StatefulWidget {

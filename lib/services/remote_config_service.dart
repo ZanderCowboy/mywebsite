@@ -84,6 +84,13 @@ class RemoteConfigService with RemoteConfigGetters {
 
   /// Loads all personal-details feature flags in one call.
   Future<Map<RemoteConfigFeatureFlags, bool>> getFeatureFlags() async {
+    if (kDebugMode) {
+      final entries = RemoteConfigFeatureFlags.values.map(
+        (flag) => MapEntry(flag, true),
+      );
+      return Map.fromEntries(entries);
+    }
+
     final entries = await Future.wait(
       RemoteConfigFeatureFlags.values.map(
         (flag) async => MapEntry(flag, await getBool(flag.key)),

@@ -111,7 +111,7 @@ class _AboutMeState extends State<AboutMe> {
             if (showQuote &&
                 aboutMe.quote != null &&
                 aboutMe.quote!.isNotEmpty) ...[
-              if (widget.showHeader) gap16 else gap40,
+              if (widget.showHeader) gap20 else gap40,
               Padding(
                 padding: vertical8,
                 child: Text(
@@ -264,8 +264,7 @@ class _AboutMeState extends State<AboutMe> {
                       (skill) => GridItem(
                         icon: Icons.code,
                         iconStyle: IconStyle(
-                          color: Colors.white,
-                          size: context.isSmallScreen ? 24 : 32,
+                          size: !context.isLargeScreen ? 24 : 32,
                         ),
                         title: skill,
                         subtitle: 'Professional Skill',
@@ -275,8 +274,7 @@ class _AboutMeState extends State<AboutMe> {
                       (interest) => GridItem(
                         icon: Icons.favorite,
                         iconStyle: IconStyle(
-                          color: Colors.white,
-                          size: context.isSmallScreen ? 24 : 32,
+                          size: !context.isLargeScreen ? 24 : 32,
                         ),
                         title: interest,
                         subtitle: 'Personal Interest',
