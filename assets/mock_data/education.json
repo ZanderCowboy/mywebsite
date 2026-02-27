@@ -1,0 +1,28 @@
+{
+    "education": [
+        {
+            "schoolName": "Mock University",
+            "degree": "Bachelor of Mock Science",
+            "fieldOfStudy": "Computer Science",
+            "description": "Mock education description for testing",
+            "startDate": "2014-09",
+            "endDate": "2018-05",
+            "dateDisplay": "2014 - 2018",
+            "imageUrl": "assets/images/favicon_old.png",
+            "schoolUrl": "https://example.com",
+            "type": "Formal"
+        },
+        {
+            "schoolName": "Mock Udemy",
+            "degree": "Bachelor of Mock Science",
+            "fieldOfStudy": "Computer Science",
+            "description": "Mock education description for testing",
+            "startDate": "2014-09",
+            "endDate": "2018-05",
+            "dateDisplay": "2014 - 2018",
+            "imageUrl": "assets/images/favicon_old.png",
+            "schoolUrl": "https://example.com",
+            "type": "Accreditation"
+        }
+    ]
+}

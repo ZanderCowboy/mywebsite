@@ -1,3 +1,5 @@
+import 'package:mywebsite/models/enums/star_level.dart';
+
 class Skill {
   Skill({
     required this.name,
@@ -9,7 +11,7 @@ class Skill {
 
   final String name;
   final String description;
-  final String level;
+  final StarLevel level;
   final String imageUrl;
   final bool isNetworkImage;
 }

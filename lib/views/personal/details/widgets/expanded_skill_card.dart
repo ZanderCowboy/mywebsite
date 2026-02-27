@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mywebsite/components/level_to_stars.dart';
 import 'package:mywebsite/models/domain/skill.dart';
+import 'package:mywebsite/models/enums/star_level.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/utils/level_to_stars.dart';
 import 'package:mywebsite/views/personal/details/widgets/network_image_avatar.dart';
 
 class ExpandedSkillCard extends StatelessWidget {
@@ -59,25 +60,14 @@ class ExpandedSkillCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  skill.level,
+                  skill.level.description,
                   style: Typo.subtitle.copyWith(
                     color: Colors.grey[400],
                   ),
                 ),
-                if (levelToStars(skill.level) > 0) ...[
+                if (skill.level != StarLevel.unknown) ...[
                   gap8,
-                  ...List.generate(
-                    5,
-                    (i) => Icon(
-                      i < levelToStars(skill.level)
-                          ? Icons.star
-                          : Icons.star_border,
-                      size: 18,
-                      color: i < levelToStars(skill.level)
-                          ? Colors.amber
-                          : Colors.grey,
-                    ),
-                  ),
+                  LevelToStars(level: skill.level),
                 ],
               ],
             ),

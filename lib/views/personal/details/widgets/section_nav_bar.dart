@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mywebsite/util/ui_constants.dart';
 
 class SectionNavBar extends StatelessWidget {
   const SectionNavBar({
@@ -20,13 +21,22 @@ class SectionNavBar extends StatelessWidget {
     'Education',
   ];
 
+  static const _mobileLabels = [
+    'Profile',
+    'About Me',
+    'Experience',
+    'Projects',
+    'Skills',
+    'Education',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
       spacing: 4,
       runSpacing: 4,
       children: List.generate(
-        _labels.length,
+        isSmallScreen ? _mobileLabels.length : _labels.length,
         (index) => GestureDetector(
           onTap: () => onSectionTap(index),
           child: AnimatedContainer(
@@ -36,10 +46,10 @@ class SectionNavBar extends StatelessWidget {
               color: index == currentIndex
                   ? Colors.white.withValues(alpha: 0.2)
                   : Colors.transparent,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: borderRadius8,
             ),
             child: Text(
-              _labels[index],
+              isSmallScreen ? _mobileLabels[index] : _labels[index],
               style: TextStyle(
                 color: index == currentIndex ? Colors.white : Colors.grey,
                 fontWeight:

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mywebsite/components/level_to_stars.dart';
 import 'package:mywebsite/models/domain/skill.dart';
+import 'package:mywebsite/models/enums/star_level.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/utils/level_to_stars.dart';
 import 'package:mywebsite/views/personal/details/widgets/expanded_skill_card.dart';
 import 'package:mywebsite/views/personal/details/widgets/network_image_avatar.dart';
 
@@ -24,15 +25,15 @@ class _SkillCardState extends State<SkillCard> {
 
   @override
   Widget build(BuildContext context) {
-    final stars = levelToStars(widget.skill.level);
-
     return MouseRegion(
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
       cursor: SystemMouseCursors.click,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        transform: Matrix4.identity()..scale(_hovered ? 1.05 : 1.0),
+        transform: _hovered
+            ? Matrix4.diagonal3Values(1.05, 1.05, 1)
+            : Matrix4.identity(),
         transformAlignment: Alignment.center,
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: borderRadius12),
@@ -79,19 +80,9 @@ class _SkillCardState extends State<SkillCard> {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                if (stars > 0) ...[
+                if (widget.skill.level != StarLevel.unknown) ...[
                   gap4,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      5,
-                      (i) => Icon(
-                        i < stars ? Icons.star : Icons.star_border,
-                        size: 14,
-                        color: i < stars ? Colors.amber : Colors.grey,
-                      ),
-                    ),
-                  ),
+                  LevelToStars(level: widget.skill.level),
                 ],
                 gap18,
               ],

@@ -1,0 +1,28 @@
+{
+    "description": "Mock developer passionate about building amazing web experiences. This is test data for development.",
+    "socialPills": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com",
+            "iconUrl": "https://via.placeholder.com/24"
+        },
+        {
+            "name": "LinkedIn",
+            "url": "https://linkedin.com",
+            "iconUrl": "https://via.placeholder.com/24"
+        }
+    ],
+    "professionalSkills": [
+        "Flutter Development",
+        "Web Development",
+        "Firebase Integration"
+    ],
+    "personalInterests": [
+        "Open Source",
+        "Reading",
+        "Technology"
+    ],
+    "cvLink": "https://example.com/cv",
+    "quote": "Mock quote for development testing",
+    "ongoingProjectsText": "Working on various mock projects"
+}

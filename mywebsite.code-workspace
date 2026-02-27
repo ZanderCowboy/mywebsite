@@ -1,42 +1,47 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"dart.sdkPath": "C:\\Programming\\Flutter\\flutter\\bin",
-		"chat.tools.terminal.autoApprove": {
-			"flutter": true
-		}
-	},
 	"extensions": {
 		"recommendations": [
 			"Dart-Code.flutter",
 			"dart-code.dart-code"
 		]
 	},
+	"folders": [
+		{
+			"path": "."
+		}
+	],
 	"launch": {
-		"version": "0.2.0",
 		"configurations": [
 			{
 				"name": "mywebsite",
 				"request": "launch",
-				"type": "dart",
-				"args": []
+				"type": "dart"
 			},
 			{
+				"flutterMode": "debug",
+				"name": "mywebsite (no network)",
+				"request": "launch",
+				"type": "dart"
+			},
+			{
+				"flutterMode": "profile",
 				"name": "mywebsite (profile mode)",
 				"request": "launch",
-				"type": "dart",
-				"flutterMode": "profile"
+				"type": "dart"
 			},
 			{
+				"flutterMode": "release",
 				"name": "mywebsite (release mode)",
 				"request": "launch",
-				"type": "dart",
-				"flutterMode": "release"
+				"type": "dart"
 			}
-		]
+		],
+		"version": "0.2.0"
+	},
+	"settings": {
+		"chat.tools.terminal.autoApprove": {
+			"flutter": true
+		},
+		"dart.sdkPath": "C:\\Programming\\Flutter\\flutter\\bin"
 	}
 }

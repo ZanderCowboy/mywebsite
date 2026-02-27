@@ -1,0 +1,31 @@
+{
+    "experience": [
+        {
+            "role": "Mock Senior Developer",
+            "company": "Test Company Inc",
+            "location": "Mock City",
+            "language": "en",
+            "startDate": "2020-01",
+            "endDate": "2024-01",
+            "responsibilities": [
+                "Developed mock features",
+                "Fixed test bugs",
+                "Improved mock performance"
+            ],
+            "companyImageUrl": "assets/images/personal_page_background.jpg"
+        },
+        {
+            "role": "Mock Junior Developer",
+            "company": "Example Corp",
+            "location": "Test City",
+            "language": "en",
+            "startDate": "2018-06",
+            "endDate": "2020-01",
+            "responsibilities": [
+                "Learned mock technologies",
+                "Built test projects"
+            ],
+            "companyImageUrl": "assets/images/personal_page_background.jpg"
+        }
+    ]
+}

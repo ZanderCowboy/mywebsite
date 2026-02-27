@@ -7,11 +7,13 @@ part 'utils/_handle_tap.dart';
 class ProfileItem extends StatelessWidget {
   const ProfileItem({
     required this.type,
+    this.remoteData,
     this.onTap,
     super.key,
   });
 
   final ProfileItemType type;
+  final String? remoteData;
   final VoidCallback? onTap;
 
   @override
@@ -51,7 +53,7 @@ class ProfileItem extends StatelessWidget {
                       style: Typo.profileTitle,
                     ),
                     Text(
-                      type.description,
+                      remoteData ?? type.description,
                       style: Typo.profileSubtitle,
                     ),
                   ],
