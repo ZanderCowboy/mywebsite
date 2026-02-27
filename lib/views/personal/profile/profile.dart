@@ -18,7 +18,17 @@ class Profile extends StatelessWidget {
     return FutureBuilder(
       future: AllData.profileDetails,
       builder: (context, asyncSnapshot) {
-        if (!asyncSnapshot.hasData || asyncSnapshot.hasError) {}
+        if (asyncSnapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        if (asyncSnapshot.hasError) {
+          return const Center(
+            child: Text('Failed to load profile details.'),
+          );
+        }
 
         final data = asyncSnapshot.data;
 

@@ -12,7 +12,7 @@
                 "Fixed test bugs",
                 "Improved mock performance"
             ],
-            "companyImageUrl": "assets\\images\\personal_page_background.jpg"
+            "companyImageUrl": "assets/images/personal_page_background.jpg"
         },
         {
             "role": "Mock Junior Developer",
@@ -25,7 +25,7 @@
                 "Learned mock technologies",
                 "Built test projects"
             ],
-            "companyImageUrl": "assets\\images\\personal_page_background.jpg"
+            "companyImageUrl": "assets/images/personal_page_background.jpg"
         }
     ]
 }

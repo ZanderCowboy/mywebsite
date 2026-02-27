@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -21,11 +22,9 @@ class RemoteConfigService with RemoteConfigGetters {
   Future<void> initialize() async {
     // In debug mode, skip remote config initialization
     if (kDebugMode) {
-      if (kDebugMode) {
-        print(
-          '[DEBUG] Skipping Remote Config initialization - using mock data',
-        );
-      }
+      log(
+        '[DEBUG] Skipping Remote Config initialization - using mock data',
+      );
       return;
     }
 
@@ -70,7 +69,7 @@ class RemoteConfigService with RemoteConfigGetters {
   Future<String?> getBackgroundImageUrl() async {
     // In debug mode, use placeholder image
     if (kDebugMode) {
-      return r'assets\images\home_page_background.jpg';
+      return 'assets/images/home_page_background.jpg';
     }
     return getString(RemoteConfigImages.backgroundImage.imageName);
   }
@@ -78,7 +77,7 @@ class RemoteConfigService with RemoteConfigGetters {
   Future<String?> getProfileImageUrl() async {
     // In debug mode, use placeholder image
     if (kDebugMode) {
-      return r'assets\images\home_page_background.jpg';
+      return 'assets/images/home_page_background.jpg';
     }
     return getString(RemoteConfigImages.profileImage.imageName);
   }

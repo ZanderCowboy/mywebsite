@@ -48,7 +48,11 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
 
     // Threshold: when a section's top is at this position or above, it's considered active
     // This accounts for the pinned header (toolbarExpandedHeight 56 + bottomHeight 50 = 106)
-    const activationThreshold = 150.0;
+    const double toolbarExpandedHeight = 56;
+    const double bottomHeight = 50;
+    final mediaQuery = MediaQuery.of(context);
+    final double activationThreshold =
+        toolbarExpandedHeight + bottomHeight + mediaQuery.padding.top;
     var newIndex = 0;
 
     for (var i = 0; i < _sectionCount; i++) {
@@ -97,6 +101,7 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
         curve: Curves.easeInOut,
       ).then((_) {
         // Re-enable scroll listener after animation completes
+        if (!mounted) return;
         setState(() => _isScrollingProgrammatically = false);
       });
     } else {

@@ -17,11 +17,13 @@ When running in **debug mode** (`kDebugMode`), the app automatically loads data 
 
 ## Images
 
-In debug mode, all images use placeholder images from `placeholder.com` to:
+In debug mode, all images use local asset paths (e.g., `assets/images/home_page_background.jpg`) to:
 
-- Avoid repeated network requests
+- Avoid network requests entirely
 - Speed up development
-- Reduce bandwidth usage
+- Work offline
+
+The mock JSON files in this directory reference local assets that are bundled with the app.
 
 ## Automatic Behavior
 
@@ -30,7 +32,7 @@ The `RemoteConfigService` automatically:
 1. Detects when running in debug mode (`kDebugMode`)
 2. Skips Firebase Remote Config initialization
 3. Loads data from local JSON files
-4. Returns placeholder image URLs
+4. Returns local asset paths for images
 
 No code changes needed - just run in debug mode!
 

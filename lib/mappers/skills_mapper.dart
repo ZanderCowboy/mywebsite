@@ -18,11 +18,20 @@ class SkillsMapper extends $SkillsMapper {
       return dto.imageUrl ?? '';
     }
 
-    return 'assets\\images\\projects\\placeholder.png';
+    return 'assets/images/projects/placeholder.png';
   }
 
   static bool setIsNetworkImage(SkillDTO dto) {
-    if (dto.imageUrl != null && dto.imageUrl!.isNotEmpty) {
+    final imageUrl = dto.imageUrl;
+
+    if (imageUrl == null || imageUrl.isEmpty) {
+      return false;
+    }
+
+    final uri = Uri.tryParse(imageUrl);
+    if (uri != null &&
+        uri.hasScheme &&
+        (uri.scheme == 'http' || uri.scheme == 'https')) {
       return true;
     }
     return false;
