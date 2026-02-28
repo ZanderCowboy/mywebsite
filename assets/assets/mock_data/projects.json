@@ -1,0 +1,25 @@
+{
+    "projects": [
+        {
+            "name": "Mock Project 1",
+            "tools": [
+                "Flutter",
+                "Firebase",
+                "Dart"
+            ],
+            "description": "A mock project description for development testing",
+            "repoLink": "https://github.com/user/mock-project-1",
+            "imageUrl": "https://via.placeholder.com/400x300"
+        },
+        {
+            "name": "Mock Project 2",
+            "tools": [
+                "React",
+                "Node.js"
+            ],
+            "description": "Another mock project for testing purposes",
+            "repoLink": "https://github.com/user/mock-project-2",
+            "imageUrl": "https://via.placeholder.com/400x300"
+        }
+    ]
+}
