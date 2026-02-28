@@ -225,11 +225,7 @@ class _AboutMeState extends State<AboutMe> {
             final maxWidth = constraints.maxWidth;
 
             return GridView.count(
-              crossAxisCount: context.isSmallScreen
-                  ? 1
-                  : maxWidth < 550
-                      ? 1
-                      : 2,
+              crossAxisCount: context.isSmallScreen || maxWidth < 750 ? 1 : 2,
               crossAxisSpacing: 20,
               mainAxisSpacing: 20,
               childAspectRatio: context.isSmallScreen ? 4.5 : 6,
