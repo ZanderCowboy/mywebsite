@@ -35,6 +35,9 @@ class _ExperiencesState extends State<Experiences> {
         widget.flags[RemoteConfigFeatureFlags.experienceUseParagraphs] ?? false;
 
     final content = Column(
+      crossAxisAlignment: context.isMobile
+          ? CrossAxisAlignment.center
+          : CrossAxisAlignment.start,
       children: [
         if (widget.showHeader) ...[
           const Text(

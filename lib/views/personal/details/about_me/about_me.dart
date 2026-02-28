@@ -42,6 +42,9 @@ class _AboutMeState extends State<AboutMe> {
 
     final content = Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: context.isMobile
+          ? CrossAxisAlignment.center
+          : CrossAxisAlignment.start,
       children: [
         if (widget.showHeader) ...[
           const Text(

@@ -36,6 +36,9 @@ class _EducationsState extends State<Educations> {
         widget.flags[RemoteConfigFeatureFlags.educationUseSplit] ?? false;
 
     final content = Column(
+      crossAxisAlignment: context.isMobile
+          ? CrossAxisAlignment.center
+          : CrossAxisAlignment.start,
       children: [
         if (widget.showHeader) ...[
           const Text(

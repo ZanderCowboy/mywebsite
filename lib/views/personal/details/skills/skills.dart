@@ -34,6 +34,9 @@ class _SkillsState extends State<Skills> {
       width: double.infinity,
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: context.isMobile
+            ? CrossAxisAlignment.center
+            : CrossAxisAlignment.start,
         children: [
           if (widget.showHeader) ...[
             const Text(

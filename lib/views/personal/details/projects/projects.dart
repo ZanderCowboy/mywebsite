@@ -30,6 +30,9 @@ class _ProjectsState extends State<Projects> {
     }
 
     final content = Column(
+      crossAxisAlignment: context.isMobile
+          ? CrossAxisAlignment.center
+          : CrossAxisAlignment.start,
       children: [
         if (widget.showHeader) ...[
           const Text(

@@ -44,12 +44,14 @@ class Socials extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              socialPills,
+              Center(child: socialPills),
               gap8,
-              SocialPill(
-                iconWidget: const Icon(Icons.download, size: 18),
-                label: 'Download CV',
-                onTap: () => _handleCVDownload(aboutMe.cvLink!),
+              Center(
+                child: SocialPill(
+                  iconWidget: const Icon(Icons.download, size: 18),
+                  label: 'Download CV',
+                  onTap: () => _handleCVDownload(aboutMe.cvLink!),
+                ),
               ),
             ],
           );
