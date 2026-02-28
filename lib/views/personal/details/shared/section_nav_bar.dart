@@ -5,13 +5,19 @@ class SectionNavBar extends StatelessWidget {
   const SectionNavBar({
     required this.currentIndex,
     required this.onSectionTap,
-    this.isSmallScreen = false,
+    this.isSmallDeviceScreen = false,
+    this.isSmallWidth = false,
     super.key,
   });
 
   final int currentIndex;
   final void Function(int) onSectionTap;
-  final bool isSmallScreen;
+
+  /// Returns [isSmallDeviceScreen] if it's a mobile or phone
+  final bool isSmallDeviceScreen;
+
+  /// Returns [isSmallWidth] if screen is small than threshold
+  final bool isSmallWidth;
 
   static const _labels = [
     'About Me',
@@ -36,12 +42,12 @@ class SectionNavBar extends StatelessWidget {
       spacing: 4,
       runSpacing: 4,
       children: List.generate(
-        isSmallScreen ? _mobileLabels.length : _labels.length,
+        isSmallDeviceScreen ? _mobileLabels.length : _labels.length,
         (index) => GestureDetector(
           onTap: () => onSectionTap(index),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding: horizontal10 + vertical8,
             decoration: BoxDecoration(
               color: index == currentIndex
                   ? Colors.white.withValues(alpha: 0.2)
@@ -49,12 +55,16 @@ class SectionNavBar extends StatelessWidget {
               borderRadius: borderRadius8,
             ),
             child: Text(
-              isSmallScreen ? _mobileLabels[index] : _labels[index],
+              isSmallDeviceScreen ? _mobileLabels[index] : _labels[index],
               style: TextStyle(
                 color: index == currentIndex ? Colors.white : Colors.grey,
                 fontWeight:
                     index == currentIndex ? FontWeight.w600 : FontWeight.normal,
-                fontSize: isSmallScreen ? 12 : 14,
+                fontSize: isSmallDeviceScreen
+                    ? 11
+                    : isSmallWidth
+                        ? 12
+                        : 15,
               ),
             ),
           ),

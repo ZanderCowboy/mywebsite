@@ -40,6 +40,7 @@ const horizontal32 = EdgeInsets.symmetric(horizontal: 32);
 const horizontal40 = EdgeInsets.symmetric(horizontal: 40);
 
 /// Vertical Padding Constants
+const vertical6 = EdgeInsets.symmetric(vertical: 6);
 const vertical8 = EdgeInsets.symmetric(vertical: 8);
 const vertical12 = EdgeInsets.symmetric(vertical: 12);
 const vertical14 = EdgeInsets.symmetric(vertical: 14);

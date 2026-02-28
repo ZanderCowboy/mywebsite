@@ -353,7 +353,8 @@ class _PersonalMobileAppBarDelegate extends SliverPersistentHeaderDelegate {
                 child: SectionNavBar(
                   currentIndex: currentIndex,
                   onSectionTap: onSectionTap,
-                  isSmallScreen: true,
+                  isSmallDeviceScreen: true,
+                  isSmallWidth: true,
                 ),
               ),
             ),

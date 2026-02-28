@@ -111,7 +111,8 @@ class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
     final sectionNavBar = SectionNavBar(
       currentIndex: _currentIndex,
       onSectionTap: _scrollToSection,
-      isSmallScreen: widget.isSmall,
+      isSmallDeviceScreen: context.isMobile,
+      isSmallWidth: context.isSmallScreen,
     );
 
     return LayoutBuilder(
@@ -208,7 +209,7 @@ class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
               minHeight: 50,
               maxWidth: constraints.maxWidth * 0.70,
             ),
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      padding: horizontal8 + vertical6,
       child: child,
     );
 

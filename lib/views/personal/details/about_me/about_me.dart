@@ -8,6 +8,11 @@ import 'package:mywebsite/models/parameters.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/shared/export.dart';
 
+part 'widgets/description.dart';
+part 'widgets/hobbies_and_interests.dart';
+part 'widgets/quote.dart';
+part 'widgets/socials.dart';
+
 class AboutMe extends StatefulWidget {
   const AboutMe({
     required this.flags,
@@ -25,33 +30,6 @@ class AboutMe extends StatefulWidget {
 }
 
 class _AboutMeState extends State<AboutMe> {
-  void _handleCVDownload(String cvUrl) {
-    launchURL(
-      cvUrl,
-      analyticsParams: Parameters(
-        url: cvUrl,
-        section: 'personal_page',
-        tabName: 'About Me',
-        itemType: 'cv',
-        linkType: 'download',
-      ),
-    );
-  }
-
-  void _handleSocialPillClick(String platform, String url) {
-    launchURL(
-      url,
-      analyticsParams: Parameters(
-        platform: platform,
-        url: url,
-        section: 'personal_page',
-        tabName: 'About Me',
-        itemType: 'social_pill',
-        linkType: 'social_media',
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final aboutMe = AllData.instance.aboutMe;
@@ -61,11 +39,6 @@ class _AboutMeState extends State<AboutMe> {
         child: Text('About me data is not available.'),
       );
     }
-
-    final showQuote =
-        widget.flags[RemoteConfigFeatureFlags.aboutMeShowQuote] ?? false;
-    final useSplit =
-        widget.flags[RemoteConfigFeatureFlags.aboutMeUseSplit] ?? false;
 
     final content = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,132 +59,10 @@ class _AboutMeState extends State<AboutMe> {
           ),
           const BodyDivider(),
         ],
-        if (showQuote &&
-            aboutMe.quote != null &&
-            aboutMe.quote!.isNotEmpty) ...[
-          if (widget.showHeader) gap20 else gap40,
-          Padding(
-            padding: vertical8,
-            child: Text(
-              aboutMe.quote!,
-              style: Typo.body.copyWith(
-                fontStyle: FontStyle.italic,
-                color: Colors.grey[400],
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          gap8,
-        ],
-        LayoutBuilder(
-          builder: (context, constraints) {
-            final useTwoColumns = useSplit &&
-                constraints.maxWidth >= 550 &&
-                (aboutMe.ongoingProjectsText != null &&
-                    aboutMe.ongoingProjectsText!.isNotEmpty);
-
-            if (useTwoColumns) {
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      aboutMe.description,
-                      style: Typo.body,
-                    ),
-                  ),
-                  gap16,
-                  Expanded(
-                    child: Text(
-                      aboutMe.ongoingProjectsText!,
-                      style: Typo.body,
-                    ),
-                  ),
-                ],
-              );
-            }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  aboutMe.description,
-                  style: Typo.body,
-                ),
-                if (aboutMe.ongoingProjectsText != null &&
-                    aboutMe.ongoingProjectsText!.isNotEmpty) ...[
-                  gap16,
-                  Text(
-                    aboutMe.ongoingProjectsText!,
-                    style: Typo.body,
-                  ),
-                ],
-              ],
-            );
-          },
-        ),
+        const Quote(),
+        const Description(),
         gap16,
-        Builder(
-          builder: (context) {
-            final showCv = aboutMe.cvLink != null && aboutMe.cvLink!.isNotEmpty;
-
-            final socialPills = Wrap(
-              spacing: 16,
-              runSpacing: 8,
-              children: aboutMe.socialPills.map((socialPill) {
-                final socialPlatform =
-                    SocialPlatform.fromString(socialPill.name);
-                final isX = socialPlatform == SocialPlatform.x ||
-                    socialPlatform == SocialPlatform.twitter;
-                final iconSize = isX ? 16.0 : 18.0;
-                return SocialPill(
-                  iconWidget: socialPlatform != null
-                      ? SvgPicture.asset(
-                          socialPlatform.assetPath,
-                          height: iconSize,
-                          width: iconSize,
-                        )
-                      : Icon(Icons.link, size: iconSize),
-                  label: socialPill.name,
-                  onTap: () => _handleSocialPillClick(
-                    socialPill.name,
-                    socialPill.url,
-                  ),
-                );
-              }).toList(),
-            );
-
-            if (context.isSmallScreen && showCv) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  socialPills,
-                  gap8,
-                  SocialPill(
-                    iconWidget: const Icon(Icons.download, size: 18),
-                    label: 'Download CV',
-                    onTap: () => _handleCVDownload(aboutMe.cvLink!),
-                  ),
-                ],
-              );
-            }
-            return Row(
-              children: [
-                socialPills,
-                if (showCv)
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: SocialPill(
-                        iconWidget: const Icon(Icons.download, size: 18),
-                        label: 'Download CV',
-                        onTap: () => _handleCVDownload(aboutMe.cvLink!),
-                      ),
-                    ),
-                  ),
-              ],
-            );
-          },
-        ),
+        const Socials(),
         gap16,
         const Padding(
           padding: vertical12,
@@ -220,43 +71,7 @@ class _AboutMeState extends State<AboutMe> {
             style: Typo.heading,
           ),
         ),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            final maxWidth = constraints.maxWidth;
-
-            return GridView.count(
-              crossAxisCount: context.isSmallScreen || maxWidth < 750 ? 1 : 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
-              childAspectRatio: context.isSmallScreen ? 4.5 : 6,
-              padding: allPadding4,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                ...aboutMe.professionalSkills.map(
-                  (skill) => GridItem(
-                    icon: Icons.code,
-                    iconStyle: IconStyle(
-                      size: !context.isLargeScreen ? 24 : 32,
-                    ),
-                    title: skill,
-                    subtitle: 'Professional Skill',
-                  ),
-                ),
-                ...aboutMe.personalInterests.map(
-                  (interest) => GridItem(
-                    icon: Icons.favorite,
-                    iconStyle: IconStyle(
-                      size: !context.isLargeScreen ? 24 : 32,
-                    ),
-                    title: interest,
-                    subtitle: 'Personal Interest',
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
+        const HobbiesAndInterests(),
       ],
     );
 
