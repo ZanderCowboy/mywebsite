@@ -148,29 +148,26 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      body: _PersonalPageBody(
-        child: CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: _PersonalMobileAppBarDelegate(
-                bottomHeight: bottomHeight,
-                toolbarExpandedHeight: toolbarExpandedHeight,
-                onBackTap: _navigateToHome,
-                currentIndex: _currentIndex,
-                onSectionTap: _scrollToSection,
-              ),
+      body: CustomScrollView(
+        controller: _scrollController,
+        slivers: [
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _PersonalMobileAppBarDelegate(
+              bottomHeight: bottomHeight,
+              toolbarExpandedHeight: toolbarExpandedHeight,
+              onBackTap: _navigateToHome,
+              currentIndex: _currentIndex,
+              onSectionTap: _scrollToSection,
             ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                child: _MobileContent(sectionKeys: _sectionKeys),
-              ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: _MobileContent(sectionKeys: _sectionKeys),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

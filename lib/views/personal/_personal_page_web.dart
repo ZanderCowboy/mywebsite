@@ -20,25 +20,24 @@ class _PersonalPageWeb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          _PersonalPageBody(
-            child: Card(
-              color: kBackgroundColor,
-              margin: allPadding24,
-              child: Padding(
-                padding: allPadding16,
-                child: LayoutBuilder(
-                  builder: (_, constraints) {
-                    final isSmall = constraints.maxWidth < 600;
+          Card(
+            color: kBackgroundColor,
+            margin: allPadding24,
+            child: Padding(
+              padding: allPadding16,
+              child: LayoutBuilder(
+                builder: (_, constraints) {
+                  final isSmall = constraints.maxWidth < 600;
 
-                    if (isSmall) {
-                      return const _SmallWebLayout();
-                    }
+                  if (isSmall) {
+                    return const _SmallWebLayout();
+                  }
 
-                    return _LargeWebLayout(constraints: constraints);
-                  },
-                ),
+                  return _LargeWebLayout(constraints: constraints);
+                },
               ),
             ),
           ),

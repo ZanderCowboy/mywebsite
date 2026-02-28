@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mywebsite/bootstrap.dart';
-import 'package:mywebsite/components/background_image.dart';
 import 'package:mywebsite/data/all_data.dart';
-import 'package:mywebsite/gen/assets.gen.dart';
 import 'package:mywebsite/models/enums/analytics_event.dart';
 import 'package:mywebsite/models/enums/remote_config_keys.dart';
 import 'package:mywebsite/models/parameters.dart';
@@ -14,7 +11,6 @@ import 'package:mywebsite/views/personal/details/widgets/export.dart';
 import 'package:mywebsite/views/personal/profile/profile.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-part '_personal_page_body.dart';
 part '_personal_page_mobile.dart';
 part '_personal_page_web.dart';
 
