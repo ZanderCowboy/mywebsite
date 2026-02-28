@@ -37,13 +37,13 @@ class BackgroundImage extends StatelessWidget {
     return Stack(
       fit: stackFit,
       children: [
-        if (isPositioned) ...{
+        if (isPositioned) ...[
           Positioned.fill(
             child: imageWidget,
           ),
-        } else ...{
+        ] else ...[
           imageWidget,
-        },
+        ],
         child ?? const SizedBox.shrink(),
       ],
     );
