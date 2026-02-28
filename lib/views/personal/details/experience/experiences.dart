@@ -3,7 +3,7 @@ import 'package:mywebsite/components/body_divider.dart';
 import 'package:mywebsite/data/all_data.dart';
 import 'package:mywebsite/models/enums/remote_config_keys.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/widgets/experience_card.dart';
+import 'package:mywebsite/views/personal/details/shared/experience_card.dart';
 
 class Experiences extends StatefulWidget {
   const Experiences({

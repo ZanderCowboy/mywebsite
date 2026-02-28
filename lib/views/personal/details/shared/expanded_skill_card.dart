@@ -3,7 +3,7 @@ import 'package:mywebsite/components/level_to_stars.dart';
 import 'package:mywebsite/models/domain/skill.dart';
 import 'package:mywebsite/models/enums/star_level.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/widgets/network_image_avatar.dart';
+import 'package:mywebsite/views/personal/details/shared/network_image_avatar.dart';
 
 class ExpandedSkillCard extends StatelessWidget {
   const ExpandedSkillCard({

@@ -6,8 +6,8 @@ import 'package:mywebsite/models/parameters.dart';
 import 'package:mywebsite/services/analytics_service.dart';
 import 'package:mywebsite/util/export.dart';
 import 'package:mywebsite/views/personal/details/details.dart';
-import 'package:mywebsite/views/personal/details/sections/export.dart';
-import 'package:mywebsite/views/personal/details/widgets/export.dart';
+import 'package:mywebsite/views/personal/details/export.dart';
+import 'package:mywebsite/views/personal/details/shared/export.dart';
 import 'package:mywebsite/views/personal/profile/profile.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 

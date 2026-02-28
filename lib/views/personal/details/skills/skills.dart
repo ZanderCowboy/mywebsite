@@ -3,7 +3,7 @@ import 'package:mywebsite/components/export.dart';
 import 'package:mywebsite/data/all_data.dart';
 import 'package:mywebsite/models/export.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/widgets/skill_card.dart';
+import 'package:mywebsite/views/personal/details/shared/skill_card.dart';
 
 class Skills extends StatefulWidget {
   const Skills({

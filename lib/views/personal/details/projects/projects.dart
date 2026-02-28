@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mywebsite/components/export.dart';
 import 'package:mywebsite/data/all_data.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/widgets/project_card.dart';
+import 'package:mywebsite/views/personal/details/shared/project_card.dart';
 
 class Projects extends StatefulWidget {
   const Projects({

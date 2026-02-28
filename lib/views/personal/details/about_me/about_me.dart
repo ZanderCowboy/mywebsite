@@ -6,7 +6,7 @@ import 'package:mywebsite/models/enums/export.dart';
 import 'package:mywebsite/models/enums/remote_config_keys.dart';
 import 'package:mywebsite/models/parameters.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/widgets/export.dart';
+import 'package:mywebsite/views/personal/details/shared/export.dart';
 
 class AboutMe extends StatefulWidget {
   const AboutMe({

@@ -5,8 +5,8 @@ import 'package:mywebsite/models/enums/remote_config_keys.dart';
 import 'package:mywebsite/models/parameters.dart';
 import 'package:mywebsite/services/analytics_service.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/sections/export.dart';
-import 'package:mywebsite/views/personal/details/widgets/export.dart';
+import 'package:mywebsite/views/personal/details/export.dart';
+import 'package:mywebsite/views/personal/details/shared/export.dart';
 
 part '_details_scroll_layout.dart';
 part '_details_tab_layout.dart';
