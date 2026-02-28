@@ -35,14 +35,15 @@ class _ExperiencesState extends State<Experiences> {
         widget.flags[RemoteConfigFeatureFlags.experienceUseParagraphs] ?? false;
 
     final content = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.showHeader) ...[
           const Text(
             'Experience',
             style: Typo.heading,
           ),
-          const BodyDivider(),
+          BodyDivider(
+            width: context.isMobile ? null : 80,
+          ),
         ],
         if (!widget.showHeader) gap24,
         gap16,

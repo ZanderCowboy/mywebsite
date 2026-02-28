@@ -30,14 +30,15 @@ class _ProjectsState extends State<Projects> {
     }
 
     final content = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.showHeader) ...[
           const Text(
             'Projects',
             style: Typo.heading,
           ),
-          const BodyDivider(),
+          BodyDivider(
+            width: context.isMobile ? null : 80,
+          ),
         ],
         if (!widget.showHeader) gap24,
         LayoutBuilder(

@@ -41,23 +41,16 @@ class _AboutMeState extends State<AboutMe> {
     }
 
     final content = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         if (widget.showHeader) ...[
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  'About Me',
-                  style: Typo.heading,
-                ),
-              ),
-            ],
+          const Text(
+            'About Me',
+            style: Typo.heading,
           ),
-          const BodyDivider(),
+          BodyDivider(
+            width: context.isMobile ? null : 80,
+          ),
         ],
         const Quote(),
         const Description(),

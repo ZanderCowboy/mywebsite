@@ -33,7 +33,6 @@ class _SkillsState extends State<Skills> {
     final content = SizedBox(
       width: double.infinity,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           if (widget.showHeader) ...[
@@ -41,7 +40,9 @@ class _SkillsState extends State<Skills> {
               'Skills',
               style: Typo.heading,
             ),
-            const BodyDivider(),
+            BodyDivider(
+              width: context.isMobile ? null : 80,
+            ),
           ],
           if (!widget.showHeader) gap24,
           gap18,
