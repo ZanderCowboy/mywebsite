@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mywebsite/models/enums/profile_item_type.dart';
 import 'package:mywebsite/util/export.dart';
 
-part 'utils/_handle_tap.dart';
+part '../utils/_handle_tap.dart';
 
 class ProfileItem extends StatelessWidget {
   const ProfileItem({

@@ -13,10 +13,12 @@ class _DetailsScrollLayout extends StatefulWidget {
   State<_DetailsScrollLayout> createState() => _DetailsScrollLayoutState();
 }
 
-class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
+class _DetailsScrollLayoutState extends State<_DetailsScrollLayout>
+    with SingleTickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _contentKey = GlobalKey();
   late final List<GlobalKey> _sectionKeys;
+  late final TabController _tabController;
   int _currentIndex = 0;
   final AnalyticsService _analyticsService = AnalyticsService();
 
@@ -24,6 +26,11 @@ class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
   void initState() {
     super.initState();
     _sectionKeys = List.generate(_sectionCount, (_) => GlobalKey());
+    _tabController = TabController(
+      length: _sectionCount,
+      initialIndex: _currentIndex,
+      vsync: this,
+    );
     _scrollController.addListener(_scrollListener);
   }
 
@@ -32,6 +39,7 @@ class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
     _scrollController
       ..removeListener(_scrollListener)
       ..dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -56,7 +64,10 @@ class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
       }
     }
     if (_currentIndex != newIndex) {
-      setState(() => _currentIndex = newIndex);
+      setState(() {
+        _currentIndex = newIndex;
+        _tabController.index = newIndex;
+      });
 
       // Log section view analytics
       final sectionName = _getSectionName(newIndex);
@@ -72,7 +83,10 @@ class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
   }
 
   void _scrollToSection(int index) {
-    setState(() => _currentIndex = index);
+    setState(() {
+      _currentIndex = index;
+      _tabController.index = index;
+    });
     final key = _sectionKeys[index];
     final keyContext = key.currentContext;
     if (keyContext != null) {
@@ -108,9 +122,10 @@ class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
 
   @override
   Widget build(BuildContext context) {
-    final sectionNavBar = SectionNavBar(
-      currentIndex: _currentIndex,
-      onSectionTap: _scrollToSection,
+    final tabBarHeader = TabBarHeader(
+      controller: _tabController,
+      onTap: _scrollToSection,
+      isScrollable: !widget.isSmall,
       isSmallScreen: widget.isSmall,
     );
 
@@ -173,7 +188,7 @@ class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
               ),
             ),
             _getTabHeader(
-              child: sectionNavBar,
+              child: tabBarHeader,
               constraints: constraints,
             ),
           ],
@@ -208,7 +223,6 @@ class _DetailsScrollLayoutState extends State<_DetailsScrollLayout> {
               minHeight: 50,
               maxWidth: constraints.maxWidth * 0.70,
             ),
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       child: child,
     );
 

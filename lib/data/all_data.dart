@@ -6,87 +6,172 @@ import 'package:mywebsite/repository/remote_config_repository.dart';
 import 'package:mywebsite/services/remote_config_service.dart';
 
 class AllData {
-  static final RemoteConfigService _remoteConfigService = RemoteConfigService();
+  AllData._();
 
-  static final RemoteConfigRepository _remoteConfigRepository =
+  static final AllData _instance = AllData._();
+  static AllData get instance => _instance;
+
+  final RemoteConfigService _remoteConfigService = RemoteConfigService();
+  late final RemoteConfigRepository _remoteConfigRepository =
       RemoteConfigRepository(_remoteConfigService);
 
-  /// Get about me data from Remote Config
-  static Future<AboutMeData?> get aboutMe async {
+  AboutMeData? _aboutMe;
+  ProfileDetailsData? _profileDetails;
+  List<Experience>? _experiences;
+  List<Education>? _educations;
+  List<Project>? _projects;
+  List<Skill>? _skills;
+  Map<RemoteConfigFeatureFlags, bool> _featureFlags = {};
+  Map<RemoteConfigDashboard, String> _dashboard = {};
+
+  bool _isLoaded = false;
+  bool _hasError = false;
+  String? _errorMessage;
+
+  bool get isLoaded => _isLoaded;
+  bool get hasError => _hasError;
+  String? get errorMessage => _errorMessage;
+
+  Future<void> initialize() async {
+    if (_isLoaded) return;
+
     try {
-      return await _remoteConfigRepository.getAboutMeData();
-    } catch (e) {
-      dev.log('Error fetching about me data: $e', name: 'AllData');
-      return null;
+      dev.log('Loading all data...', name: 'AllData');
+
+      final results = await Future.wait([
+        _remoteConfigRepository.getAboutMeData(),
+        _remoteConfigRepository.getProfileDetails(),
+        _remoteConfigRepository.getExperienceData(),
+        _remoteConfigRepository.getEducationData(),
+        _remoteConfigRepository.getProjectsData(),
+        _remoteConfigRepository.getSkillsData(),
+        _remoteConfigService.getFeatureFlags(),
+        _remoteConfigService.getDashboard(),
+      ]);
+
+      Map<RemoteConfigFeatureFlags, bool> defaultFlags() {
+        return {
+          for (final f in RemoteConfigFeatureFlags.values) f: false,
+        };
+      }
+
+      Map<RemoteConfigDashboard, String> defaultDashboard() {
+        return {
+          for (final f in RemoteConfigDashboard.values) f: '',
+        };
+      }
+
+      _aboutMe = results[0] as AboutMeData?;
+      _profileDetails = results[1] as ProfileDetailsData?;
+      _experiences = results[2] as List<Experience>?;
+      _educations = results[3] as List<Education>?;
+      _projects = results[4] as List<Project>?;
+      _skills = results[5] as List<Skill>?;
+      _featureFlags =
+          (results[6] ?? defaultFlags()) as Map<RemoteConfigFeatureFlags, bool>;
+      _dashboard = (results[7] ?? defaultDashboard())
+          as Map<RemoteConfigDashboard, String>;
+
+      _isLoaded = true;
+      _hasError = false;
+      dev.log('All data loaded successfully', name: 'AllData');
+    } catch (e, stackTrace) {
+      _hasError = true;
+      _errorMessage = e.toString();
+      dev.log(
+        'Error loading data: $e',
+        name: 'AllData',
+        error: e,
+        stackTrace: stackTrace,
+      );
+      rethrow;
     }
   }
 
-  /// Get profile details from Remote Config
-  static Future<ProfileDetailsData?> get profileDetails async {
-    try {
-      return await _remoteConfigRepository.getProfileDetails();
-    } catch (e) {
-      dev.log('Error fetching profile details: $e', name: 'AllData');
-      return null;
-    }
+  Future<void> reload() async {
+    _isLoaded = false;
+    _hasError = false;
+    _errorMessage = null;
+    await initialize();
   }
 
-  /// Get experiences data from Remote Config
-  static Future<List<Experience>?> get experiences async {
-    try {
-      return await _remoteConfigRepository.getExperienceData();
-    } catch (e) {
-      dev.log('Error fetching experiences data: $e', name: 'AllData');
-      return null;
+  AboutMeData? get aboutMe {
+    if (!_isLoaded) {
+      dev.log(
+        'Accessing aboutMe before initialization',
+        name: 'AllData',
+      );
     }
+    return _aboutMe;
   }
 
-  /// Get educations data from Remote Config
-  static Future<List<Education>?> get educations async {
-    try {
-      return await _remoteConfigRepository.getEducationData();
-    } catch (e) {
-      dev.log('Error fetching educations data: $e', name: 'AllData');
-      return null;
+  ProfileDetailsData? get profileDetails {
+    if (!_isLoaded) {
+      dev.log(
+        'Accessing profileDetails before initialization',
+        name: 'AllData',
+      );
     }
+    return _profileDetails;
   }
 
-  /// Get projects data from Remote Config
-  static Future<List<Project>?> get projects async {
-    try {
-      return await _remoteConfigRepository.getProjectsData();
-    } catch (e) {
-      dev.log('Error fetching projects data: $e', name: 'AllData');
-      return null;
+  List<Experience>? get experiences {
+    if (!_isLoaded) {
+      dev.log(
+        'Accessing experiences before initialization',
+        name: 'AllData',
+      );
     }
+    return _experiences;
   }
 
-  /// Get skills data from Remote Config
-  static Future<List<Skill>?> get skills async {
-    try {
-      return await _remoteConfigRepository.getSkillsData();
-    } catch (e) {
-      dev.log('Error fetching skills data: $e', name: 'AllData');
-      return null;
+  List<Education>? get educations {
+    if (!_isLoaded) {
+      dev.log(
+        'Accessing educations before initialization',
+        name: 'AllData',
+      );
     }
+    return _educations;
   }
 
-  /// Get personal details feature flags from Remote Config.
-  static Future<Map<RemoteConfigFeatureFlags, bool>> get featureFlags async {
-    try {
-      return await _remoteConfigService.getFeatureFlags();
-    } catch (e) {
-      dev.log('Error fetching feature flags: $e', name: 'AllData');
-      return {};
+  List<Project>? get projects {
+    if (!_isLoaded) {
+      dev.log(
+        'Accessing projects before initialization',
+        name: 'AllData',
+      );
     }
+    return _projects;
   }
 
-  static Future<Map<RemoteConfigDashboard, String>> get dashboard async {
-    try {
-      return await _remoteConfigService.getDashboard();
-    } catch (e) {
-      dev.log('Error fetching dashboard values: $e', name: 'AllData');
-      return {};
+  List<Skill>? get skills {
+    if (!_isLoaded) {
+      dev.log(
+        'Accessing skills before initialization',
+        name: 'AllData',
+      );
     }
+    return _skills;
+  }
+
+  Map<RemoteConfigFeatureFlags, bool> get featureFlags {
+    if (!_isLoaded) {
+      dev.log(
+        'Accessing featureFlags before initialization',
+        name: 'AllData',
+      );
+    }
+    return _featureFlags;
+  }
+
+  Map<RemoteConfigDashboard, String> get dashboard {
+    if (!_isLoaded) {
+      dev.log(
+        'Accessing dashboard before initialization',
+        name: 'AllData',
+      );
+    }
+    return _dashboard;
   }
 }

@@ -2,7 +2,8 @@
 	"extensions": {
 		"recommendations": [
 			"Dart-Code.flutter",
-			"dart-code.dart-code"
+			"dart-code.dart-code",
+			"mermaidchart.vscode-mermaid-chart"
 		]
 	},
 	"folders": [

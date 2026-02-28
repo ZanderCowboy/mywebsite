@@ -1,31 +1,51 @@
 part of 'personal_page.dart';
 
 class _PersonalPageWeb extends StatelessWidget {
-  const _PersonalPageWeb({required this.analyticsService});
+  const _PersonalPageWeb({
+    required this.analyticsService,
+    required this.onNavigateToHome,
+  });
 
   final AnalyticsService analyticsService;
+  final VoidCallback onNavigateToHome;
 
-  void _navigateToHome(BuildContext context) {
+  void _navigateToHome() {
     analyticsService.logEvent(
       AnalyticsEvent.navigateToHome,
       parameters: Parameters(source: 'personal_fab'),
     );
-    Navigator.pushNamed(context, kHomePageRoute);
+    onNavigateToHome();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          const _PersonalPageBody(
-            child: _WebContent(),
+          Card(
+            color: kBackgroundColor,
+            margin: allPadding24,
+            child: Padding(
+              padding: allPadding16,
+              child: LayoutBuilder(
+                builder: (_, constraints) {
+                  final isSmall = constraints.maxWidth < 600;
+
+                  if (isSmall) {
+                    return const _SmallWebLayout();
+                  }
+
+                  return _LargeWebLayout(constraints: constraints);
+                },
+              ),
+            ),
           ),
           Positioned(
             top: 16,
             left: 16,
             child: IconButton(
-              onPressed: () => _navigateToHome(context),
+              onPressed: _navigateToHome,
               icon: const Icon(
                 Icons.arrow_back,
                 size: 28,
@@ -37,32 +57,6 @@ class _PersonalPageWeb extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _WebContent extends StatelessWidget {
-  const _WebContent();
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: kBackgroundColor,
-      margin: allPadding24,
-      child: Padding(
-        padding: allPadding16,
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final isSmall = constraints.maxWidth < 600;
-
-            if (isSmall) {
-              return const _SmallWebLayout();
-            }
-
-            return _LargeWebLayout(constraints: constraints);
-          },
-        ),
       ),
     );
   }

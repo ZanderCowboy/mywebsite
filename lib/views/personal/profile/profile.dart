@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mywebsite/components/body_divider.dart';
 import 'package:mywebsite/components/hero_widget.dart';
 import 'package:mywebsite/data/all_data.dart';
 import 'package:mywebsite/models/enums/profile_item_type.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/profile/profile_item.dart';
+import 'package:mywebsite/views/personal/profile/widgets/profile_item.dart';
+
+part 'widgets/job_titles.dart';
 
 const _currentTitle = [
   'Software Engineer',
@@ -15,103 +18,62 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: AllData.profileDetails,
-      builder: (context, asyncSnapshot) {
-        if (asyncSnapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+    final data = AllData.instance.profileDetails;
 
-        if (asyncSnapshot.hasError) {
-          return const Center(
-            child: Text('Failed to load profile details.'),
-          );
-        }
-
-        final data = asyncSnapshot.data;
-
-        return Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: borderRadius12,
-          ),
-          color: kPrimaryColor,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: allPadding24,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: borderRadius12,
+      ),
+      color: kPrimaryColor,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: allPadding24,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const HeroWidget(),
+              gap18,
+              const Text(
+                'Zander Kotze',
+                style: Typo.header,
+              ),
+              gap18,
+              JobTitles(titles: data?.currentTitle ?? _currentTitle),
+              const BodyDivider(
+                color: Colors.white,
+                width: 250,
+                height: 60,
+                thickness: 1,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const HeroWidget(),
-                  gap18,
-                  const Text(
-                    'Zander Kotze',
-                    style: Typo.header,
+                  ProfileItem(
+                    type: ProfileItemType.email,
+                    remoteData: data?.email,
                   ),
                   gap18,
-                  Card(
-                    color: kSecondaryColor,
-                    child: Padding(
-                      padding: horizontal40 + vertical16,
-                      child: Column(
-                        children: [
-                          ...List.generate(
-                            data?.currentTitle.length ?? 2,
-                            (index) {
-                              return Text(
-                                data?.currentTitle[index] ??
-                                    _currentTitle[index],
-                                style: Typo.subtitle.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
+                  ProfileItem(
+                    type: ProfileItemType.phone,
+                    remoteData: data?.phone,
                   ),
-                  const SizedBox(
-                    width: 250,
-                    child: Divider(
-                      height: 60,
-                      color: Colors.white,
-                      thickness: 1,
-                    ),
+                  gap18,
+                  ProfileItem(
+                    type: ProfileItemType.birthday,
+                    remoteData: data?.birthday,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ProfileItem(
-                        type: ProfileItemType.email,
-                        remoteData: data?.email,
-                      ),
-                      gap18,
-                      ProfileItem(
-                        type: ProfileItemType.phone,
-                        remoteData: data?.phone,
-                      ),
-                      gap18,
-                      ProfileItem(
-                        type: ProfileItemType.birthday,
-                        remoteData: data?.birthday,
-                      ),
-                      gap18,
-                      ProfileItem(
-                        type: ProfileItemType.location,
-                        remoteData: data?.location,
-                      ),
-                    ],
+                  gap18,
+                  ProfileItem(
+                    type: ProfileItemType.location,
+                    remoteData: data?.location,
                   ),
                 ],
               ),
-            ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mywebsite/components/timeline.dart';
 import 'package:mywebsite/models/domain/experience.dart';
 import 'package:mywebsite/util/export.dart';
-import 'package:mywebsite/views/personal/details/widgets/network_image_avatar.dart';
+import 'package:mywebsite/views/personal/details/shared/network_image_avatar.dart';
 
 // Fixed height for all experience cards
 const double _gapBetweenCards = 16;

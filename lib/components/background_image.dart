@@ -12,19 +12,16 @@ class BackgroundImage extends StatelessWidget {
     super.key,
     this.fit = BoxFit.cover,
     this.isPositioned = true,
+    this.child,
+    this.stackFit = StackFit.expand,
   });
 
-  /// The network URL for the background image
   final String imageUrl;
-
-  /// The fallback image [Widget] to use as fallback
   final Widget fallbackImage;
-
-  /// How the image should be fitted within its bounds
+  final StackFit stackFit;
   final BoxFit fit;
-
-  /// Whether to wrap the image in a Positioned.fill widget
   final bool isPositioned;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +34,18 @@ class BackgroundImage extends StatelessWidget {
       },
     );
 
-    if (isPositioned) {
-      return Positioned.fill(child: imageWidget);
-    }
-
-    return imageWidget;
+    return Stack(
+      fit: stackFit,
+      children: [
+        if (isPositioned) ...[
+          Positioned.fill(
+            child: imageWidget,
+          ),
+        ] else ...[
+          imageWidget,
+        ],
+        child ?? const SizedBox.shrink(),
+      ],
+    );
   }
 }

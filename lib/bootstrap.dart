@@ -28,8 +28,6 @@ Future<void> bootstrap() async {
   final remoteConfigService = RemoteConfigService();
   await remoteConfigService.initialize();
 
-  // Load app images from remote config
-  // This ensures images are ready before any UI is rendered
   final imageService = ImageService();
   globalAppImages = await imageService.loadAppImages();
 
