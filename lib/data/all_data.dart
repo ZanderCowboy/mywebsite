@@ -55,9 +55,9 @@ class AllData {
         };
       }
 
-      Map<RemoteConfigDashboard, bool> defaultDashboard() {
+      Map<RemoteConfigDashboard, String> defaultDashboard() {
         return {
-          for (final f in RemoteConfigDashboard.values) f: false,
+          for (final f in RemoteConfigDashboard.values) f: '',
         };
       }
 

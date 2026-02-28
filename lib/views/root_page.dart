@@ -59,9 +59,7 @@ class _PageContent extends StatelessWidget {
     return IndexedStack(
       index: currentPageIndex,
       children: [
-        // Home Page (index 0)
         HomePage(onNavigateToPersonal: () => onNavigate(1)),
-        // Personal Page (index 1)
         PersonalPage(onNavigateToHome: () => onNavigate(0)),
       ],
     );
