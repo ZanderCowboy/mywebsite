@@ -44,8 +44,10 @@ class _RootPageState extends State<RootPage> {
   }
 }
 
-/// Manages the content display between pages.
-class _PageContent extends StatelessWidget {
+/// Manages the content display between pages with lazy initialization.
+/// PersonalPage is only instantiated after the first navigation to it,
+/// avoiding unnecessary initState calls and data loading on app startup.
+class _PageContent extends StatefulWidget {
   const _PageContent({
     required this.currentPageIndex,
     required this.onNavigate,
@@ -55,12 +57,35 @@ class _PageContent extends StatelessWidget {
   final void Function(int) onNavigate;
 
   @override
+  State<_PageContent> createState() => _PageContentState();
+}
+
+class _PageContentState extends State<_PageContent> {
+  late final HomePage _homePage;
+  PersonalPage? _personalPage;
+
+  @override
+  void initState() {
+    super.initState();
+    _homePage = HomePage(onNavigateToPersonal: _handleNavigateToPersonal);
+  }
+
+  void _handleNavigateToPersonal() {
+    _personalPage ??= PersonalPage(onNavigateToHome: _handleNavigateToHome);
+    widget.onNavigate(1);
+  }
+
+  void _handleNavigateToHome() {
+    widget.onNavigate(0);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return IndexedStack(
-      index: currentPageIndex,
+      index: widget.currentPageIndex,
       children: [
-        HomePage(onNavigateToPersonal: () => onNavigate(1)),
-        PersonalPage(onNavigateToHome: () => onNavigate(0)),
+        _homePage,
+        _personalPage ?? const SizedBox.shrink(),
       ],
     );
   }
