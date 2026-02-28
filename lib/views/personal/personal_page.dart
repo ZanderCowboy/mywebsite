@@ -99,7 +99,7 @@ class _PersonalPageState extends State<PersonalPage> {
     }
 
     final isMobile = ResponsiveBreakpoints.of(context).isMobile;
-    return isMobile
+    return true
         ? _PersonalPageMobile(
             analyticsService: _analyticsService,
             onNavigateToHome: widget.onNavigateToHome,

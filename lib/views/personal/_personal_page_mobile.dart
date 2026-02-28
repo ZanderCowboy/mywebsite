@@ -17,9 +17,11 @@ class _PersonalPageMobile extends StatefulWidget {
   State<_PersonalPageMobile> createState() => _PersonalPageMobileState();
 }
 
-class _PersonalPageMobileState extends State<_PersonalPageMobile> {
+class _PersonalPageMobileState extends State<_PersonalPageMobile>
+    with SingleTickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   late final List<GlobalKey> _sectionKeys;
+  late final TabController _tabController;
   int _currentIndex = 0;
   bool _isScrollingProgrammatically = false;
 
@@ -27,6 +29,11 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
   void initState() {
     super.initState();
     _sectionKeys = List.generate(_sectionCount, (_) => GlobalKey());
+    _tabController = TabController(
+      length: _sectionCount,
+      initialIndex: _currentIndex,
+      vsync: this,
+    );
     _scrollController.addListener(_scrollListener);
   }
 
@@ -35,6 +42,7 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
     _scrollController
       ..removeListener(_scrollListener)
       ..dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -75,7 +83,10 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
     }
 
     if (_currentIndex != newIndex) {
-      setState(() => _currentIndex = newIndex);
+      setState(() {
+        _currentIndex = newIndex;
+        _tabController.index = newIndex;
+      });
 
       // Log section view analytics
       final sectionName = _getSectionName(newIndex);
@@ -93,6 +104,7 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
   void _scrollToSection(int index) {
     setState(() {
       _currentIndex = index;
+      _tabController.index = index;
       _isScrollingProgrammatically = true;
     });
 
@@ -147,6 +159,7 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
     final double bottomHeight = useV2Layout ? 50.0 : 0;
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
       body: CustomScrollView(
         controller: _scrollController,
@@ -158,6 +171,7 @@ class _PersonalPageMobileState extends State<_PersonalPageMobile> {
               toolbarExpandedHeight: toolbarExpandedHeight,
               onBackTap: _navigateToHome,
               currentIndex: _currentIndex,
+              tabController: _tabController,
               onSectionTap: _scrollToSection,
             ),
           ),
@@ -285,6 +299,7 @@ class _PersonalMobileAppBarDelegate extends SliverPersistentHeaderDelegate {
     required this.toolbarExpandedHeight,
     required this.onBackTap,
     required this.currentIndex,
+    required this.tabController,
     required this.onSectionTap,
   });
 
@@ -292,6 +307,7 @@ class _PersonalMobileAppBarDelegate extends SliverPersistentHeaderDelegate {
   final double toolbarExpandedHeight;
   final VoidCallback onBackTap;
   final int currentIndex;
+  final TabController tabController;
   final void Function(int) onSectionTap;
 
   @override
@@ -350,11 +366,19 @@ class _PersonalMobileAppBarDelegate extends SliverPersistentHeaderDelegate {
               padding: const EdgeInsets.all(4),
               child: SizedBox(
                 height: bottomHeight - 8,
-                child: SectionNavBar(
-                  currentIndex: currentIndex,
-                  onSectionTap: onSectionTap,
-                  isSmallDeviceScreen: true,
-                  isSmallWidth: true,
+                child: TabBarHeader(
+                  controller: tabController,
+                  onTap: onSectionTap,
+                  tabLabels: const [
+                    'Profile',
+                    'About Me',
+                    'Experience',
+                    'Projects',
+                    'Skills',
+                    'Education',
+                  ],
+                  isScrollable: true,
+                  isSmallScreen: true,
                 ),
               ),
             ),
