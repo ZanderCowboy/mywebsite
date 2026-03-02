@@ -60,7 +60,7 @@ jobs:
           ios-bundle-id: ${{ secrets.FIREBASE_IOS_BUNDLE_ID }}
 
       - name: Download bumped pubspec.yaml
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: pubspec-build-bump
           path: ${{ github.workspace }}
@@ -107,7 +107,7 @@ jobs:
           echo "version=$version_number" >> $GITHUB_OUTPUT
 
       - name: Download bumped pubspec.yaml
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: pubspec-build-bump
           path: ${{ github.workspace }}
@@ -127,7 +127,7 @@ jobs:
       contents: write
     steps:
       - name: Download Web Build
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: web-staging
           path: ./web-staging
